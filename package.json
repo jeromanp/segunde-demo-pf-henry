@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "hueney-ruca",
   "version": "0.1.0",
   "private": true,
@@ -25,28 +24,4 @@
     "eslint-config-next": "13.3.1",
     "postcss": "^8.4.23"
   }
-=======
-    "name": "hueney-ruca",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint"
-    },
-    "dependencies": {
-        "@supabase/supabase-js": "^2.10.0",
-        "next": "12.1.0",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2"
-    },
-    "devDependencies": {
-        "autoprefixer": "^10.4.14",
-        "eslint": "8.35.0",
-        "eslint-config-next": "13.2.3",
-        "postcss": "^8.4.23",
-        "tailwindcss": "^3.3.1"
-    }
->>>>>>> 6a7b4c98acb3e607fffc5613aef14c00aa234fa5
 }
