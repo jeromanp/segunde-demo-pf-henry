@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Link from 'next/link'
 
 
@@ -25,12 +25,12 @@ export default function Header(){
 					<div className="flex justify-between items-center">
 
 						<h1>
-							<Image 
+							{/* <Image 
 								src="brand.svg" 
 								alt="Hueney Ruca"
 								width="300"
 								height="100"
-								className="w-32 md:w-48" />
+								className="w-32 md:w-48" /> */}
 							<span className="sr-only">Hueney Ruca</span>
 						</h1>
 

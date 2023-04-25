@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Link from 'next/link'
 
 export default function Footer(){
 
@@ -16,7 +17,7 @@ export default function Footer(){
 		<header 
 			id="footerMain">
 			<div className="border-t border-brand-green container px-6 mx-auto xl:px-0">
-				<div className="py-6 pb-8 grid gap-y-10 ">
+				<div className="py-6 pb-8 grid gap-y-10 lg:grid-cols-3">
 
 					<div className="">
 						<h5>Donde estamos</h5>
@@ -26,7 +27,7 @@ export default function Footer(){
 					<div className="">
 						<h5>Contacto</h5>
 						<div className="">
-							<Link href="mailto:{ data.email }">{ data.email }</Link>
+							{/* <Link href="mailto:{ data.email }">{ data.email }</Link> */}
 						</div>
 					</div>
 
