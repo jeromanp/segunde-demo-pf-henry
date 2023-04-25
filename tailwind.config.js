@@ -3,6 +3,9 @@ module.exports = {
   content: [],
   theme: {
     extend: {
+			fontFamily: {
+				poppins: 'Poppins, times new roman, sans-serif'
+			},
 			colors: {
 				brand: {
 					cream: '#E3DCBF',
