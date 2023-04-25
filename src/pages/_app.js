@@ -1,3 +1,7 @@
+import 'styles/globals.css';
+import Layout from "components/Layout";
+import Head from 'next/head';
+
 export default function App({ Component, pageProps }) {
     return (
         <>
@@ -13,7 +17,9 @@ export default function App({ Component, pageProps }) {
                 <link rel="icon" href="/favicon.ico" />
                 <title>Hueney Ruca</title>
             </Head>
-            <Component {...pageProps} />
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
         </>
     );
 }
