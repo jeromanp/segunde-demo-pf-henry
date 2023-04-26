@@ -1,5 +1,14 @@
 import { supabase } from "utils/supabase";
 
+export default function Room({ room }) {
+ // console.log(room);
+  return (
+    <div>
+      <h1>{room.id}</h1>
+    </div>
+  );
+}
+
 export async function getServerSideProps({ params }) {
   const { id } = params;
 
@@ -10,8 +19,8 @@ export async function getServerSideProps({ params }) {
   // .single();
 
   if (error) {
-    console.log(`Error al obtener el room con uuid ${id}`);
-    console.log(error);
+   // console.log(`Error al obtener el room con uuid ${id}`);
+   // console.log(error);
     return {
       notFound: true,
     };
@@ -22,13 +31,4 @@ export async function getServerSideProps({ params }) {
       room: room[0],
     },
   };
-}
-
-export default function Room({ room }) {
-  console.log(room);
-  return (
-    <div>
-      <h1>{room.id}</h1>
-    </div>
-  );
 }
