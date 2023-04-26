@@ -4,17 +4,20 @@
 
 html,
 body {
-    padding: 0;
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
+  padding: 0;
+  margin: 0;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+button:focus{
+	@apply outline-none;
+}
+
+
+.btn-yellow{
+	@apply bg-brand-yellow text-white text-sm leading-none font-medium text-center px-4 py-2 inline-flex items-center rounded-lg shadow-lg select-none transition-all hover:opacity-80 cursor-pointer;
 }
