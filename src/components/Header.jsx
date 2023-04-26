@@ -21,7 +21,7 @@ export default function Header(){
 			<header 
 				id="headerMain"
 				className="bg-brand-olive py-3 inset-x-0 fixed z-10 md:py-5">
-				<div className="container mx-auto px-6 xl:px-0">
+				<div className="container mx-auto px-6 2xl:px-0">
 					<div className="flex justify-between items-center">
 
 						<h1>
@@ -62,7 +62,7 @@ export default function Header(){
 								</li>
 
 								<li className="select-none">
-									<Link href="">Servicios</Link>
+									<Link href="servicios">Servicios</Link>
 								</li>
 
 								<li className="select-none">
