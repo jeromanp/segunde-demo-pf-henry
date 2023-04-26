@@ -19,5 +19,15 @@ button:focus{
 
 
 .btn-yellow{
-	@apply bg-brand-yellow text-white text-sm leading-none font-medium text-center px-4 py-2 inline-flex items-center rounded-lg shadow-lg select-none transition-all hover:opacity-80 cursor-pointer;
+	@apply bg-brand-yellow text-white text-sm 
+					leading-none font-medium text-center 
+					px-4 py-2 inline-flex items-center 
+					rounded-lg shadow-lg select-none 
+					transition-all hover:opacity-80 
+					cursor-pointer;
+}
+
+
+#landing{
+	background: url('/bg.webp') no-repeat center / cover;
 }
