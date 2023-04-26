@@ -4,10 +4,10 @@ export const getAllProfile = async () => {
     const { data: profile, error } = await supabase.from("profile").select();
 
   if (error) {
-    console.log(error);
+  //  console.log(error);
     throw error;
   }
-  console.log(profile)
+//  console.log(profile)
   return profile;
 }
 
@@ -39,7 +39,7 @@ export const updateProfile = async ({
     if (error) {
       throw error;
     }
-    console.log(updateProfile);
+ //   console.log(updateProfile);
     return updateProfile;
   };
 
@@ -47,7 +47,7 @@ export const updateProfile = async ({
     const { data, error } = await supabase.from("profile").delete().eq("id", id);
   
     if (error) {
-      console.log(error);
+//      console.log(error);
       throw error;
     }
   
