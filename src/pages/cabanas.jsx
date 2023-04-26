@@ -32,7 +32,7 @@ export default function Cabins(){
 
 				<div className="grid gap-10 pt-14 pb-20 
 												md:grid-cols-3 md:gap-4
-												lg:gap-12 lg:pt-20">
+												lg:gap-12 lg:pt-20 max-w-5xl mx-auto">
 
 					<div>
 						<div className={ card_class }>
