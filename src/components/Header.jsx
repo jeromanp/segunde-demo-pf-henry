@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-// import Image from 'next/image'
 import Link from 'next/link'
 
 
@@ -24,19 +23,15 @@ export default function Header(){
 				<div className="container mx-auto px-6 2xl:px-0">
 					<div className="flex justify-between items-center">
 
-						<h1>
-							<img 
-								src="brand.svg" 
-								alt="Hueney Ruca"
-								className="w-32 md:w-48" />
-							{/* <Image 
-								src="brand.svg" 
-								alt="Hueney Ruca"
-								width="300"
-								height="100"
-								className="w-32 md:w-48" /> */}
-							<span className="sr-only">Hueney Ruca</span>
+						<Link href="/">
+						<h1 className="cursor-pointer">
+								<img 
+									src="brand.svg" 
+									alt="Hueney Ruca"
+									className="w-32 md:w-48" />
+								<span className="sr-only">Hueney Ruca</span>
 						</h1>
+						</Link>
 
 						<button 
 							className="text-white text-2xl leading-none select-none md:hidden"
@@ -58,7 +53,7 @@ export default function Header(){
 							<ul className="text-white text-lg font-medium 
 															grid gap-y-6 md:flex md:gap-x-7">
 								<li className="select-none">
-									<Link href="">Cabañas</Link>
+									<Link href="cabanas">Cabañas</Link>
 								</li>
 
 								<li className="select-none">
