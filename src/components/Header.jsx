@@ -50,7 +50,7 @@ export default function Header(){
 								</button>
 							</div>
 
-							<ul className="text-white text-lg font-medium 
+							<ul className="text-white text-lg font-semibold
 															grid gap-y-6 md:flex md:gap-x-7">
 								<li className="select-none">
 									<Link href="cabanas">Cabañas</Link>
@@ -69,7 +69,7 @@ export default function Header(){
 								</li>
 
 								<li className="select-none">
-									<Link href="">Ayuda</Link>
+									<Link href="faqs">Ayuda</Link>
 								</li>
 							</ul>
 						</nav>
