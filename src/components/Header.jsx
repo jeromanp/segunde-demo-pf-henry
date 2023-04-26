@@ -61,7 +61,7 @@ export default function Header(){
 								</li>
 
 								<li className="select-none">
-									<Link href="">Nosotros</Link>
+									<Link href="nosotros">Nosotros</Link>
 								</li>
 
 								<li className="select-none">
