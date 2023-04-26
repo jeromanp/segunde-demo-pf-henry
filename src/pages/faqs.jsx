@@ -15,20 +15,23 @@ export default function Faqs(){
 	}, [])
 
 
-	const accordeon_header = `font-semibold leading-none h-full 
+	const accordeon_header = `font-semibold leading-none h-12 
 														px-5 py-3 flex items-center
 														select-none cursor-pointer 
 														transition-all 
 														hover:bg-brand-green hover:text-white
 														lg:text-base lg:leading-tight`
-	const accordeon_body = 'text-sm px-5 pb-8 select-none cursor-pointer'
+	const accordeon_body = 'text-sm px-5 pb-5 select-none bg-white'
 
 	const toggleActive = i => {
-		data.list.forEach(e => e.active = false)
-		data.list[i].active = true
-		
-		data.list.forEach(e => console.log(e.active))
-	}
+    setData(prevData => ({
+      ...prevData,
+      list: prevData.list.map((e, j) => ({
+        ...e,
+        active: i === j ? !e.active : false
+      }))
+    }))
+  }
 
 	return (
 		<Layout>
@@ -53,7 +56,7 @@ export default function Faqs(){
 						data.list.map((e, i) => (
 							<div 
 								key={i}
-								className="border border-brand-green text-brand-green w-full h-16 grid gap-2 items-center mx-auto">
+								className="border border-brand-green text-brand-green w-full grid gap-2 items-center mx-auto">
 								
 								<h3 
 									className={ accordeon_header }
