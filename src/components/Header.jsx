@@ -15,8 +15,6 @@ export default function Header(props){
 			setNavbarClassName(`${cls} hidden`)
 	}, [navActive])
 
-	console.log('props', props)
-
 
 	return (
 		<>
@@ -27,13 +25,13 @@ export default function Header(props){
 					<div className="flex justify-between items-center">
 
 						<Link href="/">
-						<h1 className="cursor-pointer">
+							<h1 className="cursor-pointer">
 								<img 
 									src="brand.svg" 
 									alt="Hueney Ruca"
 									className="w-32 md:w-48" />
 								<span className="sr-only">Hueney Ruca</span>
-						</h1>
+							</h1>
 						</Link>
 
 						<button 
@@ -56,15 +54,15 @@ export default function Header(props){
 							<ul className="text-white text-lg font-semibold
 															grid gap-y-6 md:flex md:gap-x-7">
 								<li className="select-none">
-									<Link href="cabanas">Cabañas</Link>
+									<Link href="/cabanas">Cabañas</Link>
 								</li>
 
 								<li className="select-none">
-									<Link href="servicios">Servicios</Link>
+									<Link href="/servicios">Servicios</Link>
 								</li>
 
 								<li className="select-none">
-									<Link href="nosotros">Nosotros</Link>
+									<Link href="/nosotros">Nosotros</Link>
 								</li>
 
 								<li className="select-none">
@@ -72,7 +70,7 @@ export default function Header(props){
 								</li>
 
 								<li className="select-none">
-									<Link href="faqs">Ayuda</Link>
+									<Link href="/faqs">Ayuda</Link>
 								</li>
 							</ul>
 						</nav>
