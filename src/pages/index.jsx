@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import Header from  '../components/Header'
 
 import Datepicker from '../components/form/Datepicker'
-
+import GuestsSelector from 'components/form/GuestsSelector'
 
 
 export default function Home() {
@@ -46,21 +46,18 @@ export default function Home() {
 							onSubmit={ handleFilter }
 							className="grid md:flex md:justify-stretched">
 							
-							<div className="flex flex-1 items-center gap-x-2">
+							<div className="flex flex-1 items-center gap-x-2 md:basis-32">
 								<span className="text-gray-400 text-sm leading-none font-medium w-20 pl-4 md:hidden">Personas</span>
-								
-								<div 
-									className="text-gray-400 text-sm flex items-center 
-														px-3 py-1.5 gap-x-1 cursor-pointer select-none">
-									<i className="ri-user-fill text-lg"></i>
-									<span className="">Huéspedes</span>
-								</div>
-
+								<GuestsSelector 
+									bottom="10"/>
 							</div>
 
 
 
-							<div className="border-t border-gray-200 flex-1 flex items-center gap-x-1">
+							<div 
+								className="border-t border-gray-200 flex-1
+													flex items-center gap-x-1
+													md:border-l md:basis-32">
 								<span className="text-gray-400 text-xs leading-none font-medium w-20 pl-4 md:hidden">Desde</span>
 								<Datepicker 
 									minDate={ new Date() }
@@ -72,7 +69,10 @@ export default function Home() {
 							</div>
 
 
-							<div className="border-t border-gray-200 flex-1 flex items-center gap-x-1">
+							<div 
+								className="border-t border-gray-200 flex-1 
+													flex items-center gap-x-1 
+													md:border-l">
 								<span className="text-gray-400 text-xs leading-none font-medium w-20 pl-4 md:hidden">Hasta</span>
 								<Datepicker
 									minDate={ filters.checkin }

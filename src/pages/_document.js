@@ -18,6 +18,7 @@ class MyDocument extends Document {
         <body className="antialiased font-poppins">
           <Main />
           <NextScript />
+					<div id="portal" />
         </body>
       </Html>
     )
