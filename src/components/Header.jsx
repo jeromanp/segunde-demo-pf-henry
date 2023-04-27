@@ -15,7 +15,6 @@ export default function Header(props){
 			setNavbarClassName(`${cls} hidden`)
 	}, [navActive])
 
-
 	return (
 		<>
 			<header 
@@ -66,7 +65,7 @@ export default function Header(props){
 								</li>
 
 								<li className="select-none">
-									<Link href="">Contacto</Link>
+									<Link href="contacto">Contacto</Link>
 								</li>
 
 								<li className="select-none">
