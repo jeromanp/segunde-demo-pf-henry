@@ -68,3 +68,14 @@ export const updateBooking = async ({
   }
   return upBooking;
 };
+
+export async function deleteBooking({ id }) {
+  const { data, error } = await supabase.from("booking").delete().eq("id", id);
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+
+  return data;
+}
