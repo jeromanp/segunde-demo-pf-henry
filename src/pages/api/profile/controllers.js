@@ -21,6 +21,7 @@ export const updateProfile = async ({
     role_id
      
   }) => {
+    const update_at = new Date();
     const { data: updateProfile, error } = await supabase
       .from("profile")
       .update(
@@ -31,7 +32,8 @@ export const updateProfile = async ({
           country,         
           id,
           email,
-          role_id : "7e0bea4c-140f-4777-b246-d68d4b93428a"
+          role_id : "7e0bea4c-140f-4777-b246-d68d4b93428a",
+          update_at,
         },
       )
       .eq("id",id)

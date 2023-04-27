@@ -70,8 +70,23 @@ export default function Header(props) {
                                     <Link href="/contacto">Contacto</Link>
                                 </li>
 
-                                <li className="select-none">
-                                    <Link href="/faqs">Ayuda</Link>
+                                <li className="select-none relative">
+                                    <div>Ayuda</div>
+                                    <ul className=" text-base absolute bg-brand-brown rounded shadow-md p-2 hidden">
+                                        <li>
+                                            <Link href="/faqs">FAQs</Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/actividades">
+                                                Actividades
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                    <style jsx>{`
+                                        .select-none:hover .absolute {
+                                            display: block;
+                                        }
+                                    `}</style>
                                 </li>
                             </ul>
                         </nav>
