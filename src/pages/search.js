@@ -1,6 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 function search() {
+    const router = useRouter();
+    const { adults, children } = router.query;
+    useEffect(() => {
+        const initRequest = async () => {
+            if (adults !== undefined && children !== undefined) {
+                setCapacity((parseInt(adults) + parseInt(children)).toString());
+                let url =
+                    "api/cabanas?capacity=" +
+                    (parseInt(adults) + parseInt(children)).toString();
+                const response = await fetch(url);
+                const data = await response.json();
+                setRooms(data);
+            }
+        };
+        initRequest();
+    }, [adults, children]);
+
     const [capacity, setCapacity] = useState("");
     const [rooms, setRooms] = useState([]);
 
@@ -15,7 +33,7 @@ function search() {
         }
         const response = await fetch(url);
         const data = await response.json();
-   //     console.log(data);
+        //     console.log(data);
         setRooms(data);
     };
 
