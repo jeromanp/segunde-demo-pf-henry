@@ -9,7 +9,7 @@ export default function Footer() {
     });
 
     useEffect(() => {
-        axios.get("api/global").then((resp) => setData(resp.data));
+        axios.get("/api/global").then((resp) => setData(resp.data));
     }, []);
 
     return (
