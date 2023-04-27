@@ -15,9 +15,6 @@ export default function Header(props){
 			setNavbarClassName(`${cls} hidden`)
 	}, [navActive])
 
-	console.log('props', props)
-
-
 	return (
 		<>
 			<header 
