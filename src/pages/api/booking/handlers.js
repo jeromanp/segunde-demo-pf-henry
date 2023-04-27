@@ -28,3 +28,14 @@ export async function handlerPost(req, res) {
       return res.status(404).json({ error: error.message });
     }
   }
+
+  export async function handlerDelete(req, res) {
+    const body = req.body;
+  
+    try {
+      const response = await Controllers.deleteBooking(body);
+      return res.status(200).json({ message: "Booking successfully removed" });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
