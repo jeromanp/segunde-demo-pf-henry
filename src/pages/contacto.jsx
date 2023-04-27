@@ -6,10 +6,10 @@ export default function Contact() {
   return (
     <>
       <Header />
-      <section class="px-4 py-8">
+      <section className="px-4 py-8">
           <div className="flex mt-6 justify-around">
             <div className="w-1/3">
-              <h2 class="text-brand-green text-4xl font-bold mb-6 mt-4">
+              <h2 className="text-brand-green text-4xl font-bold mb-6 mt-4">
                 Contactanos!
               </h2>
               <ContactForm />
