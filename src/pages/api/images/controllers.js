@@ -25,7 +25,8 @@ export const postNewImage = async ({ alt, url }) => {
   return postImage;
 };
 
-export const updateImage = async ({ id, alt, url, update_at }) => {
+export const updateImage = async ({ id, alt, url }) => {
+  const update_at = new Date();
   const { data: upImage, error } = await supabase
     .from("images")
     .update({
