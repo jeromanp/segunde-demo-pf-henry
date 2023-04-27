@@ -8,3 +8,23 @@ export const getAllImages = async () => {
   }
   return images;
 };
+
+
+export const postNewImage = async ({
+    alt,
+    url,
+  }) => {
+    const { data: postImage, error } = await supabase
+      .from("images")
+      .insert([
+        {
+          alt,
+          url,        
+        },
+      ])
+      .select();
+    if (error) {
+      throw error;
+    }
+    return postImage;
+  };
