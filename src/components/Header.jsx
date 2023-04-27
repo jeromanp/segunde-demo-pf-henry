@@ -25,7 +25,7 @@ export default function Header(props) {
                         <Link href="/">
                             <h1 className="cursor-pointer">
                                 <img
-                                    src="brand.svg"
+                                    src="/brand.svg"
                                     alt="Hueney Ruca"
                                     className="w-32 md:w-48"
                                 />
