@@ -25,7 +25,9 @@ import { filterRoomsByCapacity } from "helpers/filters";
 //GET
 
 export const getAllRooms = async (query) => {
-    const { data: rooms, error } = await supabase.from("rooms").select("*");
+    const { data: rooms, error } = await supabase
+        .from("rooms")
+        .select(`*,booking(*)`);
     if (error) {
         throw error;
     }
@@ -35,7 +37,7 @@ export const getAllRooms = async (query) => {
             error: null,
         };
     }
-    return rooms;
+    return { data: rooms, error: null };
 };
 
 //POST
