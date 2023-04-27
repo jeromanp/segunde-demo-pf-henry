@@ -28,3 +28,24 @@ export const postNewImage = async ({
     }
     return postImage;
   };
+
+  export const updateImage = async ({
+    id,
+    alt,
+    url,
+    update_at
+  }) => {
+    const { data: upImage, error } = await supabase
+      .from("images")
+      .update({
+        alt,
+        url,
+        update_at,
+      })
+      .eq("id", id)
+      .select();
+    if (error) {
+      throw error;
+    }
+    return upImage;
+  };

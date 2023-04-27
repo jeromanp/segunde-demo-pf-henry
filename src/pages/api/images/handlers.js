@@ -18,3 +18,13 @@ export async function handlerPost(req, res) {
       return res.status(404).json({ error: error.message });
     }
   }
+
+  export async function handlerPut(req, res) {
+    const body = req.body;
+    try {
+      const updateImage = await Controllers.updateImage(body);
+      return res.status(200).json(updateImage);
+    } catch (error) {
+      return res.status(404).json({ error: error.message });
+    }
+  }

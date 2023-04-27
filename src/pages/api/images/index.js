@@ -8,6 +8,8 @@ export default async function handlerImages (req, res){
             return await Handlers.handlerGet(req, res)
         case Methods.POST:
             return await Handlers.handlerPost(req, res)
+        case Methods.PUT:
+            return await Handlers.handlerPut(req, res)
 
         default:
             res.status(400).json({
