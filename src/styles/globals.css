@@ -20,8 +20,9 @@ button:focus{
 
 .btn-yellow{
 	@apply bg-brand-yellow text-white text-sm 
-					leading-none font-medium text-center 
+					leading-none font-semibold text-center 
 					px-4 py-2 inline-flex items-center 
+					justify-center
 					rounded-lg shadow-lg select-none 
 					transition-all hover:opacity-80 
 					cursor-pointer;
@@ -30,4 +31,17 @@ button:focus{
 
 #landing{
 	background: url('/bg.webp') no-repeat center / cover;
+}
+
+
+.datepicker-calendar{
+	@apply !p-0;
+}
+
+.datepicker-calendar .flex.justify-between.mb-2 > button{
+	@apply !bg-white !text-gray-600;
+}
+
+.datepicker-calendar > div > .p-1 > .grid.w-64.grid-cols-4 > span{
+	@apply text-gray-500 select-none hover:bg-gray-100;
 }
