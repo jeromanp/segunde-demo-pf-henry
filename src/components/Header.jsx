@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 
-export default function Header(){
+export default function Header(props){
 
 	const [navActive, setNavActive] = useState(false)
 	const [navbarClassName, setNavbarClassName] = useState('')
 	
 	useEffect(() => {
-		let cls = 'bg-brand-olive p-10 inset-0 md:relative md:block md:p-0'
+		let cls = 'bg-brand-olive p-10 inset-0 md:bg-transparent md:relative md:block md:p-0'
 		if( navActive )
 			setNavbarClassName(`${cls} fixed`)
 		else
@@ -19,7 +19,7 @@ export default function Header(){
 		<>
 			<header 
 				id="headerMain"
-				className="bg-brand-olive py-3 inset-x-0 fixed z-10 md:py-5">
+				className={`${props.background ?? 'bg-brand-olive'} py-3 inset-x-0 fixed z-10 md:py-5`}>
 				<div className="container mx-auto px-6 2xl:px-0">
 					<div className="flex justify-between items-center">
 
