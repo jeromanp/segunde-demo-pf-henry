@@ -39,3 +39,32 @@ export const postNewBooking = async ({
   }
   return postBooking;
 };
+
+export const updateBooking = async ({
+  id,
+  checkin,
+  checkout,
+  user_id,
+  room_id,
+  payments,
+  adults,
+  children,
+}) => {
+  const { data: upBooking, error } = await supabase
+    .from("booking")
+    .update({
+      checkin,
+      checkout,
+      user_id,
+      room_id,
+      payments,
+      adults,
+      children,
+    })
+    .eq("id", id)
+    .select();
+  if (error) {
+    throw error;
+  }
+  return upBooking;
+};
