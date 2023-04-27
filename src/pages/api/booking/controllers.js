@@ -48,6 +48,7 @@ export const updateBooking = async ({
   adults,
   children,
 }) => {
+  const update_at = new Date();
   const { data: upBooking, error } = await supabase
     .from("booking")
     .update({
@@ -58,6 +59,7 @@ export const updateBooking = async ({
       payments,
       adults,
       children,
+      update_at,
     })
     .eq("id", id)
     .select();
