@@ -4,6 +4,7 @@ import Header from "../components/Header";
 
 import Datepicker from "../components/form/Datepicker";
 import GuestsSelector from "components/form/GuestsSelector";
+import Link from "next/link";
 
 export default function Home() {
     const [filters, setFilters] = useState({
@@ -97,9 +98,16 @@ export default function Home() {
                             </div>
 
                             <div className="px-4 py-2.5 flex-1 text-right">
-                                <button className="btn-yellow w-full !rounded md:w-auto">
-                                    Buscar
-                                </button>
+                                <Link
+                                    href={{
+                                        pathname: "/search",
+                                        query: filters, // the data
+                                    }}
+                                >
+                                    <button className="btn-yellow w-full !rounded md:w-auto">
+                                        Buscar
+                                    </button>
+                                </Link>
                             </div>
                         </form>
                     </div>
