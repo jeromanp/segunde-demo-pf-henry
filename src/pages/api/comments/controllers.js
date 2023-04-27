@@ -36,9 +36,10 @@ export const updateComment = async ({
   stars,
   approved,
 }) => {
+  const update_at = new Date();
   const { data: updateComments, error } = await supabase
     .from("comments")
-    .update({ review, user_id, stars, approved })
+    .update({ review, user_id, stars, approved, update_at })
     .eq("id", id)
     .select();
   if (error) {
