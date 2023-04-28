@@ -45,3 +45,8 @@ button:focus{
 .datepicker-calendar > div > .p-1 > .grid.w-64.grid-cols-4 > span{
 	@apply text-gray-500 select-none hover:bg-gray-100;
 }
+
+/* Ocultar el scrollbar */
+::-webkit-scrollbar {
+	display: none;
+  }
