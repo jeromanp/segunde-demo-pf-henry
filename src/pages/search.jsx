@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import CardCabin from "components/seeAllCabins/CardCabin";
 import Header from "components/Header";
-import InputCabin from "components/seeAllCabins/InputCabin";
 import Datepicker from "components/form/Datepicker";
 
 export default function Search() {
