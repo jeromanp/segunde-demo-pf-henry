@@ -69,7 +69,10 @@ export default function Home() {
                                         setFilters({
                                             ...filters,
                                             checkin: new Date(e),
-                                            checkout: new Date(e),
+                                            checkout:
+                                                new Date(e) > filters.checkout
+                                                    ? new Date(e)
+                                                    : filters.checkout,
                                         })
                                     }
                                 />
