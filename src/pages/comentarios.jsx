@@ -1,14 +1,38 @@
 import axios from "axios";
 import Header from "components/Header";
 import { useEffect, useState } from "react";
+import Slider from "react-slick";
 
 export default function Comentario() {
-
   const [comments, setComments] = useState([])
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 3,
+    arrows: false,
+    accesibility: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          dots: true
+        }
+      },
+    ]
+  };
 
   useEffect(async () => {
     const response = (await axios.get('/api/comments')).data;
-    setComments([...response, ...response]);
+    setComments([...response]);
   }, [])
 
   return (
@@ -24,11 +48,11 @@ export default function Comentario() {
             acogedora, cálida y auténtica para cada uno de nuestros visitantes.
             Queremos que te sientas como en casa!
           </p>
-          <div className="border container-snap w-full flex gap-4 overflow-x-auto snap-x">
-            {comments.map(comment => (
-              <div className=" shrink-0 w-96 snap-center border">
-                <p p className="text-brand-green font-semibold text-2xl mb-1" >
-                  Gerardo Constantino
+          <Slider {...settings}>
+            {comments.map((comment, i) => (
+              <div key={i} className="cursor-grab active:cursor-grabbing shrink-0 w-96 border p-3 h-80">
+                <p className="text-brand-green font-semibold text-2xl mb-1" >
+                  {comment.profile.name}
                 </p>
 
                 <div className="stars">
@@ -45,7 +69,7 @@ export default function Comentario() {
                 </p>
               </div>
             ))}
-          </div>
+          </Slider>
         </div >
       </section>
       <style jsx>
