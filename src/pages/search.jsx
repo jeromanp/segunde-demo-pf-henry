@@ -13,9 +13,9 @@ export default function Search() {
         checkOut: null,
     });
 
-    useEffect(() => {
-        console.log(filters);
-    }, [filters]);
+    // useEffect(() => {
+    //     console.log(filters);
+    // }, [filters]);
 
     useEffect(() => {
         const initRequest = async () => {
@@ -34,7 +34,6 @@ export default function Search() {
         };
 
         initRequest();
-        console.log(checkin === "");
     }, [adults, children, checkin, checkout]);
 
     const [rooms, setRooms] = useState([]);
@@ -62,7 +61,6 @@ export default function Search() {
         const response = await fetch(url);
         const data = await response.json();
         setRooms(data);
-        console.log(url);
     };
 
     return (
