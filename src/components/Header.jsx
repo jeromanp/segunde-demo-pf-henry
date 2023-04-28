@@ -16,9 +16,7 @@ export default function Header(props) {
         <>
             <header
                 id="headerMain"
-                className={`${
-                    props.background ?? "bg-brand-olive"
-                } py-3 inset-x-0 fixed z-10 md:py-5`}
+                className={`${props.background ?? "bg-brand-olive"} py-3 inset-x-0 fixed z-10 md:py-5`}
             >
                 <div className="container mx-auto px-6 2xl:px-0">
                     <div className="flex justify-between items-center">
@@ -62,8 +60,20 @@ export default function Header(props) {
                                     <Link href="/servicios">Servicios</Link>
                                 </li>
 
-                                <li className="select-none">
-                                    <Link href="/nosotros">Nosotros</Link>
+                                <li className="select-none relative">
+                                    <div>Nosotros</div>
+                                    <ul className="text-base absolute bg-brand-brown rounded shadow-md p-2 transition-opacity opacity-0">
+                                        <li className="hover:bg-brand-olive transition-colors p-1 rounded">
+                                            <Link href="/nosotros">
+                                                About
+                                            </Link>
+                                        </li>
+                                        <li className="hover:bg-brand-olive transition-colors p-1 rounded">
+                                            <Link href="/comentarios">
+                                                Reviews
+                                            </Link>
+                                        </li>
+                                    </ul>
                                 </li>
 
                                 <li className="select-none">
@@ -72,22 +82,24 @@ export default function Header(props) {
 
                                 <li className="select-none relative">
                                     <div>Ayuda</div>
-                                    <ul className=" text-base absolute bg-brand-brown rounded shadow-md p-2 hidden">
-                                        <li>
-                                            <Link href="/faqs">FAQs</Link>
+                                    <ul className="text-base absolute bg-brand-brown rounded shadow-md p-2 transition-opacity opacity-0">
+                                        <li className="hover:bg-brand-olive transition-colors p-1 rounded">
+                                            <Link href="/faqs">
+                                                FAQs
+                                            </Link>
                                         </li>
-                                        <li>
+                                        <li className="hover:bg-brand-olive transition-colors p-1 rounded">
                                             <Link href="/actividades">
                                                 Actividades
                                             </Link>
                                         </li>
                                     </ul>
-                                    <style jsx>{`
+                                </li>
+                                <style jsx>{`
                                         .select-none:hover .absolute {
-                                            display: block;
+                                            opacity: 1;
                                         }
                                     `}</style>
-                                </li>
                             </ul>
                         </nav>
                     </div>
