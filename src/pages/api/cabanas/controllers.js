@@ -1,5 +1,5 @@
 import { supabase } from "utils/supabase";
-import { filterRoomsByCapacity } from "helpers/filters";
+import { filterRoomsByCapacity, filterRoomsByDates } from "helpers/filters";
 
 //const cabanasControllers = {};
 
@@ -28,16 +28,18 @@ export const getAllRooms = async (query) => {
     const { data: rooms, error } = await supabase
         .from("rooms")
         .select(`*,booking(*)`);
+
     if (error) {
         throw error;
     }
+    let data = rooms;
     if (query.capacity !== undefined) {
-        return {
-            data: filterRoomsByCapacity(rooms, parseInt(query.capacity)),
-            error: null,
-        };
+        data = filterRoomsByCapacity(rooms, parseInt(query.capacity));
     }
-    return { data: rooms, error: null };
+    if (query.checkin !== undefined && query.checkout !== undefined) {
+        data = filterRoomsByDates(data, query.checkin, query.checkout);
+    }
+    return { data, error: null };
 };
 
 //POST
