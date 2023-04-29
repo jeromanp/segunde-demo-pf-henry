@@ -20,15 +20,17 @@ export default function Cabins() {
       });
   }, []);
 
-	const card_class = `border border-gray-200 rounded-2xl shadow-md bg-white max-w-xs`;
+  const card_class = `active:cursor-grabbing border cursor-grab border-gray-200 rounded-2xl shadow-md bg-white max-w-xs`;
   const card_image_class = 'h-44 overflow-hidden rounded-2xl';
   const card_body_class = 'px-7 py-6 grid gap-y-5';
 
   const settings = {
-    speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1,
-		className: 'max-w-full mx-auto',
+    infinite: true,
+    arrows: false,
+    centerMode: true,
+    centerPadding: "0",
+    accesibility: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -37,7 +39,7 @@ export default function Cabins() {
         },
       },
       {
-        breakpoint: 768,
+        breakpoint: 600,
         settings: {
           slidesToShow: 1,
         },
@@ -55,36 +57,36 @@ export default function Cabins() {
           El Complejo está compuesto por 10 cabañas de diferentes capacidades y dos piletas al aire libre, elegí la que mejor se adapte a vos y vení a disfrutar!
         </div>
 
-				<div className='p-12 bg-brand-cream rounded-3xl my-1'>
-        <Slider {...settings}>
-          {cabins.map(cabin => (
-            <div key={cabin.id} className={card_class}>
-              <div className={card_image_class}>
-                <img src="cabin-1.webp" alt="Imagen de cabaña IV" className="w-full h-full object-cover pointer-events-none" />
-              </div>
-              <div className={card_body_class}>
-                <h3 className="text-brand-green text-2xl font-bold leading-none text-center select-none">{cabin.name}</h3>
-                <div className="text-gray-500 text-xs leading-tight font-medium flex justify-center items-center">
-                  <div className="flex items-center gap-2">
-                    <i className="ri-group-fill"></i>
-                    {cabin.capacity}
+        <div className='p-12'>
+          <Slider {...settings} >
+            {cabins.map(cabin => (
+              <div key={cabin.id} className={card_class}>
+                <div className={card_image_class}>
+                  <img src="cabin-1.webp" alt={`Cabaña ${cabin.name}`} className="w-full h-full object-cover pointer-events-none" />
+                </div>
+                <div className={card_body_class}>
+                  <h3 className="text-brand-green text-2xl font-bold leading-none text-center select-none">{cabin.name}</h3>
+                  <div className="text-gray-500 text-xs leading-tight font-medium flex justify-center items-center">
+                    <div className="flex items-center gap-2">
+                      <i className="ri-group-fill"></i>
+                      {cabin.capacity}
+                    </div>
+                    <div className="border-l border-gray-400 h-4 mx-2.5"></div>
+                    <div className="flex items-center gap-2">
+                      <i className="ri-home-2-fill"></i>
+                      {cabin.rooms} Habitaciones
+                    </div>
                   </div>
-                  <div className="border-l border-gray-400 h-4 mx-2.5"></div>
-                  <div className="flex items-center gap-2">
-                    <i className="ri-home-2-fill"></i>
-                    {cabin.rooms} Habitaciones
+                  <div className="flex justify-center">
+                    <Link href={`/cabanas/${cabin.id}`}>
+                      <span className="btn-yellow">Ver más</span>
+                    </Link>
                   </div>
                 </div>
-                <div className="flex justify-center">
-                  <Link href={`/cabanas/${cabin.id}`}>
-                    <span className="btn-yellow">Ver más</span>
-                  </Link>
-                </div>
               </div>
-            </div>
-          ))}
-        </Slider>
-				</div>
+            ))}
+          </Slider>
+        </div>
       </div>
     </Layout>
   );
