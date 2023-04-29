@@ -1,10 +1,24 @@
 import { supabase } from "utils/supabase";
 import Layout from "../../layouts/Layout.jsx";
 import Link from "next/link";
+import Slider from "react-slick";
 
 export default function Room({ room }) {
     const description = room.description.replace(/,|\./g, "");
     // console.log(room);
+
+    const settings = {
+        customPaging: function(i) {
+          return (
+            <a>
+              <img src='' alt="" />
+            </a>
+          );
+        },
+        dots: true,
+        dotsClass: "slick-dots slick-thumb",
+      };
+
     return (
         <Layout>
             <div className="flex flex-col lg:flex-row justify-center mx-auto max-w-7xl py-10 lg:px-10">
