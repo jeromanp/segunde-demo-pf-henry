@@ -21,12 +21,26 @@ export default function Search() {
         const initRequest = async () => {
             if (adults !== undefined && children !== undefined) {
                 let aux = parseInt(adults) + parseInt(children);
+                let auxCheckIn = "";
+                let auxCheckOut = "";
+
+                let url = "api/cabanas?capacity=" + aux;
+                if (checkin !== "" && checkout !== "") {
+                    auxCheckIn = checkin.replaceAll('"', "");
+                    auxCheckOut = checkin.replaceAll('"', "");
+                    url =
+                        url +
+                        "&checkin=" +
+                        auxCheckIn +
+                        "&checkout=" +
+                        auxCheckOut;
+                }
                 setFilters({
                     ...filters,
                     capacity: aux,
+                    checkIn: new Date(auxCheckIn),
+                    checkOut: new Date(auxCheckOut),
                 });
-
-                let url = "api/cabanas?capacity=" + aux;
                 const response = await fetch(url);
                 const data = await response.json();
                 setRooms(data);
@@ -83,11 +97,20 @@ export default function Search() {
                                 <div className="p-0.5 w-full rounded-xl bg-white mb-3">
                                     <Datepicker
                                         min={new Date()}
+                                        defaultDate={
+                                            filters.checkIn === null
+                                                ? undefined
+                                                : filters.checkIn
+                                        }
                                         setDate={(e) => {
                                             setFilters({
                                                 ...filters,
                                                 checkIn: new Date(e),
-                                                checkOut: new Date(e),
+                                                checkOut:
+                                                    new Date(e) >
+                                                    filters.checkOut
+                                                        ? new Date(e)
+                                                        : filters.checkOut,
                                             });
                                         }}
                                     />
@@ -103,6 +126,11 @@ export default function Search() {
                                 <div className="p-0.5 w-full rounded-xl bg-white mb-3">
                                     <Datepicker
                                         min={filters.checkIn}
+                                        defaultDate={
+                                            filters.checkOut === null
+                                                ? undefined
+                                                : filters.checkOut
+                                        }
                                         setDate={(e) => {
                                             setFilters({
                                                 ...filters,

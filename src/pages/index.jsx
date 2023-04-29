@@ -17,9 +17,9 @@ export default function Home() {
     const handleFilter = (e) => {
         e.preventDefault();
     };
-    useEffect(() => {
-        console.log(filters);
-    }, [filters]);
+    // useEffect(() => {
+    //     console.log(filters);
+    // }, [filters]);
 
     return (
         <div
@@ -104,7 +104,22 @@ export default function Home() {
                                 <Link
                                     href={{
                                         pathname: "/search",
-                                        query: filters, // the data
+                                        query: {
+                                            adults: filters.adults,
+                                            children: filters.children,
+                                            checkin:
+                                                filters.checkin === null
+                                                    ? undefined
+                                                    : JSON.stringify(
+                                                          filters.checkin
+                                                      ),
+                                            checkout:
+                                                filters.checkout === null
+                                                    ? undefined
+                                                    : JSON.stringify(
+                                                          filters.checkout
+                                                      ),
+                                        }, // the data
                                     }}
                                 >
                                     <button className="btn-yellow w-full !rounded md:w-auto">
