@@ -6,7 +6,7 @@ import { filterRoomsByCapacity, filterRoomsByDates } from "helpers/filters";
 export const getAllRooms = async (query) => {
     const { data: rooms, error } = await supabase
         .from("rooms")
-        .select(`*,booking(*)`);
+        .select(`*,booking(checkin,checkout)`);
 
     if (error) {
         throw error;
