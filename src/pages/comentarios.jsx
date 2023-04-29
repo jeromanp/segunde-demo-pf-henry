@@ -75,4 +75,3 @@ export default function Comentario() {
     </>
   );
 }
-// Esos clases son para quitar el scrollbar en diversos navegadores
