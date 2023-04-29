@@ -68,7 +68,7 @@ export default function Cabins() {
               <div key={cabin.id} className='border text-center rounded-2xl'>
                 <div className='bg-slate-500 w-full h-60 rounded-2xl mb-8'></div>
 
-                <h2 className='text-brand-green font-bold text-xl'>{cabin.name}</h2>
+                <h2 className='text-brand-green font-bold text-3xl'>{cabin.name}</h2>
 
                 <div className='flex justify-center m-2'>
                   <img src={people.src} alt="Capacidad" className='mx-2' />
