@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import house from '../../public/house.svg';
+import people from '../../public/people.svg';
 
 export default function Cabins() {
   const [cabins, setCabins] = useState([]);
@@ -19,10 +21,6 @@ export default function Cabins() {
         console.log(error);
       });
   }, []);
-
-  const card_class = `active:cursor-grabbing border cursor-grab border-gray-200 rounded-2xl shadow-md bg-white max-w-xs`;
-  const card_image_class = 'h-44 overflow-hidden rounded-2xl';
-  const card_body_class = 'px-7 py-6 grid gap-y-5';
 
   const settings = {
     slidesToShow: 3,
@@ -50,44 +48,45 @@ export default function Cabins() {
   return (
     <Layout>
       <div className="container mx-auto px-6 xl:px-0">
-        <h2 className="text-brand-green text-3xl font-bold leading-none text-center pt-14 pb-8 md:text-4xl md:leading-none">
+
+        <h2
+          className="text-brand-green text-3xl font-bold 
+											leading-none text-center pt-14 pb-8 
+											md:text-4xl md:leading-none">
           Nuestras cabañas
         </h2>
-        <div className="text-brand-green text-center leading-tight max-w-4xl mx-auto">
+
+        <div
+          className="text-brand-green text-center 
+												leading-tight max-w-4xl mx-auto">
           El Complejo está compuesto por 10 cabañas de diferentes capacidades y dos piletas al aire libre, elegí la que mejor se adapte a vos y vení a disfrutar!
         </div>
 
-        <div className='p-12'>
+        <div className='m-12'>
           <Slider {...settings} >
             {cabins.map(cabin => (
-              <div key={cabin.id} className={card_class}>
-                <div className={card_image_class}>
-                  <img src="cabin-1.webp" alt={`Cabaña ${cabin.name}`} className="w-full h-full object-cover pointer-events-none" />
+              <div key={cabin.id} className='border text-center rounded-2xl'>
+                <div className='bg-slate-500 w-full h-60 rounded-2xl mb-8'></div>
+
+                <h2 className='text-brand-green font-bold text-xl'>{cabin.name}</h2>
+
+                <div className='flex justify-center m-2'>
+                  <img src={people.src} alt="Capacidad" className='mx-2' />
+                  <p>{cabin.capacity}</p>
+                  <p className='mx-2'>|</p>
+                  <img src={house.src} alt="Habitaciones" className='mx-2' />
+                  <p>{Number(cabin.rooms) > 1 ? `${cabin.rooms} Habitaciones` : 'Monoambiente'}</p>
                 </div>
-                <div className={card_body_class}>
-                  <h3 className="text-brand-green text-2xl font-bold leading-none text-center select-none">{cabin.name}</h3>
-                  <div className="text-gray-500 text-xs leading-tight font-medium flex justify-center items-center">
-                    <div className="flex items-center gap-2">
-                      <i className="ri-group-fill"></i>
-                      {cabin.capacity}
-                    </div>
-                    <div className="border-l border-gray-400 h-4 mx-2.5"></div>
-                    <div className="flex items-center gap-2">
-                      <i className="ri-home-2-fill"></i>
-                      {cabin.rooms} Habitaciones
-                    </div>
-                  </div>
-                  <div className="flex justify-center">
-                    <Link href={`/cabanas/${cabin.id}`}>
-                      <span className="btn-yellow">Ver más</span>
-                    </Link>
-                  </div>
-                </div>
+
+                <button className='btn-yellow mt-6 mb-8'>
+                  <Link href={`/cabanas/${cabin.id}`} >Ver más</Link>
+                  </button>
               </div>
             ))}
           </Slider>
         </div>
       </div>
+
     </Layout>
   );
 }
