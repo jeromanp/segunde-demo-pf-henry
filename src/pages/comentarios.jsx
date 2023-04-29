@@ -72,17 +72,6 @@ export default function Comentario() {
           </Slider>
         </div >
       </section>
-      <style jsx>
-        {`.container-snap::-webkit-scrollbar {
-          display: none;
-          }
-
-        .container-snap {
-          -ms - overflow - style: none; 
-          scrollbar-width: none; 
-          }`}
-      </style>
     </>
   );
 }
-// Esos clases son para quitar el scrollbar en diversos navegadores
