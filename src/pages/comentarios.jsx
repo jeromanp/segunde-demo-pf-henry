@@ -1,85 +1,88 @@
+import axios from "axios";
 import Header from "components/Header";
+import { useEffect, useState } from "react";
+import Slider from "react-slick";
 
 export default function Comentario() {
+  const [comments, setComments] = useState([])
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 3,
+    arrows: false,
+    accesibility: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          dots: true
+        }
+      },
+    ]
+  };
+
+  useEffect(async () => {
+    const response = (await axios.get('/api/comments')).data;
+    setComments([...response]);
+  }, [])
+
   return (
     <>
       <Header />
-      <section class="px-4 py-8">
-        <div class="max-w-6xl mx-auto">
-          <h2 class="text-brand-green text-4xl font-bold mb-6 mt-8">
+      <section className="px-4 py-8">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-brand-green text-4xl font-bold mb-6 mt-8">
             Nuestros huespedes!
           </h2>
-          <p class="text-black font-medium text-xl mb-14 pr-8">
+          <p className="text-black font-medium text-xl mb-8 pr-8">
             Nuestros huéspedes son nuestra prioridad, ofrecemos una experiencia
             acogedora, cálida y auténtica para cada uno de nuestros visitantes.
             Queremos que te sientas como en casa!
           </p>
-          <div class="flex flex-wrap -mx-2">
-            <div class="w-full md:w-1/3 px-8 mb-8">
-              <div class="bg-white p-4 rounded-lg">
-                <p class="text-brand-green font-semibold text-2xl mb-4">
-                  German S.
+          <Slider {...settings}>
+            {comments.map((comment, i) => (
+              <div key={i} className="cursor-grab active:cursor-grabbing shrink-0 w-96 border p-3 h-80">
+                <p className="text-brand-green font-semibold text-2xl mb-1" >
+                  {comment.profile.name}
                 </p>
+
                 <div className="stars">
-                  {[...Array(5)].map((_, i) => (
+                  {[...Array(comment.stars)].map((_, i) => (
                     <i
                       key={i}
                       className="ri-star-fill text-brand-yellow mr-4"
                     ></i>
                   ))}
                 </div>
-                <p class="text-black font-normal mt-4">
-                  Excelente atención, nos facilitaron todo desde antes de
-                  alquilar. Hermosas cabañas, muy equipadas y ubicadas en una zona
-                  muy tranquila de la siempre linda Villa La Arcadia. Estuvieron a
-                  disposición siempre para todo loque necesitamos. Agendado para
-                  volver.
+
+                <p className="text-black mt-2">
+                  {comment.review}
                 </p>
               </div>
-            </div>
-            <div class="w-full md:w-1/3 px-8 mb-8">
-              <div class="bg-white p-4 rounded-lg">
-                <p class="text-brand-green font-semibold text-2xl mb-4">
-                  Eduardo O.
-                </p>
-                <div className="stars">
-                  {[...Array(5)].map((_, i) => (
-                    <i
-                      key={i}
-                      className="ri-star-fill text-brand-yellow mr-4"
-                    ></i>
-                  ))}
-                </div>
-                <p class="text-black font-normal mt-4">
-                  Muy lindo lugar. Las habitaciones perfectas, buen servicio y
-                  atención... La Ubicación excelente para descansar, sin ruidos a
-                  pocos metros del arroyo.
-                </p>
-              </div>
-            </div>
-            <div class="w-full md:w-1/3 px-8 mb-8">
-              <div class="bg-white p-4 rounded-lg">
-                <p class="text-brand-green font-semibold text-2xl mb-4">
-                  Walter A.
-                </p>
-                <div className="stars">
-                  {[...Array(5)].map((_, i) => (
-                    <i
-                      key={i}
-                      className="ri-star-fill text-brand-yellow mr-4"
-                    ></i>
-                  ))}
-                </div>
-                <p class="text-black font-normal mt-4">
-                  Lindo lugar! Las cabañas excelentes, limpias confortables y con
-                  detalles de excelencia, buena calefacción y tiene aire
-                  acondicionado
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+            ))}
+          </Slider>
+        </div >
       </section>
+      <style jsx>
+        {`.container-snap::-webkit-scrollbar {
+          display: none;
+          }
+
+        .container-snap {
+          -ms - overflow - style: none; 
+          scrollbar-width: none; 
+          }`}
+      </style>
     </>
   );
 }
+// Esos clases son para quitar el scrollbar en diversos navegadores

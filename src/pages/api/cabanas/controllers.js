@@ -1,43 +1,38 @@
 import { supabase } from "utils/supabase";
-import { filterRoomsByCapacity } from "helpers/filters";
-
-//const cabanasControllers = {};
-
-//Retorna todas las cabanas.
-//En caso de que exista el query params capacity retorna las cabanas filtradas por capacidad
-
-// cabanasControllers.get = async (query) => {
-//     const { data: rooms, error } = await supabase.from("rooms").select("*");
-//     if (error) {
-//         console.log(error);
-//         return { data: null, error };
-//     }
-//     if (query.capacity !== undefined) {
-//         return {
-//             data: filterRoomsByCapacity(rooms, parseInt(query.capacity)),
-//             error: null,
-//         };
-//     } else {
-//         return { data: rooms, error: null };
-//     }
-// };
+import { filterRoomsByCapacity, filterRoomsByDates } from "helpers/filters";
 
 //GET
 
 export const getAllRooms = async (query) => {
     const { data: rooms, error } = await supabase
         .from("rooms")
-        .select(`*,booking(*)`);
+        .select(`*,booking(checkin,checkout)`);
+
     if (error) {
         throw error;
     }
+    let data = rooms;
     if (query.capacity !== undefined) {
-        return {
-            data: filterRoomsByCapacity(rooms, parseInt(query.capacity)),
-            error: null,
-        };
+        data = filterRoomsByCapacity(rooms, parseInt(query.capacity));
     }
-    return { data: rooms, error: null };
+    if (query.checkin !== undefined && query.checkout !== undefined) {
+        data = filterRoomsByDates(data, query.checkin, query.checkout);
+    }
+    return { data, error: null };
+};
+
+//GET/ID
+
+export const getRoomById = async (id) => {
+    const { data: room, error } = await supabase
+        .from("rooms")
+        .select(`*,booking(checkin,checkout)`)
+        .eq("id", id)
+        .single();
+    if (error) {
+        throw error;
+    }
+    return room;
 };
 
 //POST
@@ -126,5 +121,3 @@ export const deleteRoom = async ({ id }) => {
     }
     return delRoom;
 };
-
-//export default cabanasControllers;
