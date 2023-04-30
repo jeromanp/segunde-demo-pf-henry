@@ -2,6 +2,7 @@ import { supabase } from "utils/supabase";
 import Layout from "../../layouts/Layout.jsx";
 import Link from "next/link";
 import Slider from "react-slick";
+import Slider from "react-slick";
 
 export default function Room({ room }) {
     const description = room.description.replace(/,|\./g, "");
