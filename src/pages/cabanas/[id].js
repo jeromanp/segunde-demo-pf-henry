@@ -2,11 +2,9 @@ import { supabase } from "utils/supabase";
 import Layout from "../../layouts/Layout.jsx";
 import Link from "next/link";
 import Slider from "react-slick";
-import Slider from "react-slick";
 
 export default function Room({ room }) {
     const description = room.description.replace(/,|\./g, "");
-    // console.log(room);
 
     const settings = {
         customPaging: function (i) {
@@ -28,7 +26,7 @@ export default function Room({ room }) {
     return (
         <Layout>
             <div className="flex justify-center mx-auto max-w-7xl py-10 lg:px-10">
-                <div className="lg:w-1/2 lg:pr-10 mb-10 lg:mb-0 text-brand-green m-auto">
+                <div className="flex flex-col  lg:pr-10 mb-10 lg:mb-0 text-brand-green m-auto">
                     <h2 className=" text-4xl font-bold mb-4">{room.name}</h2>
                     <div>
                         <ul className="flex -ml-16 max-w-fit my-4 pl-4 py-2 rounded-xl bg-gray-50 shadow-lg">
@@ -41,9 +39,9 @@ export default function Room({ room }) {
                         </ul>
                     </div>
                     <p className="whitespace-pre-wrap mb-6">{description}</p>
-                    <div className="flex justify-center">
+                    <div className="btn-yellow w-24 self-center">
                         <Link href="#">
-                            <span className="btn-yellow">Reservar</span>
+                            Reservar
                         </Link>
                     </div>
                 </div>
@@ -78,8 +76,6 @@ export async function getServerSideProps({ params }) {
     // .single();
 
     if (error) {
-        // console.log(`Error al obtener el room con uuid ${id}`);
-        // console.log(error);
         return {
             notFound: true,
         };
