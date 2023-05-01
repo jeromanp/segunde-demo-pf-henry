@@ -34,6 +34,9 @@ export default function Search() {
                         auxCheckIn +
                         "&checkout=" +
                         auxCheckOut;
+                } else {
+                    auxCheckIn = new Date();
+                    auxCheckOut = new Date();
                 }
                 setFilters({
                     ...filters,
