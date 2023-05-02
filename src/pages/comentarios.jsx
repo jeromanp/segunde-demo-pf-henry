@@ -3,37 +3,45 @@ import Header from "components/Header";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 
+const settings = {
+  dots: true,
+  infinite: true,
+  slidesToShow: 3,
+  arrows: false,
+  accessibility: true,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        dots: true,
+      },
+    },
+  ],
+};
+
 export default function Comentario() {
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState([]);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    slidesToShow: 3,
-    arrows: false,
-    accesibility: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          dots: true
-        }
-      },
-    ]
-  };
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await axios.get("/api/comments");
+        setComments(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  useEffect(async () => {
-    const response = (await axios.get('/api/comments')).data;
-    setComments([...response]);
-  }, [])
+    fetchComments();
+  }, []);
 
   return (
     <>
@@ -50,8 +58,11 @@ export default function Comentario() {
           </p>
           <Slider {...settings}>
             {comments.map((comment, i) => (
-              <div key={i} className="cursor-grab active:cursor-grabbing shrink-0 w-96 border p-3 h-80">
-                <p className="text-brand-green font-semibold text-2xl mb-1" >
+              <div
+                key={i}
+                className="w-96 p-3 h-80 border cursor-grab active:cursor-grabbing shrink-0"
+              >
+                <p className="text-brand-green font-semibold text-2xl mb-1">
                   {comment.profile.name}
                 </p>
 
@@ -64,13 +75,11 @@ export default function Comentario() {
                   ))}
                 </div>
 
-                <p className="text-black mt-2">
-                  {comment.review}
-                </p>
+                <p className="text-black mt-2">{comment.review}</p>
               </div>
             ))}
           </Slider>
-        </div >
+        </div>
       </section>
     </>
   );
