@@ -14,17 +14,17 @@ const settings = {
       breakpoint: 1024,
       settings: {
         slidesToShow: 2,
-        dots: true
-      }
+        dots: true,
+      },
     },
     {
       breakpoint: 600,
       settings: {
         slidesToShow: 1,
-        dots: true
-      }
+        dots: true,
+      },
     },
-  ]
+  ],
 };
 
 export default function Comentario() {
@@ -58,14 +58,20 @@ export default function Comentario() {
           </p>
           <Slider {...settings}>
             {comments.map((comment, i) => (
-              <div key={i} className="w-96 p-3 h-80 border cursor-grab active:cursor-grabbing shrink-0">
+              <div
+                key={i}
+                className="w-96 p-3 h-80 border cursor-grab active:cursor-grabbing shrink-0"
+              >
                 <p className="text-brand-green font-semibold text-2xl mb-1">
                   {comment.profile.name}
                 </p>
 
                 <div className="stars">
                   {[...Array(comment.stars)].map((_, i) => (
-                    <i key={i} className="ri-star-fill text-brand-yellow mr-4"></i>
+                    <i
+                      key={i}
+                      className="ri-star-fill text-brand-yellow mr-4"
+                    ></i>
                   ))}
                 </div>
 
