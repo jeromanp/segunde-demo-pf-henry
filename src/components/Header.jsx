@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useUser } from "@supabase/auth-helpers-react";
+
 
 export default function Header(props) {
+    const user= useUser();
     const [navActive, setNavActive] = useState(false);
     const [navbarClassName, setNavbarClassName] = useState("");
 
@@ -95,6 +98,10 @@ export default function Header(props) {
                                         </li>
                                     </ul>
                                 </li>
+                                <li className="select-none relative">
+                                    <Link href="/login">Log In</Link>
+                                </li>
+                                
                                 <style jsx>{`
                                         .select-none:hover .absolute {
                                             opacity: 1;
