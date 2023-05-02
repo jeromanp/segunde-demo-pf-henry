@@ -65,7 +65,6 @@ export default function Comentario() {
                 <p className="text-brand-green font-semibold text-2xl mb-1">
                   {comment.profile.name}
                 </p>
-
                 <div className="stars">
                   {[...Array(comment.stars)].map((_, i) => (
                     <i
@@ -74,7 +73,6 @@ export default function Comentario() {
                     ></i>
                   ))}
                 </div>
-
                 <p className="text-black mt-2">{comment.review}</p>
               </div>
             ))}
