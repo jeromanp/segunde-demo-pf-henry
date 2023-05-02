@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import CardCabin from "components/seeAllCabins/CardCabin";
+import CardSkeleton from "components/seeAllCabins/CardSkeleton";
 import Layout from "../layouts/Layout";
 import Datepicker from "components/form/Datepicker";
 
@@ -42,6 +43,7 @@ export default function Search() {
         const response = await fetch(url);
         const data = await response.json();
         setRooms(data);
+        setIsLoading(false);
       }
     };
 
@@ -49,6 +51,7 @@ export default function Search() {
   }, [adults, children, checkin, checkout]);
 
   const [rooms, setRooms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const changeHandler = (e) => {
     setFilters({
@@ -74,7 +77,7 @@ export default function Search() {
   return (
     <>
       <Layout>
-        <div className="flex h-screen">
+        <div className="flex pb-8">
           <section className="p-14">
             <div className="bg-brand-olive rounded-2xl p-8 w-96">
               <h3 className="text-white text-xl font-bold pb-6 pt-4">
@@ -158,15 +161,27 @@ export default function Search() {
               </div>
             </div>
           </section>
-          <div className="flex-grow">
-            <h1 className="text-brand-green text-xl font-semibold pb-2 pt-12">
+
+          <div className="flex-grow pt-12 pr-12">
+            <h1 className="text-brand-green text-xl font-semibold pb-2">
               Cabañas disponibles
             </h1>
-            <div className="overflow-scroll pr-12 h-4/6">
+            <div
+              className="flex-grow overflow-y-auto h-98"
+              style={{ minHeight: "500px", maxHeight: "500px" }}
+            >
               <div className="grid grid-cols-1 gap-2">
-                {rooms.map((room) => {
-                  return <CardCabin key={`${room.id}-index`} cabin={room} />;
-                })}
+                {isLoading ? (
+                  <>
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                  </>
+                ) : (
+                  rooms.map((room) => {
+                    return <CardCabin key={`${room.id}-index`} cabin={room} />;
+                  })
+                )}
               </div>
             </div>
           </div>
