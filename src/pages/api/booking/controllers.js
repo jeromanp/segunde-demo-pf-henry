@@ -9,6 +9,18 @@ export const getAllBooking = async () => {
   return infoBooking;
 };
 
+export const getBookingById = async (id) => {
+  const { data: room, error } = await supabase
+    .from("booking")
+    .select(`*`)
+    .eq("id", id)
+    .single();
+  if (error) {
+    throw error;
+  }
+  return room;
+};
+
 export const postNewBooking = async ({
   checkin,
   checkout,
