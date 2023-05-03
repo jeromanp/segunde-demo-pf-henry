@@ -4,7 +4,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 
 
 export default function Header(props) {
-    const user= useUser();
+    const user = useUser();
     const [navActive, setNavActive] = useState(false);
     const [navbarClassName, setNavbarClassName] = useState("");
 
@@ -63,48 +63,55 @@ export default function Header(props) {
                                     <Link href="/servicios">Servicios</Link>
                                 </li>
 
-                                <li className="select-none relative">
-                                    <div>Nosotros</div>
-                                    <ul className="text-base absolute bg-brand-brown rounded shadow-md p-2 transition-opacity opacity-0">
-                                        <li className="hover:bg-brand-olive transition-colors p-1 rounded">
-                                            <Link href="/nosotros">
-                                                About
-                                            </Link>
-                                        </li>
-                                        <li className="hover:bg-brand-olive transition-colors p-1 rounded">
-                                            <Link href="/comentarios">
-                                                Reviews
-                                            </Link>
-                                        </li>
-                                    </ul>
+                                <li className="relative">
+                                    <button className="select-none">
+
+                                        <div>Nosotros</div>
+                                        <ul className="text-left text-base absolute bg-brand-brown rounded shadow-md p-2 transition-opacity opacity-0">
+                                            <li className="hover:bg-brand-olive transition-colors p-1 rounded">
+                                                <Link href="/nosotros">
+                                                    About
+                                                </Link>
+                                            </li>
+                                            <li className="hover:bg-brand-olive transition-colors p-1 rounded">
+                                                <Link href="/comentarios">
+                                                    Reviews
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </button>
                                 </li>
 
-                                <li className="select-none">
+                                <li className="select-none z-10">
                                     <Link href="/contacto">Contacto</Link>
                                 </li>
 
-                                <li className="select-none relative">
-                                    <div>Ayuda</div>
-                                    <ul className="text-base absolute bg-brand-brown rounded shadow-md p-2 transition-opacity opacity-0">
-                                        <li className="hover:bg-brand-olive transition-colors p-1 rounded">
-                                            <Link href="/faqs">
-                                                FAQs
-                                            </Link>
-                                        </li>
-                                        <li className="hover:bg-brand-olive transition-colors p-1 rounded">
-                                            <Link href="/actividades">
-                                                Actividades
-                                            </Link>
-                                        </li>
-                                    </ul>
+                                <li className="relative">
+                                    <button className="select-none">
+
+                                        <div>Ayuda</div>
+                                        <ul className="text-left text-base absolute bg-brand-brown rounded shadow-md p-2 transition-opacity opacity-0">
+                                            <li className="hover:bg-brand-olive transition-colors p-1 rounded">
+                                                <Link href="/faqs">
+                                                    FAQs
+                                                </Link>
+                                            </li>
+                                            <li className="hover:bg-brand-olive transition-colors p-1 rounded">
+                                                <Link href="/actividades">
+                                                    Actividades
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </button>
                                 </li>
                                 <li className="select-none relative">
                                     <Link href="/login">Log In</Link>
                                 </li>
-                                
+
                                 <style jsx>{`
-                                        .select-none:hover .absolute {
+                                        .select-none:focus .absolute {
                                             opacity: 1;
+                                            z-index: 20;
                                         }
                                     `}</style>
                             </ul>
