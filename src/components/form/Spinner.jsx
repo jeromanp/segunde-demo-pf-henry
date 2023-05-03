@@ -5,11 +5,13 @@ export default function Spinner(props){
 	const [val, setVal] = useState(props.defaultValue ?? 0)
 
 	const increment = () => { 
-		setVal(val+1) 
+		if (val < 6) {
+			setVal(val+1) 
+		}
 	}
 
 	const decrement = async () => { 
-		if( val > 0 ){
+		if( val > 1 ){
 			setVal(val-1)
 		}
 	}

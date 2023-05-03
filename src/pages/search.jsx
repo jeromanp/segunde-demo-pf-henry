@@ -7,7 +7,7 @@ import Datepicker from "components/form/Datepicker";
 
 export default function Search() {
   const router = useRouter();
-  const { adults, children, checkin, checkout } = router.query;
+  const { guests, checkin, checkout } = router.query;
   const [filters, setFilters] = useState({
     capacity: 2,
     checkIn: null,
@@ -20,8 +20,8 @@ export default function Search() {
 
   useEffect(() => {
     const initRequest = async () => {
-      if (adults !== undefined && children !== undefined) {
-        let aux = parseInt(adults) + parseInt(children);
+      if (guests !== undefined) {
+        let aux = parseInt(guests);
         let auxCheckIn = "";
         let auxCheckOut = "";
 
@@ -48,7 +48,7 @@ export default function Search() {
     };
 
     initRequest();
-  }, [adults, children, checkin, checkout]);
+  }, [guests, checkin, checkout]);
 
   const [rooms, setRooms] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
