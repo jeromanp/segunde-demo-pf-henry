@@ -5,7 +5,7 @@ import Slider from "react-slick";
 
 export default function Room({ room }) {
     const description = room.description.replace(/,|\./g, "");
-
+    // console.log(room);
     const settings = {
         customPaging: function (i) {
             return (
@@ -25,33 +25,26 @@ export default function Room({ room }) {
 
     return (
         <Layout>
-            <div className="flex justify-center mx-auto max-w-7xl py-10 lg:px-10">
+            <h2 className="text-brand-green text-4xl font-bold text-center mt-10 m-6">{room.name}</h2>
+            <div className="flex flex-col-reverse md:flex-row md:justify-center md:mx-auto md:max-w-7xl md:pb-10 lg:px-10">
                 <div className="flex flex-col  lg:pr-10 mb-10 lg:mb-0 text-brand-green m-auto">
-                    <h2 className=" text-4xl font-bold mb-4">{room.name}</h2>
-                    <div>
-                        <ul className="flex -ml-16 max-w-fit my-4 pl-4 py-2 rounded-xl bg-gray-50 shadow-lg">
-                            <li className="mr-2">
-                                {room.capacity} huespedes -
-                            </li>
-                            <li className="mr-2">{room.rooms} dormitorio -</li>
-                            <li className="mr-2">{room.beds} camas -</li>
-                            <li className="mr-4">{room.bathroom} baño</li>
-                        </ul>
+                    <div className="flex flex-wrap w-11/12 self-center md:w-auto max-w-fit my-4 pl-4 py-2 rounded-xl bg-gray-50 shadow-lg">
+                        {room.capacity} huespedes - {room.rooms} dormitorio/s - {room.beds} cama/s - {room.bathrooms} baño/s
                     </div>
-                    <p className="whitespace-pre-wrap mb-6">{description}</p>
+                    <p className="whitespace-pre-wrap mb-6 m-auto">{description}</p>
                     <div className="btn-yellow w-24 self-center">
                         <Link href="#">
                             Reservar
                         </Link>
                     </div>
                 </div>
-                <div className="w-1/3 m-auto">
+                <div className="w-5/6 md:w-1/3 md:m-auto mb-5 m-auto">
                     <Slider {...settings}>
                         {/* {[...Array(4)].map((_, i) => ( */}
-                        <div className="h-96 bg-slate-200 text-slate-200 rounded-xl">.</div>
-                        <div className="h-96 bg-slate-400 text-slate-400 rounded-xl">.</div>
-                        <div className="h-96 bg-slate-600 text-slate-600 rounded-xl">.</div>
-                        <div className="h-96 bg-slate-800 text-slate-800 rounded-xl">.</div>
+                        <div className="h-64 bg-slate-200 text-slate-200 rounded-xl">.</div>
+                        <div className="h-64 bg-slate-400 text-slate-400 rounded-xl">.</div>
+                        <div className="h-64 bg-slate-600 text-slate-600 rounded-xl">.</div>
+                        <div className="h-64 bg-slate-800 text-slate-800 rounded-xl">.</div>
                         {/* ))} */}
                     </Slider>
                 </div>
