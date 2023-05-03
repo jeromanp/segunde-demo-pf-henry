@@ -3,10 +3,10 @@ import dayjs from "dayjs";
 import Header from "../components/Header";
 import { useUser } from "@supabase/auth-helpers-react";
 
-
 import Datepicker from "../components/form/Datepicker";
 import GuestsSelector from "components/form/GuestsSelector";
 import Link from "next/link";
+import ChatBot from "components/chatBot/ChatBot";
 
 export default function Home() {
     const user = useUser();
@@ -136,6 +136,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <ChatBot />
         </div>
     );
 }
