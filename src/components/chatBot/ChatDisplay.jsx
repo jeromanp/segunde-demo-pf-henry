@@ -37,21 +37,22 @@ function ChatDisplay({ visible }) {
 
     return (
         <div
-            className={`bg-red-500 w-72 h-96 absolute -top-96 -right-0 px-4 pt-4 ${
+            className={`bg-brand-light-green  h-96 absolute -top-96 -right-0 rounded-lg overflow-hidden ${
                 visible ? "block" : "hidden"
             }`}
         >
+            <p className="p-1 text-brand-cream">Hueney Ruca</p>
             <Chat messages={messages} />
-            <div>
+            <div className="w-full h-8 flex flex-nowrap">
                 <input
                     type="text"
-                    className="mt-3"
+                    className="text-xs w-full h-full"
                     value={input}
                     onChange={handleChange}
                     onKeyDown={handleKey}
                 />
-                <button className="bg-green-500 " onClick={handleClick}>
-                    Send
+                <button className="bg-green-500" onClick={handleClick}>
+                &rarr;
                 </button>
             </div>
         </div>
