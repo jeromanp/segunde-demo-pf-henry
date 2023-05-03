@@ -8,13 +8,13 @@ export default function Contact() {
       <Header />
       <section className="px-4 py-8 pb-16">
           <div className="flex mt-6 justify-around">
-            <div className="w-1/3 pb-8">
+            <div className="sm:w-1/3 pb-8">
               <h2 className="text-brand-green text-4xl font-bold mb-6 mt-4">
                 Contactanos!
               </h2>
               <ContactForm />
             </div>
-            <img src="/contact.svg" alt="contact.icon" className="w-2/5 mr-4" />
+            <img src="/contact.svg" alt="contact.icon" className="sm:block hidden w-2/5 mr-4" />
           </div>
       </section>
       <Footer />
