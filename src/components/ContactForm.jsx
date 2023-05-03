@@ -89,7 +89,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                 />
 
-                <button className="btn-yellow w-1/5 mt-6">Enviar</button>
+                <button className="btn-yellow md:w-1/5 w-14 mt-6">Enviar</button>
             </form>
         </>
     )
