@@ -76,7 +76,6 @@ export default function Comentario() {
                 </div>
 
                 <p className="text-black mt-2">{comment.review}</p>
-                
               </div>
             ))}
           </Slider>
