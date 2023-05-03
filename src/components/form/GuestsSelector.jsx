@@ -3,19 +3,12 @@ import Spinner from "./Spinner";
 
 export default function GuestsSelector(props) {
     const [show, setShow] = useState(false);
-    const [guests, setGuests] = useState({
-        adults: 2,
-        children: 0,
-    });
-    const [total, setTotal] = useState(0);
+    const [guests, setGuests] = useState(2);
 
     useEffect(() => {
-        //console.log(guests.adults + guests.children);
-        setTotal(guests.adults + guests.children);
         props.filterSetter({
             ...props.filters,
-            adults: guests.adults,
-            children: guests.children,
+            guests,
         });
     }, [guests]);
 
@@ -31,7 +24,7 @@ export default function GuestsSelector(props) {
                 onClick={() => setShow(true)}
             >
                 <i className="ri-user-fill text-lg"></i>
-                <span className="">Huéspedes{total ? `: ${total}` : ""}</span>
+                <span className="">Huéspedes{`: ${guests}`}</span>
             </div>
 
             {show ? (
@@ -40,25 +33,14 @@ export default function GuestsSelector(props) {
                     onMouseLeave={() => setShow(false)}
                 >
                     <div className="p-3 flex justify-between items-center">
-                        <div className="">Adultos</div>
+                        <div className="">Huespedes</div>
                         <div className="w-1/2">
                             <Spinner
-                                defaultValue={guests.adults}
-                                setValue={(e) =>
-                                    setGuests({ ...guests, adults: e })
-                                }
-                            />
-                        </div>
-                    </div>
+                                defaultValue={guests}
+                                setValue={(e) => {
+                                    if (e <= 6) setGuests(e)
+                                }}
 
-                    <div className="p-3 flex justify-between items-center">
-                        <div className="">Niños</div>
-                        <div className="w-1/2">
-                            <Spinner
-                                defaultValue={guests.children}
-                                setValue={(e) =>
-                                    setGuests({ ...guests, children: e })
-                                }
                             />
                         </div>
                     </div>
