@@ -44,34 +44,34 @@ export default function Dashboard()
 							<TableHead data={table_head} />
 							
 							<tbody>
-								{[1,2,3,4,5,6,7,8,9,10].map(() => (
-									<tr>
-										<td class="border-b border-[#eee] py-5 px-4">
-											<p class="text-black">Abr. 12, 2023</p>
+								{[1,2,3,4,5,6,7,8,9,10].map(e => (
+									<tr key={e}>
+										<td className="border-b border-[#eee] py-5 px-4">
+											<p className="text-black">Abr. 12, 2023</p>
 										</td>
-										<td class="border-b border-[#eee] py-5 px-4">
-											<h5 class="font-medium text-black">Cabaña A</h5>
-											<p class="text-sm">La mas mejor</p>
+										<td className="border-b border-[#eee] py-5 px-4">
+											<h5 className="font-medium text-black">Cabaña A</h5>
+											<p className="text-sm">La mas mejor</p>
 										</td>
-										<td class="border-b border-[#eee] py-5 px-4">
-											<p class="text-black">May 13, 2023</p>
+										<td className="border-b border-[#eee] py-5 px-4">
+											<p className="text-black">May 13, 2023</p>
 										</td>
-										<td class="border-b border-[#eee] py-5 px-4">
-											<p class="text-black">May 18, 2023</p>
+										<td className="border-b border-[#eee] py-5 px-4">
+											<p className="text-black">May 18, 2023</p>
 										</td>
-										<td class="border-b border-[#eee] py-5 px-4">
-											<div class="flex items-center space-x-3.5">
-												<Link class="hover:text-primary" href="detail-reserva.html">
-													<i class="ri-file-text-line text-xl leading-none"></i>
+										<td className="border-b border-[#eee] py-5 px-4">
+											<div className="flex items-center space-x-3.5">
+												<Link className="hover:text-primary" href="detail-reserva.html">
+													<i className="ri-file-text-line text-xl leading-none"></i>
 												</Link>
 												{/* 
-												<a class="hover:text-primary" href="edit-reservas.html">
-													<i class="ri-edit-line text-xl leading-none"></i>
+												<a className="hover:text-primary" href="edit-reservas.html">
+													<i className="ri-edit-line text-xl leading-none"></i>
 												</a> 
 												*/}
 												{/* 
-												<button class="hover:text-primary">
-													<i class="ri-close-circle-line text-xl leading-none"></i>
+												<button className="hover:text-primary">
+													<i className="ri-close-circle-line text-xl leading-none"></i>
 												</button> 
 												*/}
 											</div>
