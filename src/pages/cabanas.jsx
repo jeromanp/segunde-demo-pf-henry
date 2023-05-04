@@ -105,6 +105,16 @@ export default function Cabins({ plans }) {
                   </p>
                 </div>
 
+                <div>
+                  {cabin.price ? (
+                    <>
+                      <p>Precio: {cabin.price} ARS / día</p>
+                    </>
+                  ) : (
+                    <p>Precio no disponible</p>
+                  )}
+                </div>
+
                 <button className="btn-yellow mt-6 mb-8">
                   <Link href={`/cabanas/${cabin.id}`}>Ver más</Link>
                 </button>
