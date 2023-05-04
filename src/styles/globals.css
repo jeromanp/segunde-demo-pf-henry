@@ -38,12 +38,13 @@ button:focus{
 	@apply !p-0;
 }
 
-.datepicker-calendar .flex.justify-between.mb-2 > button{
-	@apply !bg-white !text-gray-600;
+.datepicker-calendar > div > .p-1 > .grid.w-64.grid-cols-4 > span{
+	color: rgb(107, 114, 128);
+	user-select: none;
 }
 
-.datepicker-calendar > div > .p-1 > .grid.w-64.grid-cols-4 > span{
-	@apply text-gray-500 select-none hover:bg-gray-100;
+.datepicker-calendar > div > .p-1 > .grid.w-64.grid-cols-4 > span:hover{
+	background-color: rgb(243, 244, 246);
 }
 
 /* Ocultar el scrollbar */
