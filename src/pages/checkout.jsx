@@ -6,20 +6,18 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function CheckOut() {
-    const session = useSession();
+    const session = useSession(undefined);
     const router = useRouter();
 
     //Para controlar si la pagina no termino de cargar
     const [isLoading, setIsLoading] = useState(true);
 
+    const [bookingForm, setBookingForm] = useState({});
+
     useEffect(() => {
         //La ruta debe ser accedida solo por usuarios logueados
         //No es instantaneo asi q llega a mostrarse la pagina y despues redirige
         //Algo para arreglar despues
-        if (session === null) {
-            router.push("/login");
-        }
-        setIsLoading(false);
     }, []);
     const mock = {
         price: 19,
