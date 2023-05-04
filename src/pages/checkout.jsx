@@ -1,18 +1,11 @@
-import { useSession } from "@supabase/auth-helpers-react";
 import CheckOutForm from "components/CheckOutForm";
 import LayoutMain from "layouts/Layout";
-import { useRouter } from "next/router";
 
 import { useEffect, useState } from "react";
 
 export default function CheckOut() {
-    const session = useSession(undefined);
-    const router = useRouter();
-
     //Para controlar si la pagina no termino de cargar
     const [isLoading, setIsLoading] = useState(true);
-
-    const [bookingForm, setBookingForm] = useState({});
 
     useEffect(() => {
         //La ruta debe ser accedida solo por usuarios logueados
