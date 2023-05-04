@@ -11,7 +11,7 @@ function ChatBot() {
     return (
         <div className="fixed right-6 bottom-6" onClick={handleClick}>
             <img src="/whatsAppIcon.png" alt="whatsapp" id="whats-app-icon" />
-            <ChatDisplay visible={expanded} />
+            <ChatDisplay visible={expanded} setExpanded={setExpanded} />
         </div>
     );
 }
