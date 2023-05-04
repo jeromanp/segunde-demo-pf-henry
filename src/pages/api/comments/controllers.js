@@ -4,13 +4,25 @@ export const getAllComments = async () => {
   const { data: comments, error } = await supabase
     .from("comments")
     .select(`*, profile(name)`);
-    
+
   if (error) {
     console.log(error);
     throw error;
   }
 
   return comments;
+};
+
+export const getCommentById = async (id) => {
+  const { data: room, error } = await supabase
+    .from("comments")
+    .select(`*`)
+    .eq("id", id)
+    .single();
+  if (error) {
+    throw error;
+  }
+  return room;
 };
 
 export const postNewComment = async ({ review, user_id, stars, approved }) => {
@@ -50,7 +62,7 @@ export const updateComment = async ({
   return updateComments;
 };
 
-export async function deleteComment ({ id }) {
+export async function deleteComment({ id }) {
   const { data, error } = await supabase.from("comments").delete().eq("id", id);
 
   if (error) {
@@ -58,4 +70,4 @@ export async function deleteComment ({ id }) {
     throw error;
   }
   return data;
-};
+}
