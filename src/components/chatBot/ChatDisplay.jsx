@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Chat from "./Chat";
 import messageParser from "textProcessor/messageParser";
+import sendButton from '../../../public/send-button.svg';
+import close from '../../../public/close.svg';
 
-function ChatDisplay({ visible }) {
+function ChatDisplay({ visible, setExpanded }) {
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState([
         {
             botGen: true,
-            content: "Hola soy el bot de Hueney Ruca, como puedo ayudarlo?",
+            content: "Hola, soy el bot de Hueney Ruca, como puedo ayudarte?",
         },
     ]);
     const handleChange = (e) => {
@@ -15,6 +17,7 @@ function ChatDisplay({ visible }) {
     };
 
     const handleClick = () => {
+        if (input.length < 1) return;
         const response = messageParser(input);
         setMessages([
             ...messages,
@@ -37,21 +40,29 @@ function ChatDisplay({ visible }) {
 
     return (
         <div
-            className={`bg-red-500 w-72 h-96 absolute -top-96 -right-0 px-4 pt-4 ${
-                visible ? "block" : "hidden"
-            }`}
+            className={`bg-brand-light-green absolute -top-96 -right-0 shadow shadow-black rounded-lg overflow-hidden ${visible ? "block" : "hidden"
+                }`}
         >
+            <div className="flex justify-between">
+                <p className="p-2 text-brand-cream">Hueney Ruca</p>
+                <img
+                    src={close.src}
+                    onClick={() => setExpanded(false)}
+                    className="w-4 mx-3"
+                />
+            </div>
             <Chat messages={messages} />
-            <div>
+            <div className="w-full h-8 flex flex-nowrap">
                 <input
                     type="text"
-                    className="mt-3"
+                    className="text-xs w-full h-full p-3"
                     value={input}
                     onChange={handleChange}
                     onKeyDown={handleKey}
+                    placeholder="Pregúntale a Hueney Ruca"
                 />
-                <button className="bg-green-500 " onClick={handleClick}>
-                    Send
+                <button className="bg-green-500" onClick={handleClick}>
+                    <img src={sendButton.src} alt="boton enviar" className="w-4 m-2" />
                 </button>
             </div>
         </div>

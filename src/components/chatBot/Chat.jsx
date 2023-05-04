@@ -10,7 +10,7 @@ function Chat({ messages }) {
         scrollToBottom();
     }, [messages]);
     return (
-        <div className="bg-[#e5ded5] w-64 h-80 flex flex-col overflow-y-auto">
+        <div className="bg-brand-cream w-64 h-72 flex flex-col overflow-y-auto">
             {messages.map((el, index) => (
                 <Message message={el} key={`${index}-whats-app-message`} />
             ))}

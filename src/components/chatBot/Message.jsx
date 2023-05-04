@@ -7,7 +7,7 @@ function Message({ message }) {
         <div
             className={`${
                 message.botGen ? send : recived
-            } text-xs p-2 m-1 rounded-md`}
+            } text-xs p-2 m-1 rounded-xl max-w-[180px]`}
         >
             {message.content}
         </div>
