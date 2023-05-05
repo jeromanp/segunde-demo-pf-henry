@@ -10,10 +10,27 @@ export default function CheckOutForm({ price, night, extra }) {
         guests: 0,
         checkin: null,
         checkout: null,
+        roomId: "",
     });
+    const [rooms, setRooms] = useState([]);
+    const [roomIsPending, setRoomIsPending] = useState(true);
     useEffect(() => {
-        console.log(filters);
-    }, [filters]);
+        const getRooms = async () => {
+            const response = await fetch("/api/cabanas");
+            const data = await response.json();
+            setRooms(data);
+            setRoomIsPending(false);
+        };
+        getRooms();
+    }, []);
+
+    // useEffect(() => {
+    //     console.log(rooms);
+    // }, [rooms]);
+
+    // useEffect(() => {
+    //     console.log(filters);
+    // }, [filters]);
 
     const clickHandler = async () => {
         if (session === null) {
@@ -29,7 +46,7 @@ export default function CheckOutForm({ price, night, extra }) {
                     checkout: filters.checkout,
                     adults: filters.guests,
                     user_id: session.user.id,
-                    room_id: "d2282ae3-9224-44f3-a3b2-1a96f9f650fb",
+                    room_id: filters.roomId,
                 }),
             });
             const data = await response.json();
@@ -37,11 +54,33 @@ export default function CheckOutForm({ price, night, extra }) {
         }
     };
 
+    const selectHandler = (e) => {
+        setFilters({
+            ...filters,
+            roomId: e.target.value,
+        });
+    };
+
     return (
         <div className="w-1/3">
-            <select className="text-brand-green font-bold text-4xl">
-                <option>Cabaña I</option>
+            <select
+                className="text-brand-green font-bold text-4xl"
+                onChange={selectHandler}
+            >
+                {roomIsPending
+                    ? "..."
+                    : rooms.map((room, index) => {
+                          return (
+                              <option
+                                  key={`${room.name}+${index}-option-index`}
+                                  value={room.id}
+                              >
+                                  {room.name}
+                              </option>
+                          );
+                      })}
             </select>
+
             <div className="pt-4">
                 <div className="border-2 rounded-3xl border-brand-light-green shadow-lg p-6">
                     <h2 className="text-brand-green font-bold text-3xl pt-2">
