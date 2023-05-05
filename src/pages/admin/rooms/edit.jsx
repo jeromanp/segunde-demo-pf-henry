@@ -6,10 +6,10 @@ export default function Edit()
 	return (
 		<Layout>
 			<Header 
-				title="Editar cabana"
+				title="Editar cabaña"
 				breadcrumbs={(<>
 					<li>/</li>
-					<li className="text-primary">Editar cabana</li>
+					<li className="text-primary">Editar cabaña</li>
 				</>)}>
 			</Header>
 
