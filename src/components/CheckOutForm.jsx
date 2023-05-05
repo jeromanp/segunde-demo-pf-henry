@@ -1,8 +1,18 @@
 import Datepicker from "./form/Datepicker";
 import GuestsSelector from "./form/GuestsSelector";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { useRouter } from "next/router";
 
-export default function CheckOutForm({ price, night, extra }) {
+loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
+
+export default function CheckOutForm({
+  productId,
+  price,
+  night,
+  extra,
+  default_price,
+}) {
   // Este estado solo lo copie y pegue, para que no me de error el GuestSelector
   const [filters, setFilters] = useState({
     guests: 0,
@@ -10,8 +20,31 @@ export default function CheckOutForm({ price, night, extra }) {
     checkout: null,
   });
 
+  const router = useRouter();
+  const { success, canceled } = router.query;
+
+  useEffect(() => {
+    // Check to see if this is a redirect back from Checkout
+    // const query = new URLSearchParams(window.location.search);
+    if (success !== undefined || canceled !== undefined) {
+      if (success) {
+        console.log("Order placed! You will receive an email confirmation.");
+      }
+
+      if (canceled) {
+        console.log(
+          "Order canceled -- continue to shop around and checkout when you’re ready."
+        );
+      }
+    }
+  }, [success, canceled]);
+
   return (
-    <form className="w-1/3">
+    <form
+      className="w-1/3"
+      action={`/api/checkout_sessions?price_id=${productId}&night=${night}&subscription=true`}
+      method="POST"
+    >
       <select className="text-brand-green font-bold text-4xl">
         <option>Cabaña I</option>
       </select>
@@ -49,7 +82,13 @@ export default function CheckOutForm({ price, night, extra }) {
           </div>
 
           <div className="bg-brand-light-green border rounded-xl text-center w-full">
-            <button className="text-white text-xl font-medium p-2">Reservar</button>
+            <button
+              className="text-white text-xl font-medium p-2"
+              type="submit"
+              role="link"
+            >
+              Reservar
+            </button>
           </div>
 
           <section className="pt-8">
@@ -68,7 +107,7 @@ export default function CheckOutForm({ price, night, extra }) {
             <div className="border-2 border-brand-cream rounded-full"></div>
             <div className="flex justify-between text-2xl font-semibold pt-6 pb-10">
               <h2>Total</h2>
-              <p>${price * night + extra} USD</p>
+              <p>${price*night+extra} USD</p>
             </div>
           </section>
         </div>
