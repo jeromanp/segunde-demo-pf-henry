@@ -1,17 +1,12 @@
 import CheckOutForm from "components/CheckOutForm";
 import LayoutMain from "layouts/Layout";
+import { useState } from "react";
+import { supabase } from "utils/supabase";
 
-import { useEffect, useState } from "react";
-
-export default function CheckOut() {
+export default function CheckOut({ room }) {
     //Para controlar si la pagina no termino de cargar
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        //La ruta debe ser accedida solo por usuarios logueados
-        //No es instantaneo asi q llega a mostrarse la pagina y despues redirige
-        //Algo para arreglar despues
-    }, []);
     const mock = {
         price: 19,
         night: 7,
@@ -32,6 +27,7 @@ export default function CheckOut() {
                         />
                     </button>
                     <CheckOutForm
+                        name={room.name}
                         price={mock.price}
                         night={mock.night}
                         extra={mock.extra}
@@ -45,4 +41,26 @@ export default function CheckOut() {
             </LayoutMain>
         </>
     );
+}
+
+export async function getServerSideProps({ params }) {
+    const { id } = params;
+
+    const { data: room, error } = await supabase
+        .from("rooms")
+        .select("*")
+        .eq("id", id);
+    // .single();
+
+    if (error) {
+        return {
+            notFound: true,
+        };
+    }
+
+    return {
+        props: {
+            room: room[0],
+        },
+    };
 }

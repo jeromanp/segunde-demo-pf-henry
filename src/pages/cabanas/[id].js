@@ -2,9 +2,11 @@ import { supabase } from "utils/supabase";
 import Layout from "../../layouts/Layout.jsx";
 import Link from "next/link";
 import Slider from "react-slick";
+import { useSession } from "@supabase/auth-helpers-react";
 
 export default function Room({ room }) {
   const description = room.description.replace(/,|\./g, "");
+  const session = useSession()
   // console.log(room);
   const settings = {
     customPaging: function (i) {
@@ -38,8 +40,8 @@ export default function Room({ room }) {
           <p className="flex flex-wrap w-11/12 self-center md:w-auto max-w-fit my-4 pl-4 py-2 rounded-xl bg-gray-50 shadow-lg">
             Precio: {room.price} ARS / día
           </p>
-          <div className="btn-yellow w-24 self-center">
-            <Link href="#">Reservar</Link>
+          <div className="btn-yellow  self-center">
+            {session ? <Link href={`/checkout/${room.id}`}>Reservar</Link> : <Link href="/login">Iniciar sesión</Link>}
           </div>
         </div>
         <div className="w-5/6 md:w-1/3 md:m-auto mb-5 m-auto">
