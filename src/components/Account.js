@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Avatar from "./Avatar";
+import Swal from "sweetalert2";
 
 export default function Account({ session }) {
   const supabase = useSupabaseClient();
@@ -9,6 +10,22 @@ export default function Account({ session }) {
   const [username, setUsername] = useState("");
   const [fullName, setFullName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
+
+  const successSwal = {
+    title: 'Perfil actualizado',
+    icon: 'success',
+  };
+
+  const errorSwal = {
+    title: 'Algo salió mal :(',
+    icon: 'warning',
+  };
+
+  const fatalErrorSwal = {
+    title: 'No pudimos cargar tu perfil',
+    icon: 'warning',
+    confirmButtonText: 'Volver'
+  };
 
   useEffect(() => {
     getProfile();
@@ -27,14 +44,14 @@ export default function Account({ session }) {
       if (error && status !== 406) {
         throw error;
       }
-
       if (data) {
         setUsername(data.username);
         setFullName(data.full_name);
         setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
-      alert("Error loading user data!");
+      Swal.fire(fatalErrorSwal)
+      .then(() => window.history.back())
       console.log(error);
     } finally {
       setLoading(false);
@@ -47,7 +64,7 @@ export default function Account({ session }) {
 
       const updates = {
         id: user.id,
-        username : username,
+        username: username,
         full_name,
         avatar_url,
         updated_at: new Date().toISOString(),
@@ -55,9 +72,9 @@ export default function Account({ session }) {
 
       let { error } = await supabase.from("profiles").upsert(updates);
       if (error) throw error;
-      alert("Profile updated!");
+      Swal.fire(successSwal);
     } catch (error) {
-      alert("Error updating the data!");
+      Swal.fire(errorSwal);
       console.log(error);
     } finally {
       setLoading(false);
@@ -69,11 +86,11 @@ export default function Account({ session }) {
       {fullName ? (
         <h1 className="text-2xl font-bold mb-4">Welcome {fullName}</h1>
       ) : username ? (
-        <h1 className="text-2xl font-bold mb-4">Welcome {username }!!</h1>
+        <h1 className="text-2xl font-bold mb-4">Welcome {username}!!</h1>
       ) : (
         <h1 className="text-2xl font-bold mb-4">Welcome!!</h1>
       )}
-  
+
       <Avatar
         uid={user.id}
         url={avatarUrl}
@@ -119,7 +136,7 @@ export default function Account({ session }) {
           className="bg-gray-100 border border-gray-300 rounded px-3 py-2 w-full"
         />
       </div>
-  
+
       <div className="mb-4">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block w-full"
@@ -135,7 +152,7 @@ export default function Account({ session }) {
           {loading ? "Loading ..." : "Update"}
         </button>
       </div>
-  
+
       <div>
         <button
           className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded block w-full"

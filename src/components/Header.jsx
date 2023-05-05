@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useSession, useUser } from "@supabase/auth-helpers-react";
 
 
 export default function Header(props) {
-    const user = useUser();
+    const session = useSession();
     const [navActive, setNavActive] = useState(false);
     const [navbarClassName, setNavbarClassName] = useState("");
 
@@ -104,9 +104,14 @@ export default function Header(props) {
                                         </ul>
                                     </button>
                                 </li>
-                                <li className="select-none relative">
-                                    <Link href="/login">Log In</Link>
-                                </li>
+                                {session
+                                    ? <li className="select-none relative">
+                                        <Link href="/login">Perfil</Link>
+                                    </li>
+                                    : <li className="select-none relative">
+                                        <Link href="/login">Log In</Link>
+                                    </li>
+                                }
 
                                 <style jsx>{`
                                         .select-none:focus .absolute {
