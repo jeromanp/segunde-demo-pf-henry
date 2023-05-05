@@ -3,7 +3,13 @@ import Datepicker from "./form/Datepicker";
 import GuestsSelector from "./form/GuestsSelector";
 import { useEffect, useState } from "react";
 
-export default function CheckOutForm({ name, price, night, extra }) {
+export default function CheckOutForm({
+  productId,
+  name, price,
+  night,
+  extra,
+  default_price,
+}) {
     // Este estado solo lo copie y pegue, para que no me de error el GuestSelector
     const session = useSession();
     const [filters, setFilters] = useState({
