@@ -57,7 +57,7 @@ export default function Dashboard()
 										</td>
 										<td className="border-b border-[#eee] py-5 px-4">
 											<div className="flex items-center space-x-3.5">
-												<a className="hover:text-primary" href="edit-cabana.html">
+												<a className="hover:text-primary" href="/admin/rooms/edit">
 													<i className="ri-edit-line text-xl leading-none"></i>
 												</a>
 												<button className="hover:text-primary">
