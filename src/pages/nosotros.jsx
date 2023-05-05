@@ -19,9 +19,9 @@ export default function AboutUs(){
 	return (
 		<Layout>
 			<div className="container mx-auto px-6 xl:px-0">
-				<div className="grid gap-10 lg:grid-cols-12">
+				<div className="grid gap-10 lg:grid-cols-12 pt-10 pb-14">
 				
-					<div className="order-2 lg:col-span-6">
+					<div className="order-2 pl-4 lg:col-span-6">
 						<h2 
 							className="text-brand-green text-3xl font-bold 
 													leading-none pt-14 
@@ -41,7 +41,7 @@ export default function AboutUs(){
 													lg:items-center lg:col-span-6
 													lg:max-w-md">
 						<img 
-							src="/about.webp" 
+							src="/about.svg" 
 							alt="Imagen representativa de sobre nosotros"
 							className="lg:w-full" />
 					</div>
