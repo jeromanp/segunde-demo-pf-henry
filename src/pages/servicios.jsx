@@ -45,11 +45,11 @@ export default function Services(){
 													max-w-xs mx-auto">
 								
 								<div 
-									className="h-24">
+									className="h-36">
 									<img 
 										src={ e.icon } 
 										alt={ `Icono ${e.title}` }
-										className="h-24 object-cover" />
+										className="h-32 object-cover" />
 								</div>
 								
 								<h3 

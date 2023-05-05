@@ -41,8 +41,8 @@ export default function Dashboard()
 							<TableHead data={table_head} />
 							
 							<tbody>
-								{[1,2,3,4,5,6,7,8,9,10].map(() => (
-									<tr>
+								{[1,2,3,4,5,6,7,8,9,10].map(e => (
+									<tr key={e}>
 										<td 
 											className="border-b border-[#eee] py-5 px-4">
 											<h5 

@@ -4,7 +4,7 @@ export default function CardSkeleton() {
       <div className="relative w-80 h-56 flex-shrink-0 p-4">
         <div className="bg-brand-cream dark:bg-brand-brown animate-pulse rounded-2xl w-full h-full flex items-center justify-center">
           <svg
-            class="w-12 h-12 text-brand-cream dark:text-brand-olive"
+            className="w-12 h-12 text-brand-cream dark:text-brand-olive"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
             fill="currentColor"
