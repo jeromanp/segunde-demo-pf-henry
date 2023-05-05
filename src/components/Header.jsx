@@ -63,11 +63,11 @@ export default function Header(props) {
                                     <Link href="/servicios">Servicios</Link>
                                 </li>
 
-                                <li className="relative">
+                                <li className="relative select-none">
                                     <button className="select-none">
 
                                         <div>Nosotros</div>
-                                        <ul className="text-left text-base absolute bg-brand-brown rounded shadow-md p-2 transition-opacity opacity-0">
+                                        <ul className="text-left text-base absolute bg-brand-brown rounded shadow-md p-2 hidden">
                                             <li className="hover:bg-brand-olive transition-colors p-1 rounded">
                                                 <Link href="/nosotros">
                                                     About
@@ -82,15 +82,15 @@ export default function Header(props) {
                                     </button>
                                 </li>
 
-                                <li className="select-none z-10">
+                                <li className="select-none">
                                     <Link href="/contacto">Contacto</Link>
                                 </li>
 
-                                <li className="relative">
+                                <li className="relative select-none">
                                     <button className="select-none">
 
                                         <div>Ayuda</div>
-                                        <ul className="text-left text-base absolute bg-brand-brown rounded shadow-md p-2 transition-opacity opacity-0">
+                                        <ul className="text-left text-base absolute bg-brand-brown rounded shadow-md p-2 hidden">
                                             <li className="hover:bg-brand-olive transition-colors p-1 rounded">
                                                 <Link href="/faqs">
                                                     FAQs
@@ -115,8 +115,8 @@ export default function Header(props) {
 
                                 <style jsx>{`
                                         .select-none:focus .absolute {
-                                            opacity: 1;
-                                            z-index: 20;
+                                            display: block;
+                                            z-index: 10;
                                         }
                                     `}</style>
                             </ul>
