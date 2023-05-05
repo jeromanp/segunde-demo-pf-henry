@@ -10,22 +10,26 @@ import people from "../../public/people.svg";
 import initStripe from "stripe";
 
 export default function Cabins({ plans }) {
+  console.log(plans);
   const [cabins, setCabins] = useState([]);
 
   useEffect(() => {
     async function getCabins() {
       const response = await axios.get("/api/cabanas");
-      const cabinPrices = plans.filter((plan) => plan.interval === "month");
-
+  
+       const pricesMap = plans.reduce((map, plan) => {
+        map[plan.name] = plan.price / 100;
+        return map;
+      }, {});
+  
       const cabinsWithPrices = response.data.map((cabin, index) => ({
         ...cabin,
-        price:
-          cabinPrices.find((plan) => plan.name === cabin.name)?.price / 100,
+        price: pricesMap[cabin.name] || null,
       }));
-
+  
       setCabins(cabinsWithPrices);
     }
-
+  
     getCabins();
   }, []);
 
@@ -154,8 +158,8 @@ export const getStaticProps = async () => {
         id: price.id,
         name: product.name,
         price: price.unit_amount,
-        interval: price.recurring.interval,
-        currency: price.currency,
+        // interval: price.recurring.interval,
+        // currency: price.currency,
       };
     })
   );
