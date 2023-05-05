@@ -1,6 +1,6 @@
 import Layout from '../../../layouts/DashboardLayout'
 import Header from '../../../components/dashboard/PageHeader'
-import RoomForm from 'components/form/admin/roomForm'
+import RoomForm from 'components/form/admin/RoomForm'
 
 export default function Create()
 {
