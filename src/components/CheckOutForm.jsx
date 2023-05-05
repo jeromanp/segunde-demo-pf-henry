@@ -3,7 +3,7 @@ import Datepicker from "./form/Datepicker";
 import GuestsSelector from "./form/GuestsSelector";
 import { useEffect, useState } from "react";
 
-export default function CheckOutForm({ price, night, extra }) {
+export default function CheckOutForm({ name, price, night, extra }) {
     // Este estado solo lo copie y pegue, para que no me de error el GuestSelector
     const session = useSession();
     const [filters, setFilters] = useState({
@@ -33,9 +33,6 @@ export default function CheckOutForm({ price, night, extra }) {
     // }, [filters]);
 
     const clickHandler = async () => {
-        if (session === null) {
-            alert("No esta logueado");
-        } else {
             const response = await fetch("/api/booking", {
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
                 headers: {
@@ -51,7 +48,6 @@ export default function CheckOutForm({ price, night, extra }) {
             });
             const data = await response.json();
             console.log(data);
-        }
     };
 
     const selectHandler = (e) => {
@@ -63,23 +59,13 @@ export default function CheckOutForm({ price, night, extra }) {
 
     return (
         <div className="w-1/3">
-            <select
+                <h2
                 className="text-brand-green font-bold text-4xl"
                 onChange={selectHandler}
-            >
-                {roomIsPending
-                    ? "..."
-                    : rooms.map((room, index) => {
-                          return (
-                              <option
-                                  key={`${room.name}+${index}-option-index`}
-                                  value={room.id}
-                              >
-                                  {room.name}
-                              </option>
-                          );
-                      })}
-            </select>
+                >
+                    {name}
+                </h2>
+           
 
             <div className="pt-4">
                 <div className="border-2 rounded-3xl border-brand-light-green shadow-lg p-6">
@@ -145,7 +131,7 @@ export default function CheckOutForm({ price, night, extra }) {
 
                     <div className="bg-brand-light-green border rounded-xl text-center w-full">
                         <button
-                            className="text-white text-xl font-medium p-2"
+                            className="text-white text-xl font-medium p-2 w-full"
                             onClick={clickHandler}
                         >
                             Reservar
