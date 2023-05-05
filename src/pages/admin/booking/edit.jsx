@@ -6,7 +6,7 @@ export default function Edit()
 	return (
 		<Layout>
 			<Header 
-				title="Editar huésped"
+				title="Editar reserva"
 				breadcrumbs={(<>
 					<li>/</li>
 					<li className="text-primary">Editar Reserva</li>
@@ -104,12 +104,12 @@ export default function Edit()
                   <button
                     className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
                     type="submit">
-                      Cancel
+                      Cancelar
                   </button>
                   <button
                     className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
                     type="submit">
-                      Save
+                      Guardar
                   </button>
                 </div>
               </form>
