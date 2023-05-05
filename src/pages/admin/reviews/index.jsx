@@ -23,6 +23,12 @@ export default function Dashboard()
 					<li>/</li>
 					<li className="text-primary">Reviews</li>
 				</>)}>
+
+				<Link 
+					href="/admin/reviews/create"
+					className="inline-flex items-center justify-center rounded-md bg-primary bg-opacity-70 py-1.5 px-4 text-sm text-center font-medium text-white hover:bg-opacity-90">
+					Nueva reseña
+				</Link>
 			</Header>
 
 
