@@ -63,17 +63,14 @@ export default function Dashboard()
 											<div className="flex items-center space-x-3.5">
 												<Link className="hover:text-primary" href="detail-reserva.html">
 													<i className="ri-file-text-line text-xl leading-none"></i>
-												</Link>
-												{/* 
-												<a className="hover:text-primary" href="edit-reservas.html">
+												</Link>												
+												<a className="hover:text-primary" href="/admin/booking/edit">
 													<i className="ri-edit-line text-xl leading-none"></i>
 												</a> 
-												*/}
-												{/* 
 												<button className="hover:text-primary">
 													<i className="ri-close-circle-line text-xl leading-none"></i>
 												</button> 
-												*/}
+												
 											</div>
 										</td>
 									</tr>
