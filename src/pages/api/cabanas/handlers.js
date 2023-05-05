@@ -40,10 +40,10 @@ export async function handlerPut(req, res) {
 }
 
 export async function handlerDelete(req, res) {
-  const body = req.body;
+  const { id } = req.query;
 
   try {
-    const response = await Controllers.deleteRoom(body);
+    const response = await Controllers.deleteRoom(id);
     return res.status(200).json({ message: "Room successfully removed" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
