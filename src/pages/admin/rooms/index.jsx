@@ -5,6 +5,7 @@ import Link from "next/link";
 import { supabase } from "utils/supabase";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import swalAction from "components/dashboard/swalAction";
 
 const table_head = [
   { idx: "image", title: "" },
@@ -37,15 +38,13 @@ export default function Dashboard({ rooms }) {
     return counter;
   };
 
-  const handleDelete = async (id) => {
-    const confirmation = window.confirm(
-      "¿Está seguro que desea eliminar este registro?"
+  const deleteHandler = async (e) => {
+    swalAction(
+      'cabaña',
+      e.target.value,
+      setRoomList,
+      roomList,
     );
-    if (confirmation) {
-      await axios.delete(`/api/cabanas/${id}`);
-      alert(`La cabana ha sido eliminada correctamente`);
-      setRoomList(roomList.filter((room) => room.id !== id));
-    }
   };
 
   return (
@@ -98,10 +97,10 @@ export default function Dashboard({ rooms }) {
                             <i className="ri-edit-line text-xl leading-none"></i>
                           </a>
                           <button
-                            onClick={() => handleDelete(room.id)}
-                            className="hover:text-primary"
+                            onClick={deleteHandler}
+                            className="hover:text-primary ri-close-circle-line text-xl leading-none"
+                            value={room.id}
                           >
-                            <i className="ri-close-circle-line text-xl leading-none"></i>
                           </button>
                         </div>
                       </td>
