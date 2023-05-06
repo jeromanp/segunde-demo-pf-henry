@@ -15,12 +15,24 @@ const table_head = [
 
 export default function Dashboard() {
   const [reviews, setReviews] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     axios
       .get("/api/comments")
       .then((response) => {
         setReviews(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/api/profiles")
+      .then((response) => {
+        setUsers(response.data);
       })
       .catch((error) => {
         console.log(error);
