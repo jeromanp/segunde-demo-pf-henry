@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { useState } from "react"
 
-export default function UserForm() {
+export default function UserForm({ user }) {
     const [inputs, setInputs] = useState({
-        email: '',
-        username: '',
-        full_name: '',
-        country: '',
-        phone: 0,
+        email: user?.email || '',
+        username: user?.username || '',
+        full_name: user?.full_name || '',
+        country: user?.country ||  '',
+        phone: user?.phone || 0,
     })
 
     const changeHandler = (e) => {
@@ -20,6 +20,11 @@ export default function UserForm() {
 
     const submitHandler = (e) => {
         e.preventDefault();
+        if (user?.id) {
+            // actualizar
+        } else {
+            // crear
+        }
     }
 
     return (

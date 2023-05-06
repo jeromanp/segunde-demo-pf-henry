@@ -90,12 +90,12 @@ export default function Dashboard({ rooms }) {
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4">
                         <div className="flex items-center space-x-3.5">
-                          <a
+                          <Link
                             className="hover:text-primary"
-                            href={`/admin/rooms/edit?id=${room.id}`}
+                            href={`/admin/rooms/${room.id}`}
                           >
                             <i className="ri-edit-line text-xl leading-none"></i>
-                          </a>
+                          </Link>
                           <button
                             onClick={deleteHandler}
                             className="hover:text-primary ri-close-circle-line text-xl leading-none"

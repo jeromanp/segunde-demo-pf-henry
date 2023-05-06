@@ -1,23 +1,23 @@
 import { useState } from "react";
 import Link from "next/link";
 
-export default function RoomForm() {
+export default function RoomForm({ room }) {
     const types = ['A', 'B', 'C'];
     const [inputs, setInputs] = useState({
-        nombre: '',
-        tipo: 'A',
-        habitaciones: 1,
-        capacidad: 1,
-        dormitorios: 1,
-        baños: 1,
-        precio: 1000,
+        name: room?.name || '',
+        type: room?.type || 'A',
+        rooms: room?.rooms || 1,
+        capacity: room?.capacity || 1,
+        beds: room?.beds || 1,
+        bathrooms: room?.bathrooms || 1,
+        price: room?.price || 1000,
         servicios: {
             horno_microondas: true,
             heladera: true,
             cocina: true,
             vajilla: true,
         },
-        descripcion: '',
+        description: room?.description || '',
     })
 
     const changeHandler = (e) => {
@@ -40,22 +40,27 @@ export default function RoomForm() {
 
     const submitHandler = (e) => {
         e.preventDefault();
+        if (room?.id) {
+            // actualizar
+        } else {
+            // crear
+        }
     }
 
     return (
         <form onSubmit={submitHandler}>
             <div className="grid gap-y-6">
                 <div className="">
-                    <label htmlFor="nombre" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor="name" className="mb-3 block text-sm font-medium text-black dark:text-white">
                         Nombre
                     </label>
 
                     <input
                         className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="text"
-                        name="nombre"
-                        id="nombre"
-                        value={inputs.nombre}
+                        name="name"
+                        id="name"
+                        value={inputs.name}
                         onChange={changeHandler}
                     />
                 </div>
@@ -69,7 +74,7 @@ export default function RoomForm() {
                         <div key={i} className="relative flex items-center">
                             <input
                                 type="radio"
-                                name="tipo"
+                                name="type"
                                 id={type}
                                 value={type}
                                 className="checked:bg-slate-500 h-5 w-5 mr-1 border cursor-pointer appearance-none rounded-full"
@@ -82,31 +87,31 @@ export default function RoomForm() {
 
                 <div className="grid gap-5 sm:grid-cols-2">
                     <div className="">
-                        <label htmlFor="habitaciones" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label htmlFor="rooms" className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Habitaciones
                         </label>
 
                         <input
                             className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                             type="number"
-                            name="habitaciones"
-                            id="habitaciones"
-                            value={inputs.habitaciones}
+                            name="rooms"
+                            id="rooms"
+                            value={inputs.rooms}
                             onChange={changeHandler}
                         />
                     </div>
 
                     <div className="">
-                        <label htmlFor="capacidad" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label htmlFor="capacity" className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Capacidad (personas)
                         </label>
 
                         <input
                             className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                             type="number"
-                            name="capacidad"
-                            id="capacidad"
-                            value={inputs.capacidad}
+                            name="capacity"
+                            id="capacity"
+                            value={inputs.capacity}
                             onChange={changeHandler}
                         />
                     </div>
@@ -114,38 +119,38 @@ export default function RoomForm() {
 
                 <div className="grid gap-5 sm:grid-cols-2">
                     <div className="">
-                        <label htmlFor="dormitorios" className="mb-3 block text-sm font-medium text-black dark:text-white">
-                            Dormitorios
+                        <label htmlFor="beds" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                            Camas
                         </label>
 
                         <input
                             className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                             type="number"
-                            name="dormitorios"
-                            id="dormitorios"
-                            value={inputs.dormitorios}
+                            name="beds"
+                            id="beds"
+                            value={inputs.beds}
                             onChange={changeHandler}
                         />
                     </div>
 
                     <div className="">
-                        <label htmlFor="baños" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label htmlFor="bathrooms" className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Baños
                         </label>
 
                         <input
                             className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                             type="number"
-                            name="baños"
-                            id="baños"
-                            value={inputs.baños}
+                            name="bathrooms"
+                            id="bathrooms"
+                            value={inputs.bathrooms}
                             onChange={changeHandler}
                         />
                     </div>
                 </div>
 
                 <div className="">
-                    <label htmlFor='precio' className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor='price' className="mb-3 block text-sm font-medium text-black dark:text-white">
                         Precio
                     </label>
 
@@ -157,9 +162,9 @@ export default function RoomForm() {
                         <input
                             className="w-full rounded border border-stroke bg-gray py-3 pl-8 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                             type="number"
-                            name="precio"
-                            id="precio"
-                            value={inputs.precio}
+                            name="price"
+                            id="price"
+                            value={inputs.price}
                             onChange={changeHandler}
                         />
                     </div>
@@ -216,15 +221,15 @@ export default function RoomForm() {
                 </div>
 
                 <div className="">
-                    <label htmlFor="descripcion" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor="description" className="mb-3 block text-sm font-medium text-black dark:text-white">
                         Descripción
                     </label>
                     <textarea
                         className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black resize-none focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                        name="descripcion"
-                        id="descripcion"
+                        name="description"
+                        id="description"
                         rows="6"
-                        value={inputs.descripcion}
+                        value={inputs.description}
                         onChange={changeHandler}
                     >
                     </textarea>
