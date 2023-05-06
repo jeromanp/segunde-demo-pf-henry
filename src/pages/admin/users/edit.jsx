@@ -14,10 +14,10 @@ export default function Edit()
 				</>)}>
 			</Header>
 
-      <div class="flex justify-center">
-				<div class="col-span-5 xl:col-span-3 w-1/2">
-          <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div class="p-7">
+      <div className="flex justify-center">
+				<div className="col-span-5 xl:col-span-3 w-1/2">
+          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="p-7">
               <UserForm />
             </div>
           </div>
