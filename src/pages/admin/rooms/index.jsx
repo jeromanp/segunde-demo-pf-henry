@@ -4,7 +4,7 @@ import TableHead from "../../../components/dashboard/tables/TableHead";
 import Link from "next/link";
 import { supabase } from "utils/supabase";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const table_head = [
   { idx: "image", title: "" },
@@ -19,6 +19,23 @@ const table_head = [
 
 export default function Dashboard({ rooms }) {
   const [roomList, setRoomList] = useState(rooms);
+  const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/api/booking")
+      .then((response) => {
+        setBookings(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const totalBookings = (id) => {
+    const counter = bookings.filter((booking) => booking.room_id === id).length;
+    return counter;
+  };
 
   const handleDelete = async (id) => {
     const confirmation = window.confirm(
@@ -67,10 +84,10 @@ export default function Dashboard({ rooms }) {
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4">
                         <h5 className="font-medium text-black">{room.name}</h5>
-                        <p className="text-sm">Disponible?</p>
+                        <p className="text-sm">disponible?</p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4">
-                        <p className="text-black">estadisticas?</p>
+                        <p className="text-black">{totalBookings(room.id)}</p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4">
                         <div className="flex items-center space-x-3.5">
