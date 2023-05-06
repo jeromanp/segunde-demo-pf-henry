@@ -46,6 +46,10 @@ export default function Dashboard() {
     }
   };
 
+  const deleteHandler = (e) => {
+    
+  }
+
   return (
     <Layout>
       <Header
@@ -100,8 +104,9 @@ export default function Dashboard() {
                           >
                             <i className="ri-edit-line text-xl leading-none"></i>
                           </a>
-                          <button className="hover:text-primary">
-                            <i className="ri-close-circle-line text-xl leading-none"></i>
+                          <button className="hover:text-primary ri-close-circle-line text-xl leading-none"
+                            onClick={deleteHandler}
+                            value={review.id}>
                           </button>
                         </div>
                       </td>
