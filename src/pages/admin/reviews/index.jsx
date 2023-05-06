@@ -4,6 +4,7 @@ import TableHead from "../../../components/dashboard/tables/TableHead";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import swalAction from "components/dashboard/swalAction";
 
 const table_head = [
   { idx: "nombre", title: "Nombre", width: "220px" },
@@ -59,7 +60,12 @@ export default function Dashboard() {
   };
 
   const deleteHandler = (e) => {
-    
+    swalAction(
+      'comentario',
+      e.target.value,
+      setReviews,
+      reviews
+    )
   }
 
   return (
