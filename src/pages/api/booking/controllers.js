@@ -12,7 +12,10 @@ export const getAllBooking = async () => {
 export const getBookingById = async (id) => {
   const { data: room, error } = await supabase
     .from("booking")
-    .select(`*`)
+    // De preferencia, hacer esta funcion dinamica
+    // De forma que pueda pedirte solo los bookings, o bookings con sus rooms,
+    // O bookings con sus rooms y sus usuarios, etc, con todas las rutas
+    .select(`*, rooms(name), profiles(full_name, email)`)
     .eq("id", id)
     .single();
   if (error) {
