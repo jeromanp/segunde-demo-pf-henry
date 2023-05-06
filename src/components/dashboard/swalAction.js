@@ -12,6 +12,13 @@ import Swal from "sweetalert2";
  */
 
 export default function swalAction(instancia, id, setter, data, route) {
+    // Para saber si la instancia es el o la
+    const articulo =
+        instancia.slice(-1) === 'a'
+            ? 'la'
+            : 'el';
+
+    // Lanza el swal principal
     Swal.fire({
         title: '¿Que acción querés tomar?',
         icon: 'question',
@@ -25,26 +32,21 @@ export default function swalAction(instancia, id, setter, data, route) {
         cancelButtonText: 'Ninguna',
         reverseButtons: true,
         preConfirm: async () => {
-            // suspender instancia
+            // suspende instancia
         },
         preDeny: async () => {
-            // eliminar instancia
+            // elimina instancia
         }
     })
+    // Si no fue cancelado, actua (pre👆) y responde con otro swal
         .then((result) => {
-            if (result.isConfirmed) {
+            if (!result.isDismissed) {
                 Swal.fire({
-                    title: 'Suspendido!',
-                    text: `El ${instancia} deberá esperar.`,
+                    title: 'Listo!',
+                    text: `Se ${result.isConfirmed ? 'suspendió' : 'borró'} ${articulo} ${instancia}.`,
                     icon: 'success',
                 })
-                setter(data.filter((elem) => elem.id !== id))
-            } else if (result.isDenied) {
-                Swal.fire({
-                    title: 'Eliminado!',
-                    text: `El ${instancia} fue borrado.`,
-                    icon: 'success',
-                })
+                // Borra esa instancia de la lista en index
                 setter(data.filter((elem) => elem.id !== id))
             }
         })
