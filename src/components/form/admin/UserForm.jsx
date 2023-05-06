@@ -99,7 +99,7 @@ export default function UserForm() {
 
                         <input
                             className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                            type="text"
+                            type="number"
                             name="phone"
                             id="phone"
                             value={inputs.phone}
