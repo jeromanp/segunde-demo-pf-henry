@@ -47,8 +47,13 @@ export default function Dashboard() {
     const filteredBookings = bookings.filter(
       (booking) => booking.user_id === id
     );
-    const lastCheckOut = filteredBookings[filteredBookings.length - 1];
-    return lastCheckOut;
+    if (filteredBookings.length >= 1) {
+      const lastCheckOut =
+        filteredBookings[filteredBookings.length - 1].checkout;
+      return lastCheckOut;
+    } else {
+      return "no hay registros";
+    }
   };
   return (
     <Layout>
@@ -80,7 +85,9 @@ export default function Dashboard() {
                   users.map((user) => (
                     <tr key={user.id}>
                       <td className="border-b border-[#eee] py-5 px-4">
-                        <h5 className="font-medium text-black">{user.name}</h5>
+                        <h5 className="font-medium text-black">
+                          {user.name ? user.name : user.full_name}
+                        </h5>
                         <p className="text-sm">{user.email}</p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 pl-9 xl:pl-11">
