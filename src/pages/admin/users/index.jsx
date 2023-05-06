@@ -4,6 +4,7 @@ import TableHead from "../../../components/dashboard/tables/TableHead";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import swalAction from "components/dashboard/swalAction";
 
 const table_head = [
   { idx: "nombre", title: "Nombre", width: "220px" },
@@ -19,6 +20,7 @@ const table_head = [
 export default function Dashboard() {
   const [users, setUsers] = useState([]);
   const [bookings, setBookings] = useState([]);
+
   useEffect(() => {
     axios
       .get("/api/profile")
@@ -28,8 +30,7 @@ export default function Dashboard() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-  useEffect(() => {
+
     axios
       .get("/api/booking")
       .then((response) => {
@@ -39,10 +40,12 @@ export default function Dashboard() {
         console.log(error);
       });
   }, []);
+
   const totalBookings = (id) => {
     const counter = bookings.filter((booking) => booking.user_id === id).length;
     return counter;
   };
+
   const lastBooking = (id) => {
     const filteredBookings = bookings.filter(
       (booking) => booking.user_id === id
@@ -55,6 +58,16 @@ export default function Dashboard() {
       return "no hay registros";
     }
   };
+
+  const deleteHandler = (e) => {
+    swalAction(
+      'usuario',
+      e.target.value,
+      setUsers,
+      users,
+    )
+  }
+
   return (
     <Layout>
       <Header
@@ -82,8 +95,8 @@ export default function Dashboard() {
 
               <tbody>
                 {users &&
-                  users.map((user) => (
-                    <tr key={user.id}>
+                  users.map((user, i) => (
+                    <tr key={i}>
                       <td className="border-b border-[#eee] py-5 px-4">
                         <h5 className="font-medium text-black">
                           {user.name ? user.name : user.full_name}
@@ -104,8 +117,9 @@ export default function Dashboard() {
                           >
                             <i className="ri-edit-line text-xl leading-none"></i>
                           </a>
-                          <button className="hover:text-primary">
-                            <i className="ri-close-circle-line text-xl leading-none"></i>
+                          <button className="hover:text-primary ri-close-circle-line text-xl leading-none"
+                            onClick={deleteHandler}
+                            value={user.id}>
                           </button>
                         </div>
                       </td>
