@@ -1,9 +1,10 @@
 import Layout from '../../../layouts/DashboardLayout'
 import Header from '../../../components/dashboard/PageHeader'
 import UserForm from 'components/form/admin/UserForm'
+import { supabase } from 'utils/supabase'
 
-export default function Edit()
-{
+export default function Edit({user}) {
+
 	return (
 		<Layout>
 			<Header 
@@ -26,3 +27,24 @@ export default function Edit()
     </Layout>
 	)
 };
+
+export async function getServerSideProps({ params }) {
+	const { id } = params;
+  
+	const { data: user, error } = await supabase
+	  .from("profiles")
+	  .select("*")
+	  .eq("id", id);
+  console.log(user);
+	if (error) {
+	  return {
+		notFound: true,
+	  };
+	}
+  
+	return {
+	  props: {
+		user: user[0],
+	  },
+	};
+  }
