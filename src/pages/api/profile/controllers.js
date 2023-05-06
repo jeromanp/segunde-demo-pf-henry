@@ -1,57 +1,83 @@
-import {supabase} from "../../../utils/supabase"
+import { supabase } from "../../../utils/supabase";
 
 export const getAllProfile = async () => {
-    const { data: profile, error } = await supabase.from("profile").select();
-
+  const { data: rooms, error } = await supabase.from("profiles").select(`*`);
   if (error) {
-  //  console.log(error);
     throw error;
   }
-//  console.log(profile)
-  return profile;
-}
+  return rooms;
+};
 
-export const updateProfile = async ({
-    id,
-    name,
-    lastname,
+//El postProfile tiene un problema con el id, ya que este se genera desde auth
+
+export const postProfile = async ({
+  username,
+  full_name,
+  avatar_url,
+  email,
+  phone,
+  country,
+  role_id,
+}) => {
+  let id = uuidv4();
+  const { data: postProfile, error } = await supabase.from("profiles").insert([
+    {
+      id,
+      username,
+      full_name,
+      avatar_url,
+      email,
+      phone,
+      country,
+      role_id,
+    },
+  ]);
+  if (error) {
+    throw error;
+  }
+  return postProfile;
+};
+
+export const updateProfile = async (
+  id,
+  {
+    username,
+    full_name,
+    avatar_url,
+    email,
+    stripe_costumer,
     phone,
     country,
-    email,
-    role_id
-     
-  }) => {
-    const update_at = new Date();
-    const { data: updateProfile, error } = await supabase
-      .from("profile")
-      .update(
-        {
-          name,
-          lastname,
-          phone,
-          country,         
-          id,
-          email,
-          role_id : "7e0bea4c-140f-4777-b246-d68d4b93428a",
-          update_at,
-        },
-      )
-      .eq("id",id)
-      .select();
-    if (error) {
-      throw error;
-    }
- //   console.log(updateProfile);
-    return updateProfile;
-  };
-
-  export async function deleteProfile({ id }) {
-    const { data, error } = await supabase.from("profile").delete().eq("id", id);
-  
-    if (error) {
-//      console.log(error);
-      throw error;
-    }
-  
-    return data;
+    role_id,
   }
+) => {
+  const { data: updateProfile, error } = await supabase
+    .from("profiles")
+    .update({
+      username,
+      full_name,
+      avatar_url,
+      email,
+      stripe_costumer,
+      phone,
+      country,
+      role_id,
+    })
+    .eq("id", id)
+    .select();
+  if (error) {
+    throw error;
+  }
+  return updateProfile;
+};
+
+export async function deleteProfile(id) {
+  const { data: delProfile, error } = await supabase
+    .from("profiles")
+    .delete()
+    .eq("id", id);
+  if (error) {
+    throw error;
+  }
+  return delProfile;
+}
