@@ -16,6 +16,7 @@ const table_head = [
 export default function Dashboard() {
   const [bookings, setBookings] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -30,6 +31,7 @@ export default function Dashboard() {
       .get("/api/cabanas")
       .then((response) => {
         setRooms(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -75,7 +77,7 @@ export default function Dashboard() {
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4">
                         <h5 className="font-medium text-black">
-                          {handleRoom(booking.room_id)}
+                          {loading ? "" : handleRoom(booking.room_id)}
                         </h5>
                         <p className="text-sm">Lorem ipsum dolor sit.</p>
                       </td>
