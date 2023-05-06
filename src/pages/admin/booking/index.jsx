@@ -4,6 +4,7 @@ import TableHead from "../../../components/dashboard/tables/TableHead";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import swalAction from "components/dashboard/swalAction";
 
 const table_head = [
   { idx: "date", title: "Fecha", width: "220px" },
@@ -42,6 +43,15 @@ export default function Dashboard() {
     const room = rooms.find((room) => room.id === id);
     return room.name;
   };
+
+  const deleteHandler = (e) => {
+    swalAction(
+      'reserva',
+      e.target.value,
+      setBookings,
+      bookings
+    )
+  }
 
   return (
     <Layout>
@@ -95,16 +105,16 @@ export default function Dashboard() {
                           >
                             <i className="ri-file-text-line text-xl leading-none"></i>
                           </Link>
-                          <a
+                          <Link
                             className="hover:text-primary"
-                            href="/admin/booking/edit"
+                            href={`/admin/booking/${booking.id}`}
                           >
                             <i className="ri-edit-line text-xl leading-none"></i>
-                          </a>
+                          </Link>
                           <button
-                            // onClick={deleteHandler}
+                            onClick={deleteHandler}
                             className="hover:text-primary ri-close-circle-line text-xl leading-none"
-                            // value={room.id}
+                            value={booking.id}
                           ></button>
                         </div>
                       </td>
