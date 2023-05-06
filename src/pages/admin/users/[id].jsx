@@ -19,7 +19,7 @@ export default function Edit({user}) {
 				<div className="col-span-5 xl:col-span-3 w-1/2">
           <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="p-7">
-              <UserForm />
+              <UserForm user={user}/>
             </div>
           </div>
         </div>
@@ -35,8 +35,8 @@ export async function getServerSideProps({ params }) {
 	  .from("profiles")
 	  .select("*")
 	  .eq("id", id);
-  console.log(user);
-	if (error) {
+
+	  if (error) {
 	  return {
 		notFound: true,
 	  };
