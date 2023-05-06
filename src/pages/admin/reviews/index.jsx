@@ -98,12 +98,12 @@ export default function Dashboard() {
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 w-[220px]">
                         <div className="flex items-center space-x-3.5">
-                          <a
+                          <Link
                             className="hover:text-primary"
-                            href="/admin/reviews/edit"
+                            href={`/admin/reviews/${review.id}`}
                           >
                             <i className="ri-edit-line text-xl leading-none"></i>
-                          </a>
+                          </Link>
                           <button className="hover:text-primary ri-close-circle-line text-xl leading-none"
                             onClick={deleteHandler}
                             value={review.id}>

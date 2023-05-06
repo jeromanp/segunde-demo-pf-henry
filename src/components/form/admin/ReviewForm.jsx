@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function ReviewForm() {
+export default function ReviewForm({ review }) {
     const [inputs, setInputs] = useState({
-        username: '',
-        email: '',
-        stars: 3,
-        review: '',
-        approved: true,
+        username: review?.username || '',
+        email: review?.email || '',
+        stars: review?.stars || 3,
+        review: review?.review || '',
+        approved: review?.approved || true,
     })
 
     const handleChange = (e) => {
@@ -20,6 +20,11 @@ export default function ReviewForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (review?.id) {
+            // actualizar
+        } else {
+            // crear
+        }
     }
 
     return (
