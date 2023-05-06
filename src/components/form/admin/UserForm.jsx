@@ -1,106 +1,121 @@
-export default function UserForm() {
-    return (
-        <form action="#">
-            <div class="grid gap-y-6">
+import Link from "next/link";
+import { useState } from "react"
 
-                <div class="">
-                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">
+export default function UserForm() {
+    const [inputs, setInputs] = useState({
+        email: '',
+        username: '',
+        full_name: '',
+        country: '',
+        phone: 0,
+    })
+
+    const changeHandler = (e) => {
+        const { name, value } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value,
+        })
+    }
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+    }
+
+    return (
+        <form onSubmit={submitHandler}>
+            <div className="grid gap-y-6">
+
+                <div className="">
+                    <label htmlFor="email" className="mb-3 block text-sm font-medium text-black dark:text-white">
                         E-mail
                     </label>
 
                     <input
-                        class="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="email"
                         name="email"
                         id="email"
-                        value="E-mail"
+                        value={inputs.email}
+                        onChange={changeHandler}
                     />
                 </div>
 
-                <div class="">
-                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                        Nombre
+                <div className="">
+                    <label htmlFor="username" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        Apodo
                     </label>
 
                     <input
-                        class="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="text"
-                        name="UserName"
-                        id="UserName"
-                        value="User name"
+                        name="username"
+                        id="username"
+                        value={inputs.username}
+                        onChange={changeHandler}
                     />
                 </div>
 
-                <div class="grid gap-5 sm:grid-cols-2">
+                <div className="">
 
-                    <div class="">
-                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <div className="">
+                        <label htmlFor="full_name" className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Nombre Completo
                         </label>
 
                         <input
-                            class="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                             type="text"
-                            name="FullName"
-                            id="FullName"
-                            value="Full name"
+                            name="full_name"
+                            id="full_name"
+                            value={inputs.full_name}
+                            onChange={changeHandler}
                         />
                     </div>
 
-                    <div class="">
-                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                            Apellido
-                        </label>
-
-                        <input
-                            class="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                            type="text"
-                            name="Lastname"
-                            id="LastName"
-                            value="Last name"
-                        />
-                    </div>
                 </div>
 
-                <div class="grid gap-5 sm:grid-cols-2">
+                <div className="grid gap-5 sm:grid-cols-2">
 
-                    <div class="">
-                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <div className="">
+                        <label htmlFor="country" className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Pais
                         </label>
 
                         <input
-                            class="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                             type="text"
-                            name="Country"
-                            id="Country"
-                            value="Country"
+                            name="country"
+                            id="country"
+                            value={inputs.country}
+                            onChange={changeHandler}
                         />
                     </div>
 
-                    <div class="">
-                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <div className="">
+                        <label htmlFor="phone" className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Telefono
                         </label>
 
                         <input
-                            class="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                            type="text"
-                            name="Phone"
-                            id="Phone"
-                            value="Phone"
+                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            type="number"
+                            name="phone"
+                            id="phone"
+                            value={inputs.phone}
+                            onChange={changeHandler}
                         />
                     </div>
                 </div>
 
-                <div class="flex justify-end gap-4.5">
+                <div className="flex justify-end gap-4.5">
                     <button
-                        class="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
+                        className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
                         type="submit">
-                        Cancelar
+                        <Link href='/admin/users'>Cancelar</Link>
                     </button>
                     <button
-                        class="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
+                        className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
                         type="submit">
                         Guardar
                     </button>
