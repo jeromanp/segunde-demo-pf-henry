@@ -11,20 +11,19 @@ const table_head = [
 	{ idx: 'acciones', title: 'Acciones', with: '220px' },
 ]
 
-export default function Dashboard()
-{
+export default function Dashboard() {
 
 	return (
 		<Layout>
-			
-			<Header 
+
+			<Header
 				title="Reviews"
 				breadcrumbs={(<>
 					<li>/</li>
 					<li className="text-primary">Reviews</li>
 				</>)}>
 
-				<Link 
+				<Link
 					href="/admin/reviews/create"
 					className="inline-flex items-center justify-center rounded-md bg-primary bg-opacity-70 py-1.5 px-4 text-sm text-center font-medium text-white hover:bg-opacity-90">
 					Nueva reseña
@@ -36,48 +35,49 @@ export default function Dashboard()
 				<div
 					className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default  sm:px-7.5 xl:pb-1">
 					<div className="max-w-full overflow-x-auto">
-						
+
 						<table className="w-full table-auto">
 							<TableHead data={table_head} />
-							
+
 							<tbody>
-								{[1,2,3,4,5,6,7,8,9,10].map(() => (
+								{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
 									<tr>
-										<td 
+										<td
 											className="border-b border-[#eee] py-5 px-4 w-[220px]">
-											<h5 
+											<h5
 												className="font-medium text-black">Luke Skywalker</h5>
-											<p 
+											<p
 												className="text-sm">l.skywalker@lucasfilms.com</p>
 										</td>
-										<td 
+										<td
 											className="border-b border-[#eee] py-5 px-4 pl-9 xl:pl-11 w-[576px]">
-											<p 
+											<p
 												className="text-black">Cabanas confortables, limpias, funcionales. Zona muy tranquila especial para descansar.</p>
 										</td>
-										<td 
+										<td
 											className="border-b border-[#eee] py-5 px-4 w-[220px]">
-											<p 
+											<p
 												className="text-black">⭐⭐⭐⭐⭐</p>
 										</td>
-										<td 
+										<td
 											className="border-b border-[#eee] py-5 px-4 w-[220px]">
-											<p 
+											<p
 												className="text-black">May 13, 2023</p>
 										</td>
-										<td 
+										<td
 											className="border-b border-[#eee] py-5 px-4 w-[220px]">
-											<div 
+											<div
 												className="flex items-center space-x-3.5">
-												<a 
+												<a
 													className="hover:text-primary" href="/admin/reviews/edit">
-													<i 
+													<i
 														className="ri-edit-line text-xl leading-none"></i>
 												</a>
-												<button 
-													className="hover:text-primary">
-													<i 
-														className="ri-close-circle-line text-xl leading-none"></i>
+												<button
+													// onClick={deleteHandler}
+													className="hover:text-primary ri-close-circle-line text-xl leading-none"
+													// value={review.id}
+												>
 												</button>
 											</div>
 										</td>

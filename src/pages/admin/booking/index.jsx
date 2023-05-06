@@ -63,8 +63,11 @@ export default function Dashboard() {
 												<a className="hover:text-primary" href="/admin/booking/edit">
 													<i className="ri-edit-line text-xl leading-none"></i>
 												</a>
-												<button className="hover:text-primary">
-													<i className="ri-close-circle-line text-xl leading-none"></i>
+												<button
+													// onClick={deleteHandler}
+													className="hover:text-primary ri-close-circle-line text-xl leading-none"
+												// value={room.id}
+												>
 												</button>
 
 											</div>
