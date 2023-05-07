@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import Swal from "sweetalert2";
 
 export default function Avatar({ uid, url, size, onUpload }) {
   const supabase = useSupabaseClient();
   const [avatarUrl, setAvatarUrl] = useState("");
   const [uploading, setUploading] = useState(false);
+
+  const errorSwal = {
+    title: "No pudimos cargar tu imagen",
+    icon: "warning",
+  };
 
   useEffect(() => {
     if (url) downloadImage(url);
@@ -45,10 +51,9 @@ export default function Avatar({ uid, url, size, onUpload }) {
       if (uploadError) {
         throw uploadError;
       }
-
       onUpload(filePath);
     } catch (error) {
-      alert("Error uploading avatar!");
+      Swal.fire(errorSwal);
       console.log(error);
     } finally {
       setUploading(false);
@@ -61,21 +66,21 @@ export default function Avatar({ uid, url, size, onUpload }) {
         <img
           src={avatarUrl}
           alt="Avatar"
-          className="avatar image rounded-full bg-gray-200 p-2 border-2"
+          className="avatar image rounded-full border-brand-light-green p-2 border-2"
           style={{ height: size, width: size }}
         />
       ) : (
         <div
-          className="avatar no-image rounded-full bg-gray-200 p-2 border-2"
+          className="avatar no-image rounded-full border-brand-light-green p-2 border-2"
           style={{ height: size, width: size }}
         />
       )}
       <div style={{ width: size }}>
         <label
-          className="button primary block mt-2 bg-blue-500 text-white"
+          className="bg-brand-light-green button primary block mt-2 text-white font-bold text-center rounded-lg text-sm pt-1.5 pb-1.5"
           htmlFor="single"
         >
-          {uploading ? "Uploading ..." : "Upload"}
+          {uploading ? "Cargando ..." : "Cargar"}
         </label>
 
         <input
