@@ -3,8 +3,9 @@ import { supabase } from "../../../utils/supabase";
 export const getAllComments = async () => {
   const { data: comments, error } = await supabase
     .from("comments")
-    .select(`*, profile(name)`);
+    .select(`*, profile(name, email)`);
 
+console.log('comments')
   if (error) {
     console.log(error);
     throw error;
