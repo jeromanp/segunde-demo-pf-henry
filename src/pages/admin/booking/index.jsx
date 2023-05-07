@@ -1,10 +1,12 @@
-import Layout from "../../../layouts/DashboardLayout";
-import Header from "../../../components/dashboard/PageHeader";
-import TableHead from "../../../components/dashboard/tables/TableHead";
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import swalAction from "components/dashboard/swalAction";
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import axios from 'axios'
+import swalAction from 'components/dashboard/swalAction'
+import dayjs from 'dayjs'
+
+import Layout from '../../../layouts/DashboardLayout'
+import Header from '../../../components/dashboard/PageHeader'
+import TableHead from '../../../components/dashboard/tables/TableHead'
 
 const table_head = [
   { idx: "date", title: "Fecha", width: "220px" },
@@ -80,24 +82,34 @@ export default function Dashboard() {
 
               <tbody>
                 {bookings &&
-                  bookings.map((booking) => (
+                  bookings.map((booking, i) => (
                     <tr key={booking.id}>
-                      <td className="border-b border-[#eee] py-5 px-4">
-                        <p className="text-black">{booking.created_at}</p>
+                      <td className={
+												`border-[#eee] py-5 px-4 ${i < bookings.length -1 ? 'border-b' : ''}`
+												}>
+                        <p className="text-black">{ dayjs(booking.created_at).format('DD MMM, YYYY') }</p>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4">
+                      <td className={
+												`border-[#eee] py-5 px-4 ${i < bookings.length -1 ? 'border-b' : ''}`
+											}>
                         <h5 className="font-medium text-black">
                           {loading ? "" : handleRoom(booking.room_id)}
                         </h5>
                         <p className="text-sm">Lorem ipsum dolor sit.</p>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4">
-                        <p className="text-black">{booking.checkin}</p>
+                      <td className={
+												`border-[#eee] py-5 px-4 ${i < bookings.length -1 ? 'border-b' : ''}`
+											}>
+                        <p className="text-black">{ dayjs(booking.checkin).format('DD MMM, YYYY') }</p>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4">
-                        <p className="text-black">{booking.checkout}</p>
+                      <td className={
+												`border-[#eee] py-5 px-4 ${i < bookings.length -1 ? 'border-b' : ''}`
+											}>
+                        <p className="text-black">{ dayjs(booking.checkout).format('DD MMM, YYYY') }</p>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4">
+                      <td className={
+												`border-[#eee] py-5 px-4 ${i < bookings.length -1 ? 'border-b' : ''}`
+											}>
                         <div className="flex items-center space-x-3.5">
                           <Link
                             className="hover:text-primary"
