@@ -40,19 +40,47 @@ export default function Dashboard() {
     }
   };
 
-  //Esta funcion cuenta los huespedes del mes anterios
+  //Esta funcion cuenta los huespedes del mes actual
+  const countGuests = () => {
+    let totalGuests = 0;
+    let fechaActual = new Date();
+    let anioActual = fechaActual.getFullYear();
+    let mesActual = fechaActual.getMonth() + 1;
+
+    for (let i = 0; i < bookings.length; i++) {
+      let fechaString = bookings[i].checkin;
+      let fecha = new Date(fechaString);
+      let mes = (fecha.getMonth() + 1).toString();
+      let anio = fecha.getFullYear().toString();
+
+      if (
+        parseInt(mesActual) === parseInt(mes) &&
+        parseInt(anioActual) === parseInt(anio)
+      ) {
+        totalGuests += bookings[i].adults;
+      }
+    }
+    return totalGuests;
+  };
+
+  //Esta funcion cuenta los huespedes del mes anterior
 
   const lastMonthGuests = () => {
     let totalGuests = 0;
     let fechaActual = new Date();
+    let anioActual = fechaActual.getFullYear();
     let mesPasado = fechaActual.getMonth();
 
     for (let i = 0; i < bookings.length; i++) {
       let fechaString = bookings[i].checkin;
       let fecha = new Date(fechaString);
       let mes = (fecha.getMonth() + 1).toString();
+      let anio = fecha.getFullYear().toString();
 
-      if (parseInt(mesPasado) === parseInt(mes)) {
+      if (
+        parseInt(mesPasado) === parseInt(mes) &&
+        parseInt(anioActual) === parseInt(anio)
+      ) {
         totalGuests += bookings[i].adults;
       }
     }
@@ -83,24 +111,6 @@ export default function Dashboard() {
   const countUsers = () => {
     const totalUsers = users.length;
     return totalUsers;
-  };
-
-  //Esta funcion cuenta los huespedes del mes actual
-  const countGuests = () => {
-    let totalGuests = 0;
-    let fechaActual = new Date();
-    let mesActual = fechaActual.getMonth() + 1;
-
-    for (let i = 0; i < bookings.length; i++) {
-      let fechaString = bookings[i].checkin;
-      let fecha = new Date(fechaString);
-      let mes = (fecha.getMonth() + 1).toString();
-
-      if (parseInt(mesActual) === parseInt(mes)) {
-        totalGuests += bookings[i].adults;
-      }
-    }
-    return totalGuests;
   };
 
   return (
