@@ -6,7 +6,7 @@ export default function TableHead({data})
 				{data.map(e => (
 					<th 
 						key={e.idx}
-						className={`text-sm ${e.width ? `min-w-[${e.width}]` : ''} py-4 px-4 font-semibold text-black`}>
+						className={`text-sm ${e.width ?? ''} py-4 px-4 font-semibold text-black`}>
 						{ e.title }
 					</th>
 				))}

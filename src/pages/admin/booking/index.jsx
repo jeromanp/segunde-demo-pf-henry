@@ -9,11 +9,11 @@ import Header from '../../../components/dashboard/PageHeader'
 import TableHead from '../../../components/dashboard/tables/TableHead'
 
 const table_head = [
-  { idx: "date", title: "Fecha", width: "220px" },
-  { idx: "cabin", title: "Cabaña", width: "150px" },
-  { idx: "check-in", title: "Check-in", width: "120px" },
-  { idx: "check-out", title: "Check-out", width: "120px" },
-  { idx: "actions", title: "Acciones" },
+  { idx: 'date', title: 'Fechat', width: 'min-w-[220px]' },
+  { idx: 'cabin', title: 'Cabaña', width: 'min-w-[150px]' },
+  { idx: 'check-in', title: 'Check-in', width: 'min-w-120px' },
+  { idx: 'check-out', title: 'Check-out', width: 'min-w-[120px]' },
+  { idx: 'actions', title: 'Acciones' },
 ];
 
 export default function Dashboard() {

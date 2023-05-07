@@ -8,14 +8,10 @@ import { useState, useEffect } from "react";
 import swalAction from "components/dashboard/swalAction";
 
 const table_head = [
-  { idx: "image", title: "" },
-  { idx: "cabin", title: "Cabaña", width: "220px" },
-  {
-    idx: "total-booking-2023",
-    title: "Reservas totales (2023)",
-    width: "150px",
-  },
-  { idx: "actions", title: "Acciones" },
+  { idx: 'image', title: '' },
+  { idx: 'cabin', title: 'Cabaña', width: 'min-w-[220px]' },
+  {	idx: 'total', title: 'Reservas totales', width: 'min-w-[150px]' },
+  { idx: 'actions', title: 'Acciones' },
 ];
 
 export default function Dashboard({ rooms }) {
