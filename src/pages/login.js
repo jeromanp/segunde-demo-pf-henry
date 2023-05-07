@@ -6,27 +6,47 @@ import Header from "components/Header";
 import Footer from "components/Footer";
 
 const Login = () => {
-    const session = useSession();
-    const supabase = useSupabaseClient();
+  const session = useSession();
+  const supabase = useSupabaseClient();
 
-    return (
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <Header />
+  return (
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <Header />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-80">
             {!session ? (
-                <Auth
-                    redirectTo="/"
-                    providers={["github", "google", "facebook"]}
-                    supabaseClient={supabase}
-                    appearance={{ theme: ThemeSupa }}
-                    theme="white"
-                    socialLayout="horizontal"
-                />
+              <Auth
+                redirectTo="/"
+                providers={["github", "google", "facebook"]}
+                supabaseClient={supabase}
+                appearance={{
+                  theme: ThemeSupa,
+                  variables: {
+                    default: {
+                      colors: {
+                        brand: "#68850E",
+                        brandAccent: "#68850E",
+                      },
+                    },
+                  },
+                }}
+                localization={{
+                  variables: {
+                    sign_in: {
+                      email_label: "Email",
+                      password_label: "Password",
+                    },
+                  },
+                }}
+                theme="white"
+                socialLayout="horizontal"
+              />
             ) : (
-                <Account session={session} />
+              <Account session={session} />
             )}
-            <Footer />
-        </div>
-    );
+          </div>
+      <Footer />
+    </div>
+  );
 };
 
 export default Login;

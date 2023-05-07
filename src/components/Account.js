@@ -82,84 +82,91 @@ export default function Account({ session }) {
   }
 
   return (
-    <div className="form-widget bg-white rounded-lg shadow-lg p-6">
-      {fullName ? (
-        <h1 className="text-2xl font-bold mb-4">Welcome {fullName}</h1>
-      ) : username ? (
-        <h1 className="text-2xl font-bold mb-4">Welcome {username}!!</h1>
-      ) : (
-        <h1 className="text-2xl font-bold mb-4">Welcome!!</h1>
-      )}
-
-      <Avatar
-        uid={user.id}
-        url={avatarUrl}
-        size={150}
-        onUpload={(url) => {
-          setAvatarUrl(url);
-          updateProfile({ username, full_name: fullName, avatar_url: url });
-        }}
-      />
-      <div className="mb-4">
-        <label htmlFor="email" className="block font-bold mb-2">
-          Email
-        </label>
-        <input
-          id="email"
-          type="text"
-          value={session.user.email}
-          className="bg-gray-100 border border-gray-300 rounded px-3 py-2 w-full"
-          disabled
+    <div className="pt-4 pb-4">
+      <div className="border-2 rounded-3xl border-brand-light-green shadow-lg p-6">
+        {fullName ? (
+          <h1 className="text-xl font-bold mb-4 text-brand-green">
+            Bienvenido! {fullName}
+          </h1>
+        ) : username ? (
+          <h1 className="text-xl font-bold mb-4 text-brand-green">
+            Bienvenido! {username}!!
+          </h1>
+        ) : (
+          <h1 className="text-xl font-bold mb-4 text-brand-green">
+            Bienvenido!!
+          </h1>
+        )}
+        <Avatar
+          uid={user.id}
+          url={avatarUrl}
+          size={150}
+          onUpload={(url) => {
+            setAvatarUrl(url);
+            updateProfile({ username, full_name: fullName, avatar_url: url });
+          }}
         />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="username" className="block font-bold mb-2">
-          Username
-        </label>
-        <input
-          id="username"
-          type="text"
-          value={username || ""}
-          onChange={(e) => setUsername(e.target.value)}
-          className="bg-gray-100 border border-gray-300 rounded px-3 py-2 w-full"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="full_name" className="block font-bold mb-2">
-          Full Name
-        </label>
-        <input
-          id="full_name"
-          type="text"
-          value={fullName || ""}
-          onChange={(e) => setFullName(e.target.value)}
-          className="bg-gray-100 border border-gray-300 rounded px-3 py-2 w-full"
-        />
-      </div>
+        <div className="mb-2 mt-3">
+          <label htmlFor="email" className="block font-bold mb-2 text-sm">
+            Email
+          </label>
+          <input
+            id="email"
+            type="text"
+            value={session.user.email}
+            className="bg-gray-100 border-2 border-brand-light-green rounded-lg px-3 py-2 w-full text-sm"
+            disabled
+          />
+        </div>
+        <div className="mb-2">
+          <label htmlFor="username" className="block font-bold mb-2 text-sm">
+            Usuario
+          </label>
+          <input
+            id="username"
+            type="text"
+            value={username || ""}
+            onChange={(e) => setUsername(e.target.value)}
+            className="bg-gray-100 border-2 border-brand-light-green rounded-lg px-3 py-2 w-full text-sm"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="full_name" className="block font-bold mb-2 text-sm">
+            Nombre
+          </label>
+          <input
+            id="full_name"
+            type="text"
+            value={fullName || ""}
+            onChange={(e) => setFullName(e.target.value)}
+            className="bg-gray-100 border-2 border-brand-light-green rounded-lg px-3 py-2 w-full text-sm"
+          />
+        </div>
 
-      <div className="mb-4">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block w-full"
-          onClick={() =>
-            updateProfile({
-              username: username,
-              full_name: fullName,
-              avatar_url: avatarUrl,
-            })
-          }
-          disabled={loading}
-        >
-          {loading ? "Loading ..." : "Update"}
-        </button>
-      </div>
+        <div className="mb-3">
+          <button
+            className="bg-brand-light-green text-white font-bold py-2 px-4 rounded-lg block w-full text-sm"
+            onClick={() =>
+              updateProfile({
+                username: username,
+                full_name: fullName,
+                avatar_url: avatarUrl,
+              })
+            }
+            disabled={loading}
+          >
+            {loading ? "Cargando ..." : "Actualizar"}
+          </button>
+        </div>
 
-      <div>
-        <button
-          className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded block w-full"
-          onClick={() => supabase.auth.signOut()}
-        >
-          Sign Out
-        </button>
+        <div>
+          <button
+            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded block w-full text-sm"
+            onClick={() => supabase.auth.signOut()}
+          >
+            Desloguearse
+          </button>
+        </div>
       </div>
     </div>
   );
