@@ -7,14 +7,10 @@ import axios from "axios";
 import swalAction from "components/dashboard/swalAction";
 
 const table_head = [
-  { idx: "nombre", title: "Nombre", width: "220px" },
-  { idx: "total-reservas", title: "Total reservas", width: "150px" },
-  {
-    idx: "fecha-ultimo-checkout",
-    title: "Fecha último check-out",
-    width: "120px",
-  },
-  { idx: "acciones", title: "Acciones" },
+  { idx: 'name', title: 'Nombre', width: 'min-w-[220px]' },
+  { idx: 'total', title: 'Total reservas', width: 'min-w-[150px]' },
+  { idx: 'date', title: 'Fecha último check-out', width: 'min-w-[120px]' },
+  { idx: 'actions', title: 'Acciones' },
 ];
 
 export default function Dashboard() {

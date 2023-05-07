@@ -10,11 +10,11 @@ import dayjs from 'dayjs'
 
 
 const table_head = [
-  { idx: 'nombre', title: 'Nombre', width: '100px' },
-  { idx: 'comment', title: 'Comentario', width: '200px' },
-  { idx: 'review', title: 'Valoración', width: '100px' },
-  { idx: 'date', title: 'Fecha', width: '150px' },
-  { idx: 'actions', title: 'Acciones', with: '100px' }
+  { idx: 'nombre', title: 'Nombre', width: 'min-w-[100px]' },
+  { idx: 'comment', title: 'Comentario', width: 'min-w-[200px]' },
+  { idx: 'review', title: 'Valoración', width: 'min-w-[100px]' },
+  { idx: 'date', title: 'Fecha', width: 'min-w-[150px]' },
+  { idx: 'actions', title: 'Acciones', with: 'min-w-[100px]' }
 ];
 
 
