@@ -1,63 +1,38 @@
-import Layout from "../../../layouts/DashboardLayout";
-import Header from "../../../components/dashboard/PageHeader";
-import TableHead from "../../../components/dashboard/tables/TableHead";
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import swalAction from "components/dashboard/swalAction";
+import Layout from '../../../layouts/DashboardLayout'
+import Header from '../../../components/dashboard/PageHeader'
+import TableHead from '../../../components/dashboard/tables/TableHead'
+import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import swalAction from 'components/dashboard/swalAction'
+import dayjs from 'dayjs'
+
+
 
 const table_head = [
-  { idx: "nombre", title: "Nombre", width: "220px" },
-  { idx: "review", title: "Comentario", width: "576px" },
-  { idx: "stars", title: "Estrellas", width: "220px" },
-  { idx: "fecha-review", title: "Fecha del comentario", width: "220px" },
-  { idx: "acciones", title: "Acciones", with: "220px" },
+  { idx: 'nombre', title: 'Nombre', width: '100px' },
+  { idx: 'comment', title: 'Comentario', width: '200px' },
+  { idx: 'review', title: 'Valoración', width: '100px' },
+  { idx: 'date', title: 'Fecha', width: '150px' },
+  { idx: 'actions', title: 'Acciones', with: '100px' }
 ];
+
+
 
 export default function Dashboard() {
   const [reviews, setReviews] = useState([]);
-  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     axios
-      .get("/api/comments")
+      .get('/api/comments')
       .then((response) => {
-        setReviews(response.data);
+        setReviews(response.data)
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  useEffect(() => {
-    axios
-      .get("/api/profiles")
-      .then((response) => {
-        setUsers(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  const handleStars = (stars) => {
-    switch (stars) {
-      case stars === 0:
-        return "no hay registros";
-      case (stars = 1):
-        return "⭐";
-      case (stars = 2):
-        return "⭐⭐";
-      case (stars = 3):
-        return "⭐⭐⭐";
-      case (stars = 4):
-        return "⭐⭐⭐⭐";
-      case (stars = 5):
-        return "⭐⭐⭐⭐⭐";
-      default:
-        return "";
-    }
-  };
 
   const deleteHandler = (e) => {
     swalAction(
@@ -95,26 +70,54 @@ export default function Dashboard() {
 
               <tbody>
                 {reviews &&
-                  reviews.map((review) => (
+                  reviews.map((review, i) => (
                     <tr key={review.id}>
-                      <td className="border-b border-[#eee] py-5 px-4 w-[220px]">
-                        <h5 className="font-medium text-black">
-                          Luke Skywalker
+
+                      <td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
+												}>
+                        <h5 className="text-black text-sm font-semibold">
+                          { review.profile.name }
                         </h5>
-                        <p className="text-sm">l.skywalker@lucasfilms.com</p>
+                        <p className="text-xs">
+													{ review.profile.email }
+												</p>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 xl:pl-11 w-[576px]">
-                        <p className="text-black">{review.review}</p>
+                      
+											<td 
+												className={
+													`border-[#eee] py-5 px-4 pl-5 ${i < reviews.length -1 ? 'border-b' : ''}`
+												}>
+                        <div className="text-xs">{review.review}</div>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4 w-[220px]">
-                        <p className="text-black">
-                          {handleStars(review.stars)}
-                        </p>
+                      
+											<td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
+												}>
+                        <div className="flex gap-x-1">
+													{ review.stars ? (<i className="ri-star-fill text-yellow"></i>) : null }
+													{ review.stars > 1 ? (<i className="ri-star-fill text-yellow"></i>) : null }
+													{ review.stars > 2 ? (<i className="ri-star-fill text-yellow"></i>) : null }
+													{ review.stars > 3 ? (<i className="ri-star-fill text-yellow"></i>) : null }
+													{ review.stars > 4 ? (<i className="ri-star-fill text-yellow"></i>) : null }
+												</div>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4 w-[220px]">
-                        <p className="text-black">{review.created_at}</p>
+                      
+											<td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
+												}>
+                        <p className="text-sm">
+													{ dayjs(review.created_at).format('DD MMM, YYYY') }
+												</p>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4 w-[220px]">
+                      
+											<td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
+												}>
                         <div className="flex items-center space-x-3.5">
                           <Link
                             className="hover:text-primary"
@@ -128,6 +131,7 @@ export default function Dashboard() {
                           </button>
                         </div>
                       </td>
+
                     </tr>
                   ))}
               </tbody>
