@@ -5,7 +5,6 @@ export const getAllComments = async () => {
     .from("comments")
     .select(`*, profile(name, email)`);
 
-console.log('comments')
   if (error) {
     console.log(error);
     throw error;

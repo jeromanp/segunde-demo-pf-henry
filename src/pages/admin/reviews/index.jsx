@@ -26,7 +26,6 @@ export default function Dashboard() {
     axios
       .get('/api/comments')
       .then((response) => {
-				console.log( response.data )
         setReviews(response.data)
       })
       .catch((error) => {
