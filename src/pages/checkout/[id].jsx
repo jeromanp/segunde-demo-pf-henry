@@ -12,12 +12,6 @@ export default function CheckOut({ room }) {
     const router = useRouter();
     const [products, setProducts] = useState([]);
     const [matchingProduct, setMatchingProduct] = useState(null);
-    // console.log("PRODUCTS", products);
-    // console.log("SELECT", matchingProduct);
-
-    useEffect(() => {
-        console.log(products);
-    }, [products]);
 
     const mock = {
         price: 19,
@@ -35,9 +29,6 @@ export default function CheckOut({ room }) {
             setMatchingProduct(matching);
         }
         fetchProducts();
-        //La ruta debe ser accedida solo por usuarios logueados
-        //No es instantaneo asi q llega a mostrarse la pagina y despues redirige
-        //Algo para arreglar despues
     }, []);
 
     return (
@@ -90,7 +81,6 @@ export async function getServerSideProps({ params }) {
         .from("rooms")
         .select("*")
         .eq("id", id);
-    // .single();
 
     if (error) {
         return {
