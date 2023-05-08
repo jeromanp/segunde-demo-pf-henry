@@ -153,8 +153,6 @@ export const getStaticProps = async () => {
         id: price.id,
         name: product.name,
         price: price.unit_amount,
-        // interval: price.recurring.interval,
-        // currency: price.currency,
       };
     })
   );
