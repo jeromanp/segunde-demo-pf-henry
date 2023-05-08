@@ -171,7 +171,7 @@ export default function RoomForm({ room }) {
                 </div>
 
                 <div className="grid grid-cols-2">
-                    <div>
+                    <div className="flex">
                         <input
                             type="checkbox"
                             name="horno_microondas"
@@ -183,7 +183,7 @@ export default function RoomForm({ room }) {
                         <label htmlFor="horno_microondas">Horno / Microondas</label>
                     </div>
 
-                    <div>
+                    <div className="flex">
                         <input
                             type="checkbox"
                             name="cocina"
@@ -195,7 +195,7 @@ export default function RoomForm({ room }) {
                         <label htmlFor="cocina">Cocina</label>
                     </div>
 
-                    <div>
+                    <div className="flex">
                         <input
                             type="checkbox"
                             name="heladera"
@@ -207,7 +207,7 @@ export default function RoomForm({ room }) {
                         <label htmlFor="heladera">Heladera</label>
                     </div>
 
-                    <div>
+                    <div className="flex">
                         <input
                             type="checkbox"
                             name="vajilla"
