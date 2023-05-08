@@ -1,7 +1,6 @@
 import { useSession } from "@supabase/auth-helpers-react";
 import CheckOutForm from "components/CheckOutForm";
 import LayoutMain from "layouts/Layout";
-import { useRouter } from "next/router";
 import Login from "pages/login";
 import { supabase } from "utils/supabase";
 import { useState, useEffect } from "react";
@@ -9,15 +8,8 @@ import axios from "axios";
 
 export default function CheckOut({ room }) {
     const session = useSession();
-    const router = useRouter();
     const [products, setProducts] = useState([]);
     const [matchingProduct, setMatchingProduct] = useState(null);
-    // console.log("PRODUCTS", products);
-    // console.log("SELECT", matchingProduct);
-
-    useEffect(() => {
-        console.log(products);
-    }, [products]);
 
     const mock = {
         price: 19,
@@ -33,11 +25,9 @@ export default function CheckOut({ room }) {
             );
             setProducts(response.data);
             setMatchingProduct(matching);
+            // Products no se está usando, si no se va a usar eliminarlo
         }
         fetchProducts();
-        //La ruta debe ser accedida solo por usuarios logueados
-        //No es instantaneo asi q llega a mostrarse la pagina y despues redirige
-        //Algo para arreglar despues
     }, []);
 
     return (
@@ -72,7 +62,7 @@ export default function CheckOut({ room }) {
                         <img
                             src="/ilustrationCheck.svg"
                             alt=""
-                            className="w-5/12 mr-16 ml-auto self-center"
+                            className="w-4/12 mr-16 ml-auto self-center"
                         />
                     </div>
                 </LayoutMain>
@@ -90,7 +80,6 @@ export async function getServerSideProps({ params }) {
         .from("rooms")
         .select("*")
         .eq("id", id);
-    // .single();
 
     if (error) {
         return {

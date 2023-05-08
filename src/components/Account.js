@@ -51,7 +51,7 @@ export default function Account({ session }) {
       }
     } catch (error) {
       Swal.fire(fatalErrorSwal)
-      .then(() => window.history.back())
+        .then(() => window.history.back())
       console.log(error);
     } finally {
       setLoading(false);
@@ -84,17 +84,13 @@ export default function Account({ session }) {
   return (
     <div className="pt-4 pb-4">
       <div className="border-2 rounded-3xl border-brand-light-green shadow-lg p-6">
-        {fullName ? (
+        {username ? (
           <h1 className="text-xl font-bold mb-4 text-brand-green">
-            Bienvenido! {fullName}
-          </h1>
-        ) : username ? (
-          <h1 className="text-xl font-bold mb-4 text-brand-green">
-            Bienvenido! {username}!!
+            Bienvenido {username}!
           </h1>
         ) : (
           <h1 className="text-xl font-bold mb-4 text-brand-green">
-            Bienvenido!!
+            Bienvenido! {fullName}!
           </h1>
         )}
         <Avatar
@@ -155,7 +151,7 @@ export default function Account({ session }) {
             }
             disabled={loading}
           >
-            {loading ? "Cargando ..." : "Actualizar"}
+            {loading ? "Cargando..." : "Actualizar"}
           </button>
         </div>
 

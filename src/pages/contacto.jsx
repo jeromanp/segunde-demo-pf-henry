@@ -14,7 +14,7 @@ export default function Contact() {
               </h2>
               <ContactForm />
             </div>
-            <img src="/contact.svg" alt="contact.icon" className="sm:block hidden w-2/5 mr-4" />
+            <img src="/contact.svg" alt="contact.icon" className="sm:block hidden w-2/6 mr-4" />
           </div>
       </section>
       <Footer />

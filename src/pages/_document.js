@@ -27,7 +27,7 @@ class MyDocument extends Document {
                         href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css"
                         rel="stylesheet"
                     ></link>
-                    {/* inicio de links de swiper */}
+                    {/* inicio de links de react-slider */}
                     <link
                         rel="stylesheet"
                         type="text/css"
@@ -39,7 +39,7 @@ class MyDocument extends Document {
                         type="text/css"
                         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
                     />
-                    {/* fin de links de swiper */}
+                    {/* fin de links de react-slider */}
                 </Head>
                 <body className="antialiased font-poppins">
                     <Main />

@@ -33,14 +33,6 @@ export default function CheckOutForm({
         getRooms();
     }, []);
 
-    // useEffect(() => {
-    //     console.log(rooms);
-    // }, [rooms]);
-
-    // useEffect(() => {
-    //     console.log(filters);
-    // }, [filters]);
-
     const clickHandler = async () => {
         const response = await fetch("/api/booking", {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -57,7 +49,7 @@ export default function CheckOutForm({
         });
 
         const data = await response.json();
-        //console.log(data);
+
         const checkoutSessionResponse = await fetch(`/api/checkout_sessions`, {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -70,7 +62,6 @@ export default function CheckOutForm({
             }),
         });
         const checkoutSessionData = await checkoutSessionResponse.json();
-        //console.log(checkoutSessionData);
         window.location.href = checkoutSessionData.url;
     };
 

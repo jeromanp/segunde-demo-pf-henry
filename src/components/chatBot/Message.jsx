@@ -1,6 +1,4 @@
-import React from "react";
-
-function Message({ message }) {
+export default function Message({ message }) {
     const send = `self-start bg-[#ffffff]`;
     const recived = `self-end bg-[#dcf8c8]`;
     return (
@@ -13,5 +11,3 @@ function Message({ message }) {
         </div>
     );
 }
-
-export default Message;

@@ -3,14 +3,11 @@ import axios from "axios";
 import Layout from "../layouts/Layout";
 import Link from "next/link";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import house from "../../public/house.svg";
 import people from "../../public/people.svg";
 import initStripe from "stripe";
 
 export default function Cabins({ plans }) {
-  console.log(plans);
   const [cabins, setCabins] = useState([]);
 
   useEffect(() => {
@@ -119,9 +116,7 @@ export default function Cabins({ plans }) {
                   )}
                 </div>
 
-                <button className="btn-yellow mt-6 mb-8">
-                  <Link href={`/cabanas/${cabin.id}`}>Ver más</Link>
-                </button>
+                <Link href={`/cabanas/${cabin.id}`} className="btn-yellow mt-6 mb-8">Ver más</Link>
               </div>
             ))}
           </Slider>
@@ -158,8 +153,6 @@ export const getStaticProps = async () => {
         id: price.id,
         name: product.name,
         price: price.unit_amount,
-        // interval: price.recurring.interval,
-        // currency: price.currency,
       };
     })
   );
