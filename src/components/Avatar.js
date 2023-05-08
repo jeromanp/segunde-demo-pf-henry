@@ -80,7 +80,7 @@ export default function Avatar({ uid, url, size, onUpload }) {
           className="bg-brand-light-green button primary block mt-2 text-white font-bold text-center rounded-lg text-sm pt-1.5 pb-1.5"
           htmlFor="single"
         >
-          {uploading ? "Cargando ..." : "Cargar"}
+          {uploading ? "Cargando..." : "Cargar"}
         </label>
 
         <input
