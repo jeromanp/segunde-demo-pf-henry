@@ -72,7 +72,7 @@ export default function CheckOut({ room }) {
                         <img
                             src="/ilustrationCheck.svg"
                             alt=""
-                            className="w-5/12 mr-16 ml-auto self-center"
+                            className="w-4/12 mr-16 ml-auto self-center"
                         />
                     </div>
                 </LayoutMain>
