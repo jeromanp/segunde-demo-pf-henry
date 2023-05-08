@@ -114,7 +114,7 @@ export default function Header(props) {
                                 }
 
                                 <style jsx>{`
-                                        .select-none:focus .absolute {
+                                        .select-none:hover .absolute {
                                             display: block;
                                             z-index: 10;
                                         }
