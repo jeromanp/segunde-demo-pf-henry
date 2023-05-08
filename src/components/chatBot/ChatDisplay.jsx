@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Chat from "./Chat";
 import messageParser from "textProcessor/messageParser";
 import sendButton from '../../../public/send-button.svg';
