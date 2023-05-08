@@ -11,31 +11,39 @@ export default function RoomForm({ room }) {
         beds: room?.beds || 1,
         bathrooms: room?.bathrooms || 1,
         price: room?.price || 1000,
-        servicios: {
-            horno_microondas: true,
-            heladera: true,
-            cocina: true,
-            vajilla: true,
-        },
         description: room?.description || '',
     })
+    const [userServices, setUserServices] = useState({
+        Horno_o_Microondas: false,
+        Cocina: false,
+        Heladera: false,
+        Vajilla: false,
+        Secador_de_pelo: false,
+        Utensilios_de_cocina: false,
+        Calefaccion: false,
+        Aire_acondicionado: false,
+        Television: false,
+        Wi_Fi: false,
+        Jacuzzi: false,
+        Parrilla: false,
+        Cochera: false,
+    })
+    const services = Object.keys(userServices).map(service => service.replaceAll('_', ' '));
 
     const changeHandler = (e) => {
         const { name, value } = e.target;
-        if (Object.keys(inputs.servicios).includes(name)) {
+        if (services.includes(name)) {
+            const serviceName = name.replaceAll(' ', '_')
+            setUserServices({
+                ...userServices,
+                [serviceName]: !userServices[serviceName],
+            });
+        } else {
             setInputs({
                 ...inputs,
-                servicios: {
-                    ...inputs.servicios,
-                    [name]: value,
-                },
+                [name]: value,
             });
         }
-        setInputs({
-            ...inputs,
-            [name]: value,
-        });
-        console.log(inputs);
     };
 
     const submitHandler = (e) => {
@@ -171,53 +179,19 @@ export default function RoomForm({ room }) {
                 </div>
 
                 <div className="grid grid-cols-2">
-                    <div>
-                        <input
-                            type="checkbox"
-                            name="horno_microondas"
-                            id="horno_microondas"
-                            value='horno_microondas'
-                            onChange={changeHandler}
-                            className="mr-4 flex h-5 w-5 items-center justify-center rounded border appearance-none checked:bg-slate-500"
-                        />
-                        <label htmlFor="horno_microondas">Horno / Microondas</label>
-                    </div>
-
-                    <div>
-                        <input
-                            type="checkbox"
-                            name="cocina"
-                            id="cocina"
-                            value={true}
-                            onChange={changeHandler}
-                            className="mr-4 flex h-5 w-5 items-center justify-center rounded border appearance-none checked:bg-slate-500"
-                        />
-                        <label htmlFor="cocina">Cocina</label>
-                    </div>
-
-                    <div>
-                        <input
-                            type="checkbox"
-                            name="heladera"
-                            id="heladera"
-                            value=''
-                            onChange={changeHandler}
-                            className="mr-4 flex h-5 w-5 items-center justify-center rounded border appearance-none checked:bg-slate-500"
-                        />
-                        <label htmlFor="heladera">Heladera</label>
-                    </div>
-
-                    <div>
-                        <input
-                            type="checkbox"
-                            name="vajilla"
-                            id="vajilla"
-                            value=''
-                            onChange={changeHandler}
-                            className="mr-4 flex h-5 w-5 items-center justify-center rounded border appearance-none checked:bg-slate-500"
-                        />
-                        <label htmlFor="vajilla">Vajilla</label>
-                    </div>
+                    {services.map(service => (
+                        <div className="flex">
+                            <input
+                                type="checkbox"
+                                name={service}
+                                id={service}
+                                value={true}
+                                onChange={changeHandler}
+                                className="mr-4 flex h-5 w-5 items-center justify-center rounded border appearance-none checked:bg-slate-500"
+                            />
+                            <label htmlFor={service}>{service}</label>
+                        </div>
+                    ))}
                 </div>
 
                 <div className="">
