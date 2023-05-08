@@ -15,3 +15,33 @@ export const checkOverlappingPeriods = (
         return false;
     }
 };
+
+export const addDays = (date, days) => {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+};
+
+export const getDates = (startDate, stopDate) => {
+    var dateArray = new Array();
+    var currentDate = startDate;
+    while (currentDate <= stopDate) {
+        dateArray.push(new Date(currentDate));
+        currentDate = addDays(currentDate, 1);
+    }
+    return dateArray;
+};
+
+export const getAllDisabledDates = (booking) => {
+    let disabledDates = [];
+
+    for (let i = 0; i < booking.length; i++) {
+        disabledDates.push(
+            ...getDates(
+                new Date(booking[i].checkin),
+                new Date(booking[i].checkout)
+            )
+        );
+    }
+    return disabledDates;
+};
