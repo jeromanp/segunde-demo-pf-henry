@@ -3,14 +3,11 @@ import axios from "axios";
 import Layout from "../layouts/Layout";
 import Link from "next/link";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import house from "../../public/house.svg";
 import people from "../../public/people.svg";
 import initStripe from "stripe";
 
 export default function Cabins({ plans }) {
-  console.log(plans);
   const [cabins, setCabins] = useState([]);
 
   useEffect(() => {
