@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Header from "../components/Header";
-import { useUser } from "@supabase/auth-helpers-react";
 
 import Datepicker from "../components/form/Datepicker";
 import GuestsSelector from "components/form/GuestsSelector";
