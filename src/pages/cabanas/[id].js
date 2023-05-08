@@ -41,7 +41,7 @@ export default function Room({ room }) {
             Precio: {room.price} ARS / día
           </p>
           <div className="btn-yellow  self-center">
-            {session ? <Link href={`/checkout/${room.id}`}>Reservar</Link> : <Link href="/login">Iniciar sesión</Link>}
+            <Link href={`/checkout/${room.id}`}>{session ? 'Reservar' : 'Iniciar sesión'}</Link>
           </div>
         </div>
         <div className="w-5/6 md:w-1/3 md:m-auto mb-5 m-auto">
