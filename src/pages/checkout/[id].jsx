@@ -1,7 +1,6 @@
 import { useSession } from "@supabase/auth-helpers-react";
 import CheckOutForm from "components/CheckOutForm";
 import LayoutMain from "layouts/Layout";
-import { useRouter } from "next/router";
 import Login from "pages/login";
 import { supabase } from "utils/supabase";
 import { useState, useEffect } from "react";
@@ -9,7 +8,6 @@ import axios from "axios";
 
 export default function CheckOut({ room }) {
     const session = useSession();
-    const router = useRouter();
     const [products, setProducts] = useState([]);
     const [matchingProduct, setMatchingProduct] = useState(null);
 
@@ -27,6 +25,7 @@ export default function CheckOut({ room }) {
             );
             setProducts(response.data);
             setMatchingProduct(matching);
+            // Products no se está usando, si no se va a usar eliminarlo
         }
         fetchProducts();
     }, []);
