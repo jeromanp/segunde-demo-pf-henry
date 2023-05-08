@@ -13,31 +13,30 @@ export default function RoomForm({ room }) {
         price: room?.price || 1000,
         description: room?.description || '',
     })
-    const [services, setServices] = useState([
-        'Horno/Microondas',
-        'Cocina',
-        'Heladera',
-        'Vajilla',
-        'Secador de pelo',
-        'Utensilios de cocina',
-        'Calefacción',
-        'Aire acondicionado',
-        'Televisión',
-        'Wi-Fi',
-        'Jacuzzi',
-        'Parrilla',
-        'Cochera'
-    ])
+    const [userServices, setUserServices] = useState({
+        Horno_o_Microondas: false,
+        Cocina: false,
+        Heladera: false,
+        Vajilla: false,
+        Secador_de_pelo: false,
+        Utensilios_de_cocina: false,
+        Calefaccion: false,
+        Aire_acondicionado: false,
+        Television: false,
+        Wi_Fi: false,
+        Jacuzzi: false,
+        Parrilla: false,
+        Cochera: false,
+    })
+    const services = Object.keys(userServices).map(service => service.replaceAll('_', ' '));
 
     const changeHandler = (e) => {
         const { name, value } = e.target;
         if (services.includes(name)) {
-            setInputs({
-                ...inputs,
-                servicios: {
-                    ...inputs.servicios,
-                    [name]: value,
-                },
+            const serviceName = name.replaceAll(' ', '_')
+            setUserServices({
+                ...userServices,
+                [serviceName]: !userServices[serviceName],
             });
         } else {
             setInputs({
@@ -186,7 +185,7 @@ export default function RoomForm({ room }) {
                                 type="checkbox"
                                 name={service}
                                 id={service}
-                                value={service}
+                                value={true}
                                 onChange={changeHandler}
                                 className="mr-4 flex h-5 w-5 items-center justify-center rounded border appearance-none checked:bg-slate-500"
                             />
