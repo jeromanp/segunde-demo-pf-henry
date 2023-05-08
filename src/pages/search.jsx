@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import CardCabin from "components/seeAllCabins/CardCabin";
 import CardSkeleton from "components/seeAllCabins/CardSkeleton";
@@ -13,10 +13,6 @@ export default function Search() {
     checkIn: null,
     checkOut: null,
   });
-
-  // useEffect(() => {
-  //     console.log(filters);
-  // }, [filters]);
 
   useEffect(() => {
     const initRequest = async () => {
@@ -155,7 +151,7 @@ export default function Search() {
                     onClick={searchHandler}
                     className="bg-brand-yellow text-white rounded-md py-2 px-4 mt-6"
                   >
-                    <a href="#reservas">Buscar</a>
+                    Buscar
                   </button>
                 </div>
               </div>
