@@ -116,9 +116,7 @@ export default function Cabins({ plans }) {
                   )}
                 </div>
 
-                <button className="btn-yellow mt-6 mb-8">
-                  <Link href={`/cabanas/${cabin.id}`}>Ver más</Link>
-                </button>
+                <Link href={`/cabanas/${cabin.id}`} className="btn-yellow mt-6 mb-8">Ver más</Link>
               </div>
             ))}
           </Slider>
