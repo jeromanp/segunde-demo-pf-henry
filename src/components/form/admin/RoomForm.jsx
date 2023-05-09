@@ -59,12 +59,12 @@ export default function RoomForm({ room }) {
         <form onSubmit={submitHandler}>
             <div className="grid gap-y-6">
                 <div className="">
-                    <label htmlFor="name" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor="name" className="mb-3 block text-sm font-medium text-black">
                         Nombre
                     </label>
 
                     <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                         type="text"
                         name="name"
                         id="name"
@@ -74,7 +74,7 @@ export default function RoomForm({ room }) {
                 </div>
 
                 <div className="flex gap-x-6 items-center">
-                    <label className="block text-sm font-medium text-black dark:text-white">
+                    <label className="block text-sm font-medium text-black">
                         Tipo
                     </label>
 
@@ -95,12 +95,12 @@ export default function RoomForm({ room }) {
 
                 <div className="grid gap-5 sm:grid-cols-2">
                     <div className="">
-                        <label htmlFor="rooms" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label htmlFor="rooms" className="mb-3 block text-sm font-medium text-black">
                             Habitaciones
                         </label>
 
                         <input
-                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                             type="number"
                             name="rooms"
                             id="rooms"
@@ -110,12 +110,12 @@ export default function RoomForm({ room }) {
                     </div>
 
                     <div className="">
-                        <label htmlFor="capacity" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label htmlFor="capacity" className="mb-3 block text-sm font-medium text-black">
                             Capacidad (personas)
                         </label>
 
                         <input
-                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                             type="number"
                             name="capacity"
                             id="capacity"
@@ -127,12 +127,12 @@ export default function RoomForm({ room }) {
 
                 <div className="grid gap-5 sm:grid-cols-2">
                     <div className="">
-                        <label htmlFor="beds" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label htmlFor="beds" className="mb-3 block text-sm font-medium text-black">
                             Camas
                         </label>
 
                         <input
-                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                             type="number"
                             name="beds"
                             id="beds"
@@ -142,12 +142,12 @@ export default function RoomForm({ room }) {
                     </div>
 
                     <div className="">
-                        <label htmlFor="bathrooms" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label htmlFor="bathrooms" className="mb-3 block text-sm font-medium text-black">
                             Baños
                         </label>
 
                         <input
-                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                             type="number"
                             name="bathrooms"
                             id="bathrooms"
@@ -158,7 +158,7 @@ export default function RoomForm({ room }) {
                 </div>
 
                 <div className="">
-                    <label htmlFor='price' className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor='price' className="mb-3 block text-sm font-medium text-black">
                         Precio
                     </label>
 
@@ -168,7 +168,7 @@ export default function RoomForm({ room }) {
                         </span>
 
                         <input
-                            className="w-full rounded border border-stroke bg-gray py-3 pl-8 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 pl-8 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                             type="number"
                             name="price"
                             id="price"
@@ -195,11 +195,11 @@ export default function RoomForm({ room }) {
                 </div>
 
                 <div className="">
-                    <label htmlFor="description" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor="description" className="mb-3 block text-sm font-medium text-black">
                         Descripción
                     </label>
                     <textarea
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black resize-none focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black resize-none focus:border-primary focus-visible:outline-none"
                         name="description"
                         id="description"
                         rows="6"
@@ -211,7 +211,7 @@ export default function RoomForm({ room }) {
 
                 <div className="flex justify-end gap-4.5">
                     <button
-                        className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
+                        className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark"
                         type="submit">
                         <Link href='/admin/rooms'>Cancelar</Link>
                     </button>

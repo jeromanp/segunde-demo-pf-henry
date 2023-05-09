@@ -32,12 +32,12 @@ export default function UserForm({ user }) {
             <div className="grid gap-y-6">
 
                 <div className="">
-                    <label htmlFor="email" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor="email" className="mb-3 block text-sm font-medium text-black">
                         E-mail
                     </label>
 
                     <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                         type="email"
                         name="email"
                         id="email"
@@ -47,12 +47,12 @@ export default function UserForm({ user }) {
                 </div>
 
                 <div className="">
-                    <label htmlFor="username" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor="username" className="mb-3 block text-sm font-medium text-black">
                         Apodo
                     </label>
 
                     <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                         type="text"
                         name="username"
                         id="username"
@@ -64,12 +64,12 @@ export default function UserForm({ user }) {
                 <div className="">
 
                     <div className="">
-                        <label htmlFor="full_name" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label htmlFor="full_name" className="mb-3 block text-sm font-medium text-black">
                             Nombre Completo
                         </label>
 
                         <input
-                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                             type="text"
                             name="full_name"
                             id="full_name"
@@ -83,12 +83,12 @@ export default function UserForm({ user }) {
                 <div className="grid gap-5 sm:grid-cols-2">
 
                     <div className="">
-                        <label htmlFor="country" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label htmlFor="country" className="mb-3 block text-sm font-medium text-black">
                             Pais
                         </label>
 
                         <input
-                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                             type="text"
                             name="country"
                             id="country"
@@ -98,12 +98,12 @@ export default function UserForm({ user }) {
                     </div>
 
                     <div className="">
-                        <label htmlFor="phone" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label htmlFor="phone" className="mb-3 block text-sm font-medium text-black">
                             Telefono
                         </label>
 
                         <input
-                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                             type="number"
                             name="phone"
                             id="phone"
@@ -115,7 +115,7 @@ export default function UserForm({ user }) {
 
                 <div className="flex justify-end gap-4.5">
                     <button
-                        className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
+                        className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark"
                         type="submit">
                         <Link href='/admin/users'>Cancelar</Link>
                     </button>
