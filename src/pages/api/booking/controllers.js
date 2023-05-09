@@ -40,6 +40,7 @@ export const postNewBooking = async ({
         console.log(profileError);
         throw profileError;
     }
+
     const { data: postBooking, error } = await supabase
         .from("booking")
         .insert([
@@ -49,7 +50,7 @@ export const postNewBooking = async ({
                 user_id: userId,
                 room_id,
                 payments,
-                guests,
+                adults: guests,
             },
         ])
         .select();
