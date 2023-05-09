@@ -1,3 +1,4 @@
+import axios from "axios";
 import Swal from "sweetalert2";
 
 /**
@@ -35,7 +36,7 @@ export default function swalAction(instancia, id, setter, data, route) {
             // suspende instancia
         },
         preDeny: async () => {
-            // elimina instancia
+            await axios.delete(`/api/${route}/${id}`)
         }
     })
     // Si no fue cancelado, actua (pre👆) y responde con otro swal
