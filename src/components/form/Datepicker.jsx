@@ -33,7 +33,6 @@ export default function Datepicker(props) {
         language: "es",
         disabledDates: props.disabledDates ?? [],
     };
-    console.log(options);
 
     const [show, setShow] = useState(false);
     const [d, setD] = useState(new Date());

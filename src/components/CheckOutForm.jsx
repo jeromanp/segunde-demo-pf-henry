@@ -42,7 +42,7 @@ export default function CheckOutForm({
             body: JSON.stringify({
                 checkin: filters.checkin,
                 checkout: filters.checkout,
-                adults: filters.guests,
+                guests: filters.guests,
                 user_id: session.user.id,
                 room_id: roomId,
             }),
