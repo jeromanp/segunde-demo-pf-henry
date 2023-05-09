@@ -14,20 +14,42 @@ const table_head = [
   { idx: 'actions', title: 'Acciones' },
 ];
 
+/**
+export async function getServerSideProps() {
+  const { data: rooms, error } = await supabase
+    .from("rooms")
+    .select("*")
+    .order("name", { ascending: true });
+
+  if (error) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      rooms: rooms,
+    },
+  };
+}
+ */
+
+
 export default function Dashboard({ rooms }) {
   const [roomList, setRoomList] = useState(rooms);
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("/api/booking")
-      .then((response) => {
-        setBookings(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+		axios.get('/api/cabanas')
+					.then(resp => setRoomList(resp.data))
+					.catch((error) => console.error(error));
+
+    axios.get("/api/booking")
+					.then(resp => setBookings(resp.data))
+					.catch((error) => console.log(error))
   }, []);
+
 
   const totalBookings = (id) => {
     const counter = bookings.filter((booking) => booking.room_id === id).length;
@@ -40,6 +62,7 @@ export default function Dashboard({ rooms }) {
       e.target.value,
       setRoomList,
       roomList,
+			'cabanas'
     );
   };
 
@@ -70,21 +93,39 @@ export default function Dashboard({ rooms }) {
 
               <tbody>
                 {roomList &&
-                  roomList.map((room) => (
+                  roomList.map((room, i) => (
                     <tr key={room.id}>
-                      <td className="border-b border-[#eee] py-5 px-4">
+                      <td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < roomList.length -1 ? 'border-b' : ''}`
+												}>
                         <div className="h-12.5 w-15 rounded-md">
                           <img src="../product-04.png" alt="Product" />
                         </div>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4">
-                        <h5 className="font-medium text-black">{room.name}</h5>
-                        <p className="text-sm">disponible?</p>
+                      <td 
+												className={
+													`border-[#eee] py-5 px-4 select-none ${i < roomList.length -1 ? 'border-b' : ''}`
+												}>
+                        <h5 className="text-slate-700 font-bold">{room.name}</h5>
+                        <p className="text-[10px] font-semibold uppercase leading-none tracking-wide">
+													<span className={
+														room.suspended ? 'text-red-700' : 'text-green-500'
+													}>
+													{ room.suspended ? 'deshabilitada' : 'habilitada' }
+												</span>
+												</p>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4">
-                        <p className="text-black">{totalBookings(room.id)}</p>
+                      <td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < roomList.length -1 ? 'border-b' : ''}`
+												}>
+                        <p className="text-sm font-medium">{totalBookings(room.id)}</p>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4">
+                      <td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < roomList.length -1 ? 'border-b' : ''}`
+												}>
                         <div className="flex items-center space-x-3.5">
                           <Link
                             className="hover:text-primary"
@@ -107,25 +148,8 @@ export default function Dashboard({ rooms }) {
           </div>
         </div>
       </div>
+
+			<div className="h-20"></div>
     </Layout>
   );
-}
-
-export async function getServerSideProps() {
-  const { data: rooms, error } = await supabase
-    .from("rooms")
-    .select("*")
-    .order("name", { ascending: true });
-
-  if (error) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      rooms: rooms,
-    },
-  };
 }

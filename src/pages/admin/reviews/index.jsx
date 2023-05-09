@@ -11,9 +11,10 @@ import dayjs from 'dayjs'
 
 const table_head = [
   { idx: 'nombre', title: 'Nombre', width: 'min-w-[100px]' },
-  { idx: 'comment', title: 'Comentario', width: 'min-w-[200px]' },
+  { idx: 'comment', title: 'Comentario', width: 'w-[400px] min-w-[200px]' },
   { idx: 'review', title: 'Valoración', width: 'min-w-[100px]' },
   { idx: 'date', title: 'Fecha', width: 'min-w-[150px]' },
+  { idx: 'status', title: 'Estado', width: 'min-w-[80px]' },
   { idx: 'actions', title: 'Acciones', with: 'min-w-[100px]' }
 ];
 
@@ -26,6 +27,7 @@ export default function Dashboard() {
     axios
       .get('/api/comments')
       .then((response) => {
+				console.log(response.data)
         setReviews(response.data)
       })
       .catch((error) => {
@@ -39,7 +41,8 @@ export default function Dashboard() {
       'comentario',
       e.target.value,
       setReviews,
-      reviews
+      reviews,
+			'comments'
     )
   }
 
@@ -77,11 +80,11 @@ export default function Dashboard() {
 												className={
 													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
 												}>
-                        <h5 className="text-black text-sm font-semibold">
-                          { review.profile.name }
+                        <h5 className="text-black text-sm font-semibold capitalize">
+                          { review.profiles.full_name }
                         </h5>
                         <p className="text-xs">
-													{ review.profile.email }
+													{ review.profiles.email }
 												</p>
                       </td>
                       
@@ -89,7 +92,7 @@ export default function Dashboard() {
 												className={
 													`border-[#eee] py-5 px-4 pl-5 ${i < reviews.length -1 ? 'border-b' : ''}`
 												}>
-                        <div className="text-xs">{review.review}</div>
+                        <div className="text-xs">{ `${review.review.slice(0, 100)}${review.review.length > 100 ? '...' : ''}` }</div>
                       </td>
                       
 											<td 
@@ -97,11 +100,11 @@ export default function Dashboard() {
 													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
 												}>
                         <div className="flex gap-x-1">
-													{ review.stars ? (<i className="ri-star-fill text-yellow"></i>) : null }
-													{ review.stars > 1 ? (<i className="ri-star-fill text-yellow"></i>) : null }
-													{ review.stars > 2 ? (<i className="ri-star-fill text-yellow"></i>) : null }
-													{ review.stars > 3 ? (<i className="ri-star-fill text-yellow"></i>) : null }
-													{ review.stars > 4 ? (<i className="ri-star-fill text-yellow"></i>) : null }
+													{ review.stars ? (<i className="ri-star-fill text-yellow text-sm"></i>) : null }
+													{ review.stars > 1 ? (<i className="ri-star-fill text-yellow text-sm"></i>) : null }
+													{ review.stars > 2 ? (<i className="ri-star-fill text-yellow text-sm"></i>) : null }
+													{ review.stars > 3 ? (<i className="ri-star-fill text-yellow text-sm"></i>) : null }
+													{ review.stars > 4 ? (<i className="ri-star-fill text-yellow text-sm"></i>) : null }
 												</div>
                       </td>
                       
@@ -109,8 +112,17 @@ export default function Dashboard() {
 												className={
 													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
 												}>
-                        <p className="text-sm">
+                        <p className="text-sm font-medium">
 													{ dayjs(review.created_at).format('DD MMM, YYYY') }
+												</p>
+                      </td>
+
+											<td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
+												}>
+                        <p className="text-xs pl-4.5">
+													{ review.approved ? <i class="ri-checkbox-blank-circle-fill text-green-500"></i> : <i class="ri-checkbox-blank-circle-fill text-red-700"></i> }
 												</p>
                       </td>
                       
@@ -139,6 +151,9 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+			<div className="h-20"></div>
+
     </Layout>
   );
 }
