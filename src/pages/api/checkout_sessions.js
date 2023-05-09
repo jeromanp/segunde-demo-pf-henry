@@ -2,7 +2,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
-        const { price_id, night } = req.body;
+        const { price_id, night, roomId } = req.body;
         try {
             // Create Checkout Sessions from body params.
             const session = await stripe.checkout.sessions.create({
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
                 success_url: `${req.headers.origin}/thank-you?success=true`,
                 // success_url: `${req.headers.origin}/thank-you?success=true&session_id={CHECKOUT_SESION_ID}`,
 
-                cancel_url: `${req.headers.origin}/canceled?canceled=true`,
+                cancel_url: `${req.headers.origin}/checkout/${roomId}`,
             });
             res.json(session);
         } catch (err) {
