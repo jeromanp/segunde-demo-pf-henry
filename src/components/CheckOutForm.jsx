@@ -56,6 +56,7 @@ export default function CheckOutForm({
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                roomId,
                 price_id: default_price,
                 night: night,
                 subscription: true,
