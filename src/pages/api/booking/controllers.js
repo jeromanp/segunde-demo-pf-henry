@@ -49,7 +49,7 @@ export const postNewBooking = async ({
                 user_id: userId,
                 room_id,
                 payments,
-                guests,
+                adults: guests,
             },
         ])
         .select();
