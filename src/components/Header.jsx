@@ -105,11 +105,26 @@ export default function Header(props) {
                                     </button>
                                 </li>
                                 {session
-                                    ? <li className="select-none relative">
-                                        <Link href="/login">Perfil</Link>
+                                    ? <li className="relative select-none">
+                                        <button className="select-none">
+
+                                            <div>Perfil</div>
+                                            <ul className="md:-left-12 text-left text-base absolute bg-brand-brown rounded shadow-md p-2 hidden">
+                                                <li className="hover:bg-brand-olive transition-colors p-1 rounded">
+                                                    <Link href="/login">
+                                                        Editar
+                                                    </Link>
+                                                </li>
+                                                <li className="hover:bg-brand-olive transition-colors p-1 rounded">
+                                                    <Link href="/reservas">
+                                                        Reservas
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </button>
                                     </li>
                                     : <li className="select-none relative">
-                                        <Link href="/login">Log In</Link>
+                                        <Link href="/login">Iniciar sesión</Link>
                                     </li>
                                 }
 
