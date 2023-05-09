@@ -73,9 +73,9 @@ export const updateProfile = async (
 };
 
 export async function deleteProfile(id) {
-    const { data: delProfile, error } = await supabase
+  const { data: delProfile, error } = await supabase
         .from("profiles")
-        .delete()
+        .update({ deleted_at: new Date() })
         .eq("id", id);
     if (error) {
         throw error;

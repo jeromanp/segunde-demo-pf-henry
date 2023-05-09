@@ -114,7 +114,7 @@ export const upRoom = async ({
 export const deleteRoom = async (id) => {
   const { data: delRoom, error } = await supabase
     .from("rooms")
-    .delete()
+    .update({ deleted_at: new Date() })
     .eq("id", id);
   if (error) {
     throw error;
