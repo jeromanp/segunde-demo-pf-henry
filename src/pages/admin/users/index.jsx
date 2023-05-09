@@ -1,10 +1,11 @@
-import Layout from "../../../layouts/DashboardLayout";
-import Header from "../../../components/dashboard/PageHeader";
-import TableHead from "../../../components/dashboard/tables/TableHead";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import swalAction from "components/dashboard/swalAction";
+import Layout from '../../../layouts/DashboardLayout'
+import Header from '../../../components/dashboard/PageHeader'
+import TableHead from '../../../components/dashboard/tables/TableHead'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import swalAction from 'components/dashboard/swalAction'
+import dayjs from 'dayjs'
 
 const table_head = [
   { idx: 'name', title: 'Nombre', width: 'min-w-[220px]' },
@@ -49,7 +50,7 @@ export default function Dashboard() {
     if (filteredBookings.length >= 1) {
       const lastCheckOut =
         filteredBookings[filteredBookings.length - 1].checkout;
-      return lastCheckOut;
+      return dayjs(lastCheckOut).format('DD MMM, YYYY')
     } else {
       return "no hay registros";
     }
@@ -61,6 +62,7 @@ export default function Dashboard() {
       e.target.value,
       setUsers,
       users,
+			'users'
     )
   }
 
@@ -93,19 +95,31 @@ export default function Dashboard() {
                 {users &&
                   users.map((user, i) => (
                     <tr key={i}>
-                      <td className="border-b border-[#eee] py-5 px-4">
-                        <h5 className="font-medium text-black">
+                      <td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < user.length -1 ? 'border-b' : ''}`
+												}>
+                        <h5 className="text-black text-sm font-semibold capitalize">
                           {user.name ? user.name : user.full_name}
                         </h5>
-                        <p className="text-sm">{user.email}</p>
+                        <p className="text-xs">{user.email}</p>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 xl:pl-11">
-                        <p className="text-black">{totalBookings(user.id)}</p>
+                      <td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < user.length -1 ? 'border-b' : ''}`
+												}>
+                        <p className="text-sm font-medium">{totalBookings(user.id)}</p>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4">
-                        <p className="text-black">{lastBooking(user.id)}</p>
+                      <td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < user.length -1 ? 'border-b' : ''}`
+												}>
+                        <p className="text-sm font-medium">{lastBooking(user.id)}</p>
                       </td>
-                      <td className="border-b border-[#eee] py-5 px-4">
+                      <td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < user.length -1 ? 'border-b' : ''}`
+												}>
                         <div className="flex items-center space-x-3.5">
                           <Link
                             className="hover:text-primary"
@@ -126,6 +140,9 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+			<div className="h-20"></div>
+
     </Layout>
   );
 }
