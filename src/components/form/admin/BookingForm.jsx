@@ -27,11 +27,11 @@ export default function BookingForm({ booking }) {
         <form onSubmit={submitHandler}>
             <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
                 <div className="w-full">
-                    <label htmlFor="name" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor="name" className="mb-3 block text-sm font-medium text-black">
                         Cabaña
                     </label>
                     <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                         type="text"
                         name="name"
                         id="name"
@@ -43,11 +43,11 @@ export default function BookingForm({ booking }) {
 
             <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
                 <div className="w-full sm:w-1/2">
-                    <label htmlFor="checkin" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor="checkin" className="mb-3 block text-sm font-medium text-black">
                         Check-In
                     </label>
                     <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                         type="date"
                         name="checkin"
                         id="checkin"
@@ -56,11 +56,11 @@ export default function BookingForm({ booking }) {
                 </div>
 
                 <div className="w-full sm:w-1/2">
-                    <label htmlFor="checkout" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor="checkout" className="mb-3 block text-sm font-medium text-black">
                         Check-Out
                     </label>
                     <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                         type="date"
                         name="checkout"
                         id="checkout"
@@ -69,12 +69,12 @@ export default function BookingForm({ booking }) {
                 </div>
             </div>
             <div className="mb-5.5">
-                <label htmlFor="email" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                <label htmlFor="email" className="mb-3 block text-sm font-medium text-black">
                     E-mail
                 </label>
 
                 <input
-                    className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                    className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                     type="email"
                     name="email"
                     id="email"
@@ -84,12 +84,12 @@ export default function BookingForm({ booking }) {
             </div>
 
             <div className="mb-5.5">
-                <label htmlFor="full_name" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                <label htmlFor="full_name" className="mb-3 block text-sm font-medium text-black">
                     Nombre
                 </label>
 
                 <input
-                    className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                    className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                     type="text"
                     name="full_name"
                     id="full_name"
@@ -100,7 +100,7 @@ export default function BookingForm({ booking }) {
 
             <div className="flex justify-end gap-4.5">
                 <button
-                    className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
+                    className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark"
                     type="submit">
                     Cancelar
                 </button>

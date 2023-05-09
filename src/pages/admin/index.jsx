@@ -126,14 +126,14 @@ export default function Dashboard() {
       <main>
         <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
-            <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-              <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-                <i className="ri-calendar-check-line text-white text-xl leading-none"></i>
+            <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default">
+              <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2">
+                <i className="ri-calendar-check-line text-primary text-xl leading-none"></i>
               </div>
 
               <div className="mt-4 flex items-end justify-between">
                 <div>
-                  <h4 className="text-title-md font-bold text-black dark:text-white">
+                  <h4 className="text-title-md font-bold text-black">
                     {activeBookings()}
                   </h4>
                   <span className="text-sm font-medium">Reservas activas</span>
@@ -141,14 +141,14 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-              <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-                <i className="ri-group-line text-white text-xl leading-none"></i>
+            <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default">
+              <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2">
+                <i className="ri-group-line text-primary text-xl leading-none"></i>
               </div>
 
               <div className="mt-4 flex items-end justify-between">
                 <div>
-                  <h4 className="text-title-md font-bold text-black dark:text-white">
+                  <h4 className="text-title-md font-bold text-black">
                     {countGuests()}
                   </h4>
                   <span className="text-sm font-medium">Huéspedes este mes</span>
@@ -173,10 +173,10 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-              <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+            <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default">
+              <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2">
                 <svg
-                  className="fill-primary dark:fill-white"
+                  className="fill-primary"
                   width="22"
                   height="18"
                   viewBox="0 0 22 18"
@@ -200,7 +200,7 @@ export default function Dashboard() {
 
               <div className="mt-4 flex items-end justify-between">
                 <div>
-                  <h4 className="text-title-md font-bold text-black dark:text-white">
+                  <h4 className="text-title-md font-bold text-black">
                     {countUsers()}
                   </h4>
                   <span className="text-sm font-medium">Total Users</span>

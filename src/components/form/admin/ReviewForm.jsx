@@ -31,13 +31,13 @@ export default function ReviewForm({ review }) {
         <form onSubmit={handleSubmit}>
             <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
                 <div className="w-full sm:w-1/2">
-                    <label htmlFor="username" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor="username" className="mb-3 block text-sm font-medium text-black">
                         Nombre
                     </label>
 
                     <div className="relative">
                         <input
-                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                             type="text"
                             name="username"
                             id="username"
@@ -47,12 +47,12 @@ export default function ReviewForm({ review }) {
                 </div>
 
                 <div className="w-full sm:w-1/2">
-                    <label htmlFor="email" className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label htmlFor="email" className="mb-3 block text-sm font-medium text-black">
                         E-mail
                     </label>
 
                     <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                         type="email"
                         name="email"
                         id="email"
@@ -62,7 +62,7 @@ export default function ReviewForm({ review }) {
             </div>
 
             <div className="flex gap-x-6 items-center my-6">
-                <label className="block text-sm font-medium text-black dark:text-white">
+                <label className="block text-sm font-medium text-black">
                     Estrellas
                 </label>
 
@@ -87,14 +87,14 @@ export default function ReviewForm({ review }) {
             </div>
 
             <div className="mb-5.5">
-                <label className="mb-3 block text-sm font-medium text-black dark:text-white"
+                <label className="mb-3 block text-sm font-medium text-black"
                     htmlFor="review">
                     Comentario
                 </label>
                 <div className="relative">
 
                     <textarea
-                        className="w-full rounded border border-stroke bg-gray py-3 pl-4.5 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary resize-none"
+                        className="w-full rounded border border-stroke bg-gray py-3 pl-4.5 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none resize-none"
                         name="review"
                         id="review"
                         rows="6"
@@ -106,7 +106,7 @@ export default function ReviewForm({ review }) {
             </div>
 
             <div className="flex gap-x-6 items-center my-6">
-                <label className="block text-sm font-medium text-black dark:text-white">
+                <label className="block text-sm font-medium text-black">
                     Aprobado
                 </label>
 
@@ -132,7 +132,7 @@ export default function ReviewForm({ review }) {
 
             <div className="flex justify-end gap-4.5 mt-6">
                 <button
-                    className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
+                    className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark"
                     type="submit">
                     <Link href='/admin/reviews'>Cancelar</Link>
                 </button>

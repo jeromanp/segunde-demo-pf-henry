@@ -17,7 +17,7 @@ export default function Edit({user}) {
 
       <div className="flex justify-center">
 				<div className="col-span-5 xl:col-span-3 w-1/2">
-          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="rounded-sm border border-stroke bg-white shadow-default">
             <div className="p-7">
               <UserForm user={user}/>
             </div>
