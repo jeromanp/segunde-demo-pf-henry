@@ -1,6 +1,6 @@
 import Layout from '../../../layouts/DashboardLayout'
 import Header from '../../../components/dashboard/PageHeader'
-import RoomForm from 'components/form/admin/RoomForm'
+import RoomForm from 'components/dashboard/form/RoomForm'
 import { supabase } from 'utils/supabase'
 
 export default function Edit({ room }) {
