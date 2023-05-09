@@ -21,7 +21,6 @@ export async function handlerGetById(req, res) {
 
 export async function handlerPost(req, res) {
     const body = req.body;
-    console.log(body);
     try {
         const postBooking = await Controllers.postNewBooking(body);
         return res.status(200).json(postBooking);
