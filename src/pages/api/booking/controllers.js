@@ -95,7 +95,7 @@ export const updateBooking = async ({
 export async function deleteBooking({ id }) {
     const { data, error } = await supabase
         .from("booking")
-        .delete()
+        .update({ deleted_at: new Date() })
         .eq("id", id);
 
     if (error) {

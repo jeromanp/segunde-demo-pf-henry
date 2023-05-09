@@ -63,7 +63,7 @@ export const updateComment = async ({
 };
 
 export async function deleteComment({ id }) {
-  const { data, error } = await supabase.from("comments").delete().eq("id", id);
+  const { data, error } = await supabase.from("comments").update({ deleted_at: new Date() }).eq("id", id);
 
   if (error) {
     console.log(error);
