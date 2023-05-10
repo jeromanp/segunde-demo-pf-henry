@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Avatar from "./Avatar";
 import Swal from "sweetalert2";
-import { getProfileId } from "helpers/dbHelpers";
-import UserBookings from "./UserBookings";
 
 export default function Account({ session }) {
     const supabase = useSupabaseClient();
