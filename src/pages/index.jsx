@@ -85,9 +85,7 @@ export default function Home() {
 									</div>
 
 									<div
-											className="border-t border-gray-200 flex-1
-								flex items-center gap-x-1
-								md:border-l md:basis-32"
+											className="border-gray-200 flex-1 flex items-center gap-x-1 md:border-l md:border-r md:basis-32 border-t border-b md:border-b-0 md:border-t-0"
 									>
 											<span className="text-gray-400 text-xs leading-none font-medium w-20 pl-4 md:hidden">
 													Desde
@@ -108,9 +106,9 @@ export default function Home() {
 									</div>
 
 									<div
-											className="border-t border-gray-200 flex-1 
-								flex items-center gap-x-1 
-								md:border-l"
+											className="flex-1 
+											flex items-center gap-x-1 
+											"
 									>
 											<span className="text-gray-400 text-xs leading-none font-medium w-20 pl-4 md:hidden">
 													Hasta
