@@ -20,8 +20,8 @@ export default function Home() {
 	}
 
 
-
 	useEffect(() => {
+		const window_w = window.innerWidth
 		gsap.set('#headerMain', { opacity: 0 })
 		gsap.set('#introText', { opacity: 0 })
 		gsap.set('#searchForm', { opacity: 0 })
@@ -31,7 +31,8 @@ export default function Home() {
 		gsap.to('#loaderScreenLogo', { opacity: 0, scale: .6, duration: 1.5, delay: 1.5 })
 		gsap.to('#loaderScreen', { opacity: 0, duration: 1.5, delay: 2 })
 		gsap.set('#loaderScreen', { display: 'none', delay: 2.5 })
-		gsap.to('#landing', { backgroundSize: '100%', duration: 1.5, delay: 2 })
+		gsap.to('#landing', { backgroundSize: (window_w <= 768 ? 'auto 100%' : '100%'), duration: 1.5, delay: 2 })
+		gsap.set('#landing', { backgroundSize: 'cover', delay: 3.5 })
 		gsap.to('#headerMain', { opacity: 1, y: 0, duration: .7, delay: 2.2 })
 		gsap.to('#introText', { opacity: 1, duration: .7, delay: 2.4 })
 		gsap.to('#searchForm', { opacity: 1, duration: .7, delay: 2.6 })
