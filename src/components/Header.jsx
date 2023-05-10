@@ -66,17 +66,25 @@ export default function Header(props) {
                                 <li className="relative select-none">
                                     <button className="select-none">
 
-                                        <div>Nosotros</div>
-                                        <ul className="text-left text-base absolute bg-brand-brown rounded shadow-md p-2 hidden">
-                                            <li className="hover:bg-brand-olive transition-colors p-1 rounded">
-                                                <Link href="/nosotros">
-                                                    About
-                                                </Link>
+                                        <div>¿Quienes somos?</div>
+                                        
+																				<ul 
+																					className="bg-brand-brown text-left text-base 
+																										w-full absolute rounded shadow-md p-2 
+																										hidden">
+                                            <li 
+																							className="transition-colors px-2 py-1 rounded 
+																											hover:bg-brand-olive">
+																							<Link href="/nosotros">
+																								Nosotros
+																							</Link>
                                             </li>
-                                            <li className="hover:bg-brand-olive transition-colors p-1 rounded">
-                                                <Link href="/comentarios">
-                                                    Reviews
-                                                </Link>
+                                            <li 
+																							className="transition-colors px-2 py-1 rounded 
+																											hover:bg-brand-olive">
+																							<Link href="/comentarios">
+																								Reseñas
+																							</Link>
                                             </li>
                                         </ul>
                                     </button>
@@ -87,61 +95,56 @@ export default function Header(props) {
                                 </li>
 
                                 <li className="relative select-none">
-                                    <button className="select-none">
-
-                                        <div>Ayuda</div>
-                                        <ul className="text-left text-base absolute bg-brand-brown rounded shadow-md p-2 hidden">
-                                            <li className="hover:bg-brand-olive transition-colors p-1 rounded">
-                                                <Link href="/faqs">
-                                                    FAQs
-                                                </Link>
-                                            </li>
-                                            <li className="hover:bg-brand-olive transition-colors p-1 rounded">
-                                                <Link href="/actividades">
-                                                    Actividades
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </button>
+																	<button className="select-none">
+																		<div>Ayuda</div>
+																		<ul className="text-left text-base absolute bg-brand-brown rounded shadow-md p-2 hidden">
+																			<li className="hover:bg-brand-olive transition-colors px-2 py-1 rounded">
+																				<Link href="/faqs">
+																					FAQs
+																				</Link>
+																			</li>
+																			<li className="hover:bg-brand-olive transition-colors px-2 py-1 rounded">
+																				<Link href="/actividades">
+																					Actividades
+																				</Link>
+																			</li>
+																		</ul>
+																	</button>
                                 </li>
                                 {session
-                                    ? <li className="relative select-none">
-                                        <button className="select-none">
-
-                                            <div>Perfil</div>
-                                            <ul className="md:-left-14 text-left text-base absolute bg-brand-brown rounded shadow-md p-2 hidden">
-                                                <li className="hover:bg-brand-olive transition-colors p-1 rounded">
-                                                    <Link href="/login">
-                                                        Editar
-                                                    </Link>
-                                                </li>
-                                                {session
-                                                // Verificar si es un admin
-                                                ? <li className="hover:bg-brand-olive transition-colors p-1 rounded">
-                                                    <Link href="/admin">
-                                                        Dashboard
-                                                    </Link>
-                                                </li>
-                                                    : <li className="hover:bg-brand-olive transition-colors p-1 rounded">
-                                                        <Link href="/reservas">
-                                                            Reservas
-                                                        </Link>
-                                                    </li>
-                                                }
-                                            </ul>
-                                        </button>
-                                    </li>
-                                    : <li className="select-none relative">
-                                        <Link href="/login">Iniciar sesión</Link>
-                                    </li>
+																	? <li className="relative select-none">
+																		<button className="select-none">
+																			
+																			<div>Perfil</div>
+																			<ul className="md:-left-14 text-left text-base absolute bg-brand-brown rounded shadow-md p-2 hidden">
+																				<li className="hover:bg-brand-olive transition-colors px-2 py-1 rounded">
+																					<Link href="/login">
+																						Editar
+																					</Link>
+																				</li>
+																				{session
+																					// Falta verificar si es un admin para mostrar un link a dashboard
+																					? null
+																					: <li className="hover:bg-brand-olive transition-colors px-2 py-1 rounded">
+																						<Link href="/reservas">
+																							Reservas
+																						</Link>
+																					</li>
+																				}
+																			</ul>
+																		</button>
+																	</li>
+																	: <li className="select-none relative">
+																			<Link href="/login">Iniciar sesión</Link>
+																	</li>
                                 }
 
                                 <style jsx>{`
-                                        .select-none:hover .absolute {
-                                            display: block;
-                                            z-index: 10;
-                                        }
-                                    `}</style>
+																	.select-none:hover .absolute {
+																		display: block;
+																		z-index: 10;
+																	}
+																`}</style>
                             </ul>
                         </nav>
                     </div>

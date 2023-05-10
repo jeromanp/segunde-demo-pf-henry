@@ -2,7 +2,10 @@ import { getProfileId } from "helpers/dbHelpers";
 import { supabase } from "../../../utils/supabase";
 
 export const getAllBooking = async () => {
-  const { data: infoBooking, error } = await supabase.from("booking").select();
+    const { data: infoBooking, error } = await supabase
+        .from("booking")
+        .select()
+				.order('created_at', { ascending: false });
 
   if (error) {
     throw error;
@@ -34,11 +37,10 @@ export const postNewBooking = async ({
   adults,
   children,
 }) => {
-  const { userId, error: profileError } = await getProfileId(user_id);
-  if (profileError) {
-    console.log(profileError);
-    throw profileError;
-  }
+    const { userId, error: profileError } = await getProfileId(user_id);
+    if (profileError) {
+        throw profileError;
+    }
 
   const { data: postBooking, error } = await supabase
     .from("booking")

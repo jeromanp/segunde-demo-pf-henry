@@ -10,10 +10,10 @@ import dayjs from 'dayjs'
 
 
 const table_head = [
+  { idx: 'date', title: 'Fecha', width: 'min-w-[150px]' },
   { idx: 'nombre', title: 'Nombre', width: 'min-w-[100px]' },
   { idx: 'comment', title: 'Comentario', width: 'w-[400px] min-w-[200px]' },
   { idx: 'review', title: 'Valoración', width: 'min-w-[100px]' },
-  { idx: 'date', title: 'Fecha', width: 'min-w-[150px]' },
   { idx: 'status', title: 'Estado', width: 'min-w-[80px]' },
   { idx: 'actions', title: 'Acciones', with: 'min-w-[100px]' }
 ];
@@ -27,7 +27,6 @@ export default function Dashboard() {
     axios
       .get('/api/comments')
       .then((response) => {
-				console.log(response.data)
         setReviews(response.data)
       })
       .catch((error) => {
@@ -71,89 +70,88 @@ export default function Dashboard() {
             <table className="w-full table-auto">
               <TableHead data={table_head} />
 
-              <tbody>
-                {reviews &&
-                  reviews.map((review, i) => (
-                    <tr key={review.id}>
-
-                      <td 
+							<tbody>
+								{reviews &&
+									reviews.map((review, i) => (
+										<tr	tr key={review.id}>
+											<td 
 												className={
 													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
 												}>
-                        <h5 className="text-black text-sm font-semibold capitalize">
-                          { review.profiles.full_name }
-                        </h5>
-                        <p className="text-xs">
+												<p className="text-sm font-medium">
+													{ dayjs(review.created_at).format('DD MMM, YYYY') }
+												</p>
+											</td>
+
+											<td 
+												className={
+													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
+												}>
+												<h5 className="text-black text-sm font-semibold capitalize">
+													{ review.profiles.full_name }
+												</h5>
+												<p className="text-xs">
 													{ review.profiles.email }
 												</p>
-                      </td>
+											</td>
                       
 											<td 
 												className={
 													`border-[#eee] py-5 px-4 pl-5 ${i < reviews.length -1 ? 'border-b' : ''}`
 												}>
-                        <div className="text-xs">{ `${review.review.slice(0, 100)}${review.review.length > 100 ? '...' : ''}` }</div>
-                      </td>
-                      
+												<div className="text-xs">{ `${review.review.slice(0, 100)}${review.review.length > 100 ? '...' : ''}` }</div>
+											</td>
+											
 											<td 
 												className={
 													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
 												}>
-                        <div className="flex gap-x-1">
+												<div className="flex gap-x-1">
 													{ review.stars ? (<i className="ri-star-fill text-yellow text-sm"></i>) : null }
 													{ review.stars > 1 ? (<i className="ri-star-fill text-yellow text-sm"></i>) : null }
 													{ review.stars > 2 ? (<i className="ri-star-fill text-yellow text-sm"></i>) : null }
 													{ review.stars > 3 ? (<i className="ri-star-fill text-yellow text-sm"></i>) : null }
 													{ review.stars > 4 ? (<i className="ri-star-fill text-yellow text-sm"></i>) : null }
 												</div>
-                      </td>
-                      
-											<td 
-												className={
-													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
-												}>
-                        <p className="text-sm font-medium">
-													{ dayjs(review.created_at).format('DD MMM, YYYY') }
-												</p>
-                      </td>
+											</td>
 
 											<td 
 												className={
 													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
 												}>
-                        <p className="text-xs pl-4.5">
+												<p className="text-xs pl-4.5">
 													{ review.approved ? <i class="ri-checkbox-blank-circle-fill text-green-500"></i> : <i class="ri-checkbox-blank-circle-fill text-red-700"></i> }
 												</p>
-                      </td>
-                      
+											</td>
+											
 											<td 
 												className={
 													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
 												}>
-                        <div className="flex items-center space-x-3.5">
-                          <Link
-                            className="hover:text-primary"
-                            href={`/admin/reviews/${review.id}`}
-                          >
-                            <i className="ri-edit-line text-xl leading-none"></i>
-                          </Link>
-                          <button className="hover:text-primary ri-close-circle-line text-xl leading-none"
-                            onClick={deleteHandler}
-                            value={review.id}>
-                          </button>
-                        </div>
-                      </td>
+												<div className="flex items-center space-x-3.5">
+													<Link
+														className="hover:text-primary"
+														href={`/admin/reviews/${review.id}`}
+													>
+														<i className="ri-edit-line text-xl leading-none"></i>
+													</Link>
+													<button className="hover:text-primary ri-close-circle-line text-xl leading-none"
+														onClick={deleteHandler}
+														value={review.id}>
+													</button>
+												</div>
+											</td>
 
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+										</tr>
+									))}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 
 			<div className="h-20"></div>
 
-    </Layout>
-  );
+		</Layout>
+	);
 }
