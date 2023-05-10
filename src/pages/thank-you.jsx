@@ -36,7 +36,14 @@ export default function ThankYou() {
             ) {
                 //El pago se realizo correctamente
                 //Se debe realizar el cambio en la base de datos de q el booking payment=true
-                console.log("pagado");
+                const response = await fetch(
+                    `/api/booking/${booking_id}?session_id=${session_id}`,
+                    {
+                        method: "PUT",
+                    }
+                );
+                const data = await response.json();
+                console.log(data);
             }
         };
         verifiedRoomPaid();
