@@ -42,7 +42,7 @@ export default function CheckOutForm({
             body: JSON.stringify({
                 checkin: filters.checkin,
                 checkout: filters.checkout,
-                guests: filters.guests,
+                adults: filters.guests,
                 user_id: session.user.id,
                 room_id: roomId,
             }),
@@ -60,6 +60,7 @@ export default function CheckOutForm({
                 price_id: default_price,
                 night: night,
                 subscription: true,
+                booking_id: data[0].id,
             }),
         });
         const checkoutSessionData = await checkoutSessionResponse.json();
