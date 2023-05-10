@@ -6,7 +6,8 @@ import { filterRoomsByCapacity, filterRoomsByDates } from "helpers/filters";
 export const getAllRooms = async (query) => {
   const { data: rooms, error } = await supabase
     .from("rooms")
-    .select(`*,booking(checkin,checkout)`);
+    .select(`*,booking(checkin,checkout)`)
+		.order('created_at', { ascending: false });
 
   if (error) {
     throw error;
@@ -26,8 +27,8 @@ export const getAllRooms = async (query) => {
 export const getRoomById = async (id) => {
   const { data: room, error } = await supabase
     .from("rooms")
-    .select(`*,booking(checkin,checkout)`)
     .eq("id", id)
+    .select(`*,booking(checkin,checkout)`)
     .single();
   if (error) {
     throw error;
@@ -36,72 +37,25 @@ export const getRoomById = async (id) => {
 };
 
 //POST
-
-export const postRoom = async ({
-  name,
-  type,
-  rooms,
-  services,
-  price,
-  capacity,
-  gallery_id,
-  beds,
-  bathrooms,
-  description,
-}) => {
+export const postRoom = async (form_data) => {
   const { data: postRoom, error } = await supabase
-    .from("rooms")
-    .insert([
-      {
-        name,
-        type,
-        rooms,
-        services,
-        price,
-        capacity,
-        gallery_id,
-        beds,
-        bathrooms,
-        description,
-      },
-    ])
+    .from('rooms')
+    .insert([form_data])
     .select();
-  if (error) {
+  
+	if (error) {
     throw error;
   }
   return postRoom;
 };
 
-//UPDATE
 
-export const upRoom = async ({
-  id,
-  name,
-  type,
-  rooms,
-  services,
-  price,
-  capacity,
-  gallery_id,
-  beds,
-  bathrooms,
-  description,
-}) => {
+//UPDATE
+export const upRoom = async (id, form_data) => {
   const { data: upRoom, error } = await supabase
-    .from("rooms")
-    .update({
-      name,
-      type,
-      rooms,
-      services,
-      price,
-      capacity,
-      gallery_id,
-      beds,
-      bathrooms,
-      description,
-    })
-    .eq("id", id)
+    .from('rooms')
+    .update(form_data)
+    .eq('id', id)
     .select();
   if (error) {
     throw error;

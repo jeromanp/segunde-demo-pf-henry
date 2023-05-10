@@ -15,7 +15,6 @@ export default function BookingForm({ booking }) {
             ...inputs,
             [name]: value,
         })
-        console.log(inputs);
         console.log(booking);
     }
 

@@ -30,9 +30,9 @@ export async function handlerPost(req, res) {
 }
 
 export async function handlerPut(req, res) {
-  const body = req.body;
+  const {id, form} = req.body;
   try {
-    const updateRoom = await Controllers.upRoom(body);
+    const updateRoom = await Controllers.upRoom(id, form);
     return res.status(200).json(updateRoom);
   } catch (error) {
     return res.status(404).json({ error: error.message });

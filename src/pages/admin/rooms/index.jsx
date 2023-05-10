@@ -107,7 +107,11 @@ export default function Dashboard({ rooms }) {
 												className={
 													`border-[#eee] py-5 px-4 select-none ${i < roomList.length -1 ? 'border-b' : ''}`
 												}>
-                        <h5 className="text-slate-700 font-bold">{room.name}</h5>
+                        <h5 className="text-slate-700 font-bold">
+													<Link href={`/admin/rooms/${room.id}`}>
+														{room.name}
+													</Link>
+												</h5>
                         <p className="text-[10px] font-semibold uppercase leading-none tracking-wide">
 													<span className={
 														room.suspended ? 'text-red-700' : 'text-green-500'
@@ -129,8 +133,7 @@ export default function Dashboard({ rooms }) {
                         <div className="flex items-center space-x-3.5">
                           <Link
                             className="hover:text-primary"
-                            href={`/admin/rooms/${room.id}`}
-                          >
+                            href={`/admin/rooms/${room.id}`}>
                             <i className="ri-edit-line text-xl leading-none"></i>
                           </Link>
                           <button

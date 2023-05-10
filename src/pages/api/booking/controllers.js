@@ -4,7 +4,8 @@ import { supabase } from "../../../utils/supabase";
 export const getAllBooking = async () => {
     const { data: infoBooking, error } = await supabase
         .from("booking")
-        .select();
+        .select()
+				.order('created_at', { ascending: false });
 
     if (error) {
         throw error;
@@ -37,7 +38,6 @@ export const postNewBooking = async ({
 }) => {
     const { userId, error: profileError } = await getProfileId(user_id);
     if (profileError) {
-        console.log(profileError);
         throw profileError;
     }
 
