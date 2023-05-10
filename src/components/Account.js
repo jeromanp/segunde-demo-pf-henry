@@ -180,7 +180,6 @@ export default function Account({ session }) {
                     </div>
                 </div>
             </div>
-            {session ? <UserBookings session={session} /> : ""}
         </>
     );
 }

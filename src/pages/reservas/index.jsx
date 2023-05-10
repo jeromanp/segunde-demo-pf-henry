@@ -10,15 +10,22 @@ export default function Reservas() {
     const session = useSession();
 
     useEffect(() => {
-        axios('/api/booking')
-            .then(response => {
-                // acá va el filtrado según el id de usuario
-                setBookings([...response.data, ...response.data, ...response.data, ...response.data]);
-                console.log(response.data);
-            })
-            .catch(error => console.log(error));
-    }, [])
+        const getUserBookings = async () => {
+            if (session === undefined || session === null) {
+                return;
+            }
+            const response = await axios(
+                `/api/profile/${session.user.id}/bookings`
+            );
+            setBookings(response.data);
+        };
+        getUserBookings();
+    }, [session]);
 
+    const handleDownload = (e) => {
+        e.preventDefault()
+        // Descarga de comprobante
+    }
 
     return (
         <Layout>
@@ -37,7 +44,16 @@ export default function Reservas() {
                                 {dayjs(booking.checkin).format('DD MMM, YYYY')} - {dayjs(booking.checkout).format('DD MMM, YYYY')}
                             </h2>
                             <p className="font-semibold">{booking.rooms.name}</p>
-                            <Link href={`/reservas/${booking.id}`} className="btn-yellow" >Ver más</Link>
+                            <p>Pagado: {booking.payments ? "✅" : "❌"}</p>
+                            <p>Suspendido: {booking.suspended ? "✅" : "❌"}</p>
+                            <div className="flex items-center">
+                                <a
+                                    onClick={handleDownload}
+                                    className="hover:text-primary ri-file-text-line text-xl leading-none md:mr-4"
+                                    href="/"
+                                ></a>
+                                <Link href={`/cabanas/${booking.rooms.id}`} className="btn-yellow" >Ver cabaña</Link>
+                            </div>
                         </li>)
                     })}
                 </ul>
