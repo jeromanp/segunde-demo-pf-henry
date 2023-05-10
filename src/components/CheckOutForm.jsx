@@ -79,7 +79,7 @@ export default function CheckOutForm({
             <div className="pt-4">
                 <div className="border-2 rounded-3xl border-brand-light-green shadow-lg p-6">
                     <h2 className="text-brand-green font-bold text-3xl pt-2">
-                        ${price} USD{" "}
+                        ${price} ARS{" "}
                         <span className="text-green font-light text-2xl">
                             por noche
                         </span>
@@ -152,20 +152,20 @@ export default function CheckOutForm({
                     <section className="pt-8">
                         <div className="flex justify-between text-base font-base">
                             <p className="pb-2">
-                                ${price} USD por {night} noches
+                                ${price} ARS por {night} noches
                             </p>
-                            <p className="pb-2">${price * night} USD</p>
+                            <p className="pb-2">${price * night} ARS</p>
                         </div>
 
                         <div className="flex justify-between text-base font-base">
                             <p className="pb-2">Ejemplo Extra </p>
-                            <p className="pb-6">${extra} USD</p>
+                            <p className="pb-6">${extra} ARS</p>
                         </div>
 
                         <div className="border-2 border-brand-cream rounded-full"></div>
                         <div className="flex justify-between text-2xl font-semibold pt-6 pb-10">
                             <h2>Total</h2>
-                            <p>${price * night + extra} USD</p>
+                            <p>${price * night + extra} ARS</p>
                         </div>
                     </section>
                 </div>
