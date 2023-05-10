@@ -30,8 +30,9 @@ export async function handlerPost(req, res) {
 
 export async function handlerPut(req, res) {
   const body = req.body;
+  const { id, suspend } = req.query;
   try {
-    const updateComment = await Controllers.updateComment(body);
+    const updateComment = await Controllers.updateComment(body, id, suspend);
     return res.status(200).json(updateComment);
   } catch (error) {
     return res.status(404).json({ error: error.message });
