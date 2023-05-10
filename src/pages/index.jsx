@@ -38,8 +38,6 @@ export default function Home() {
 		gsap.to('#whats-app-icon', { y: 0, duration: .3, delay: 3.6 })
 	}, [])
 
-
-
 	return (
 		<div
 			id="landing"
