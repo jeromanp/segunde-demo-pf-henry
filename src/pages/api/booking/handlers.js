@@ -51,3 +51,22 @@ export async function handlerDelete(req, res) {
         return res.status(500).json({ error: error.message });
     }
 }
+
+export async function handlerUpdateById(req, res) {
+    const { id, session_id } = req.query;
+    try {
+        if (session_id === undefined) {
+            //Update comun y corriente a implementar
+            res.json({ tata: "aca iria el booking modificado" });
+        } else {
+            //Si se paso un session_id entonces es verificaicon de pago
+            const response = await Controllers.paymentVerification(
+                id,
+                session_id
+            );
+            res.json(response);
+        }
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+}
