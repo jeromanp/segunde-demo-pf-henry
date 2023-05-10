@@ -1,6 +1,6 @@
 import Layout from '../../../layouts/DashboardLayout'
 import Header from '../../../components/dashboard/PageHeader'
-import RoomForm from 'components/form/admin/RoomForm'
+import RoomForm from 'components/dashboard/form/RoomForm'
 import { supabase } from 'utils/supabase'
 
 export default function Edit({ room }) {
@@ -14,15 +14,7 @@ export default function Edit({ room }) {
 				</>)}>
 			</Header>
 
-			<div className="flex justify-center">
-				<div className="col-span-5 xl:col-span-3 w-1/2">
-					<div className="rounded-sm border border-stroke bg-white shadow-default">
-						<div className="p-7">
-							<RoomForm room={room} />
-						</div>
-					</div>
-				</div>
-			</div>
+			<RoomForm room={room} />
 		</Layout>
 	)
 }
@@ -31,19 +23,19 @@ export async function getServerSideProps({ params }) {
 	const { id } = params;
   
 	const { data: room, error } = await supabase
-	  .from("rooms")
-	  .select("*")
-	  .eq("id", id);
+		.from("rooms")
+		.select("*")
+		.eq("id", id);
   
 	if (error) {
-	  return {
-		notFound: true,
-	  };
+		return {
+			notFound: true,
+		};
 	}
   
 	return {
-	  props: {
-		room: room[0],
-	  },
+		props: {
+			room: room[0],
+		},
 	};
-  }
+}

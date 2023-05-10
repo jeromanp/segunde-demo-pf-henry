@@ -9,11 +9,11 @@ export default function Preload(props)
 		<>
 		{ props.loading ?
 			(<div 
-				className="fixed left-0 top-0 z-999999 flex 
-										h-screen w-screen items-center 
-										justify-center bg-white">
+				className={`bg-white bg-opacity-50 p-10 fixed left-0 top-0 
+									flex h-screen w-screen items-end justify-end  
+									transition-all z-999999 ${ props.loading ? 'opacity-100' : 'opacity-0' }`}>
 				<div 
-					className="h-16 w-16 animate-spin rounded-full border-4 
+					className="h-10 w-10 animate-spin rounded-full border-4 
 										border-solid border-primary border-t-transparent"></div>
 			</div>) : null
 		}

@@ -123,7 +123,7 @@ export default function Header(props) {
 																					</Link>
 																				</li>
 																				{session
-																					// Verificar si es un admin
+																					// Falta verificar si es un admin para mostrar un link a dashboard
 																					? null
 																					: <li className="hover:bg-brand-olive transition-colors px-2 py-1 rounded">
 																						<Link href="/reservas">
