@@ -20,7 +20,6 @@ export default function Home() {
 	}
 
 
-
 	useEffect(() => {
 		const window_w = window.innerWidth
 		gsap.set('#headerMain', { opacity: 0 })
