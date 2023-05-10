@@ -57,7 +57,7 @@ export default function Dashboard() {
         parseInt(mesActual) === parseInt(mes) &&
         parseInt(anioActual) === parseInt(anio)
       ) {
-        totalGuests += bookings[i].adults;
+        totalGuests += bookings[i].adults + bookings[i].children;
       }
     }
     return totalGuests;
@@ -81,16 +81,71 @@ export default function Dashboard() {
         parseInt(mesPasado) === parseInt(mes) &&
         parseInt(anioActual) === parseInt(anio)
       ) {
-        totalGuests += bookings[i].adults;
+        totalGuests += bookings[i].adults + bookings[i].children;
       }
     }
     return totalGuests;
   };
 
   //Esta funcion mide el cambio porcentual de usuarios respecto al mes anterior
-  //Es necesario agregar columa created_at en tabla profiles para su desarrollo
 
-  const usersPorcentualChange = () => {};
+  const usersPorcentualChange = () => {
+    const users = thisMonthUsers();
+    const pastMonthUsers = lastMonthUsers();
+    if (users && pastMonthUsers) {
+      const porcentualChange =
+        ((users - pastMonthUsers) / pastMonthUsers) * 100;
+      return porcentualChange.toFixed(2);
+    } else {
+      return "No es obtenible";
+    }
+  };
+
+  //Esta funcion cuenta los usuarios del mes pasado
+
+  const lastMonthUsers = () => {
+    let countUsers = 0;
+    const actualDate = new Date();
+    const lastMonth = actualDate.getMonth();
+    const actualYear = actualDate.getFullYear();
+    for (let i = 0; i < users.length; i++) {
+      const stringDate = users[i].created_at;
+      const creationDate = new Date(stringDate);
+      const creationMonth = creationDate.getMonth() + 1;
+      const creationYear = creationDate.getFullYear();
+      if (
+        parseInt(creationMonth) === parseInt(lastMonth) &&
+        parseInt(creationYear) === parseInt(actualYear)
+      ) {
+        countUsers += 1;
+      }
+    }
+
+    return countUsers;
+  };
+
+  //Esta funcion cuenta los usuarios de este mes
+
+  const thisMonthUsers = () => {
+    let countUsers = 0;
+    const actualDate = new Date();
+    const actualMonth = actualDate.getMonth() + 1;
+    const actualYear = actualDate.getFullYear();
+    for (let i = 0; i < users.length; i++) {
+      const stringDate = users[i].created_at;
+      const creationDate = new Date(stringDate);
+      const creationMonth = creationDate.getMonth() + 1;
+      const creationYear = creationDate.getFullYear();
+      if (
+        parseInt(creationMonth) === parseInt(actualMonth) &&
+        parseInt(creationYear) === parseInt(actualYear)
+      ) {
+        countUsers += 1;
+      }
+    }
+
+    return countUsers;
+  };
 
   //Esta funcion cuenta el total de reservas activas
   const activeBookings = () => {
@@ -151,7 +206,9 @@ export default function Dashboard() {
                   <h4 className="text-title-md font-bold text-black">
                     {countGuests()}
                   </h4>
-                  <span className="text-sm font-medium">Huéspedes este mes</span>
+                  <span className="text-sm font-medium">
+                    Huéspedes este mes
+                  </span>
                 </div>
 
                 <span className="flex items-center gap-1 text-sm font-medium text-meta-3">
@@ -207,7 +264,7 @@ export default function Dashboard() {
                 </div>
 
                 <span className="flex items-center gap-1 text-sm font-medium text-meta-5">
-                  0.95%
+                  {usersPorcentualChange()}
                   <svg
                     className="fill-meta-5"
                     width="10"
