@@ -62,7 +62,7 @@ export default function Dashboard() {
       e.target.value,
       setUsers,
       users,
-			'users'
+			'profile'
     )
   }
 
