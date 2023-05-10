@@ -3,6 +3,7 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Avatar from "./Avatar";
 import Swal from "sweetalert2";
 import { getProfileId } from "helpers/dbHelpers";
+import UserBookings from "./UserBookings";
 
 export default function Account({ session }) {
     const supabase = useSupabaseClient();
@@ -35,7 +36,7 @@ export default function Account({ session }) {
     async function getProfile() {
         try {
             setLoading(true);
-            console.log(await getProfileId(session.user.id));
+            //console.log(await getProfileId(session.user.id));
             let { data, error, status } = await supabase
                 .from("profiles")
                 .select(`username, full_name, avatar_url`)
@@ -82,101 +83,104 @@ export default function Account({ session }) {
     }
 
     return (
-        <div className="pt-4 pb-4">
-            <div className="border-2 rounded-3xl border-brand-light-green shadow-lg p-6">
-                {username ? (
-                    <h1 className="text-xl font-bold mb-4 text-brand-green">
-                        Bienvenido {username}!
-                    </h1>
-                ) : (
-                    <h1 className="text-xl font-bold mb-4 text-brand-green">
-                        Bienvenido! {fullName}!
-                    </h1>
-                )}
-                <Avatar
-                    uid={user.id}
-                    url={avatarUrl}
-                    size={150}
-                    onUpload={(url) => {
-                        setAvatarUrl(url);
-                        updateProfile({
-                            username,
-                            full_name: fullName,
-                            avatar_url: url,
-                        });
-                    }}
-                />
-                <div className="mb-2 mt-3">
-                    <label
-                        htmlFor="email"
-                        className="block font-bold mb-2 text-sm"
-                    >
-                        Email
-                    </label>
-                    <input
-                        id="email"
-                        type="text"
-                        value={session.user.email}
-                        className="bg-gray-100 border-2 border-brand-light-green rounded-lg px-3 py-2 w-full text-sm"
-                        disabled
-                    />
-                </div>
-                <div className="mb-2">
-                    <label
-                        htmlFor="username"
-                        className="block font-bold mb-2 text-sm"
-                    >
-                        Usuario
-                    </label>
-                    <input
-                        id="username"
-                        type="text"
-                        value={username || ""}
-                        onChange={(e) => setUsername(e.target.value)}
-                        className="bg-gray-100 border-2 border-brand-light-green rounded-lg px-3 py-2 w-full text-sm"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="full_name"
-                        className="block font-bold mb-2 text-sm"
-                    >
-                        Nombre
-                    </label>
-                    <input
-                        id="full_name"
-                        type="text"
-                        value={fullName || ""}
-                        onChange={(e) => setFullName(e.target.value)}
-                        className="bg-gray-100 border-2 border-brand-light-green rounded-lg px-3 py-2 w-full text-sm"
-                    />
-                </div>
-
-                <div className="mb-3">
-                    <button
-                        className="bg-brand-light-green text-white font-bold py-2 px-4 rounded-lg block w-full text-sm"
-                        onClick={() =>
+        <>
+            <div className="pt-4 pb-4">
+                <div className="border-2 rounded-3xl border-brand-light-green shadow-lg p-6">
+                    {username ? (
+                        <h1 className="text-xl font-bold mb-4 text-brand-green">
+                            Bienvenido {username}!
+                        </h1>
+                    ) : (
+                        <h1 className="text-xl font-bold mb-4 text-brand-green">
+                            Bienvenido! {fullName}!
+                        </h1>
+                    )}
+                    <Avatar
+                        uid={user.id}
+                        url={avatarUrl}
+                        size={150}
+                        onUpload={(url) => {
+                            setAvatarUrl(url);
                             updateProfile({
-                                username: username,
+                                username,
                                 full_name: fullName,
-                                avatar_url: avatarUrl,
-                            })
-                        }
-                        disabled={loading}
-                    >
-                        {loading ? "Cargando..." : "Actualizar"}
-                    </button>
-                </div>
+                                avatar_url: url,
+                            });
+                        }}
+                    />
+                    <div className="mb-2 mt-3">
+                        <label
+                            htmlFor="email"
+                            className="block font-bold mb-2 text-sm"
+                        >
+                            Email
+                        </label>
+                        <input
+                            id="email"
+                            type="text"
+                            value={session.user.email}
+                            className="bg-gray-100 border-2 border-brand-light-green rounded-lg px-3 py-2 w-full text-sm"
+                            disabled
+                        />
+                    </div>
+                    <div className="mb-2">
+                        <label
+                            htmlFor="username"
+                            className="block font-bold mb-2 text-sm"
+                        >
+                            Usuario
+                        </label>
+                        <input
+                            id="username"
+                            type="text"
+                            value={username || ""}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="bg-gray-100 border-2 border-brand-light-green rounded-lg px-3 py-2 w-full text-sm"
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label
+                            htmlFor="full_name"
+                            className="block font-bold mb-2 text-sm"
+                        >
+                            Nombre
+                        </label>
+                        <input
+                            id="full_name"
+                            type="text"
+                            value={fullName || ""}
+                            onChange={(e) => setFullName(e.target.value)}
+                            className="bg-gray-100 border-2 border-brand-light-green rounded-lg px-3 py-2 w-full text-sm"
+                        />
+                    </div>
 
-                <div>
-                    <button
-                        className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded block w-full text-sm"
-                        onClick={() => supabase.auth.signOut()}
-                    >
-                        Desloguearse
-                    </button>
+                    <div className="mb-3">
+                        <button
+                            className="bg-brand-light-green text-white font-bold py-2 px-4 rounded-lg block w-full text-sm"
+                            onClick={() =>
+                                updateProfile({
+                                    username: username,
+                                    full_name: fullName,
+                                    avatar_url: avatarUrl,
+                                })
+                            }
+                            disabled={loading}
+                        >
+                            {loading ? "Cargando..." : "Actualizar"}
+                        </button>
+                    </div>
+
+                    <div>
+                        <button
+                            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded block w-full text-sm"
+                            onClick={() => supabase.auth.signOut()}
+                        >
+                            Desloguearse
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+            {session ? <UserBookings session={session} /> : ""}
+        </>
     );
 }
