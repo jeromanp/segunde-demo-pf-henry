@@ -7,7 +7,7 @@ export const getAllRooms = async (query) => {
   const { data: rooms, error } = await supabase
     .from("rooms")
     .select(`*,booking(checkin,checkout)`)
-		.order('created_at', { ascending: false });
+    .order("created_at", { ascending: false });
 
   if (error) {
     throw error;
@@ -27,8 +27,8 @@ export const getAllRooms = async (query) => {
 export const getRoomById = async (id) => {
   const { data: room, error } = await supabase
     .from("rooms")
-    .eq("id", id)
     .select(`*,booking(checkin,checkout)`)
+    .eq("id", id)
     .single();
   if (error) {
     throw error;
@@ -39,28 +39,40 @@ export const getRoomById = async (id) => {
 //POST
 export const postRoom = async (form_data) => {
   const { data: postRoom, error } = await supabase
-    .from('rooms')
+    .from("rooms")
     .insert([form_data])
     .select();
-  
-	if (error) {
+
+  if (error) {
     throw error;
   }
   return postRoom;
 };
 
-
 //UPDATE
-export const upRoom = async (id, form_data) => {
-  const { data: upRoom, error } = await supabase
-    .from('rooms')
-    .update(form_data)
-    .eq('id', id)
-    .select();
-  if (error) {
-    throw error;
+export const upRoom = async (id, form_data, suspend) => {
+  if (suspend === undefined) {
+    const { data: upRoom, error } = await supabase
+      .from("rooms")
+      .update(form_data)
+      .eq("id", id)
+      .select();
+    if (error) {
+      throw error;
+    }
+    return upRoom;
+  } else {
+    const room = await getRoomById(id);
+    const { data: upRoom, error } = await supabase
+      .from("rooms")
+      .update({ suspended: !room.suspended })
+      .eq("id", id)
+      .select();
+    if (error) {
+      throw error;
+    }
+    return upRoom;
   }
-  return upRoom;
 };
 
 //DELETE

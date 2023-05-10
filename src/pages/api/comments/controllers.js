@@ -4,7 +4,7 @@ export const getAllComments = async () => {
   const { data: comments, error } = await supabase
     .from("comments")
     .select(`*, profiles(full_name, email)`)
-		.order('created_at', { ascending: false });
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.log(error);
@@ -44,27 +44,41 @@ export const postNewComment = async ({ review, user_id, stars, approved }) => {
   return postComment;
 };
 
-export const updateComment = async ({
+export const updateComment = async (
+  { id, review, user_id, stars, approved },
   id,
-  review,
-  user_id,
-  stars,
-  approved,
-}) => {
-  const update_at = new Date();
-  const { data: updateComments, error } = await supabase
-    .from("comments")
-    .update({ review, user_id, stars, approved, update_at })
-    .eq("id", id)
-    .select();
-  if (error) {
-    throw error;
+  suspend
+) => {
+  if (suspend === undefined) {
+    const update_at = new Date();
+    const { data: updateComments, error } = await supabase
+      .from("comments")
+      .update({ review, user_id, stars, approved, update_at })
+      .eq("id", id)
+      .select();
+    if (error) {
+      throw error;
+    }
+    return updateComments;
+  } else {
+    const comment = await getCommentById(id);
+    const { data: upComment, error } = await supabase
+      .from("comments")
+      .update({ suspended: !comment.suspended })
+      .eq("id", id)
+      .select();
+    if (error) {
+      throw error;
+    }
+    return upComment;
   }
-  return updateComments;
 };
 
 export async function deleteComment(id) {
-  const { data, error } = await supabase.from("comments").update({ deleted_at: new Date() }).eq("id", id);
+  const { data, error } = await supabase
+    .from("comments")
+    .update({ deleted_at: new Date() })
+    .eq("id", id);
 
   if (error) {
     console.log(error);

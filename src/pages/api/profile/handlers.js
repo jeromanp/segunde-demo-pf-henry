@@ -21,9 +21,9 @@ export async function handlerPost(req, res) {
 
 export const handlerPut = async (req, res) => {
   const body = req.body;
-  const { id } = req.query;
+  const { id, suspend } = req.query;
   try {
-    const updateProfile = await Controllers.updateProfile(id, body);
+    const updateProfile = await Controllers.updateProfile(body, id, suspend);
     res.status(200).json(updateProfile);
   } catch (error) {
     return res.status(404).json({ error: error.message });
