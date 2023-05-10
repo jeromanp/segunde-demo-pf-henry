@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
  * @param {Number}   id           El id de la instancia a borrar/suspender.
  * @param {Function}   setter           setState a ejecutar.
  * @param {Object}   data           Estado a filtrar con setState.
- * @param {String}   route           Si no se pasa, se toma la instancia como ruta (POST/PUT /api/${route || instancia}).
+ * @param {String}   route           Ruta de la api (DELETE/PUT /api/${route}/${id}).
  */
 
 export default function swalAction(instancia, id, setter, data, route) {
@@ -36,7 +36,8 @@ export default function swalAction(instancia, id, setter, data, route) {
         preConfirm: async () => {
             // Suspensión de instancia
             try {
-                response = await axios.delete(`/api/${route}/${id}`);
+                // Envía un query 'true' para dar el toggle, no es explicitamente el valor de suspended
+                response = await axios.put(`/api/${route}/${id}?suspend=true`);
             } catch (error) {
                 Swal.fire('Nope', 'Ocurrió un error, intenta más tarde', 'error')
             }
