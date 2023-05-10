@@ -94,7 +94,7 @@ export const updateBooking = async ({
   return upBooking;
 };
 
-export async function deleteBooking({ id }) {
+export async function deleteBooking(id) {
   const { data, error } = await supabase
     .from("booking")
     .update({ deleted_at: new Date() })

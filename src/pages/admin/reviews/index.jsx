@@ -41,7 +41,7 @@ export default function Dashboard() {
       e.target.value,
       setReviews,
       reviews,
-			'comments'
+	  'comments'
     )
   }
 
@@ -73,7 +73,7 @@ export default function Dashboard() {
 							<tbody>
 								{reviews &&
 									reviews.map((review, i) => (
-										<tr	tr key={review.id}>
+										<tr key={review.id}>
 											<td 
 												className={
 													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
@@ -120,7 +120,7 @@ export default function Dashboard() {
 													`border-[#eee] py-5 px-4 ${i < reviews.length -1 ? 'border-b' : ''}`
 												}>
 												<p className="text-xs pl-4.5">
-													{ review.approved ? <i class="ri-checkbox-blank-circle-fill text-green-500"></i> : <i class="ri-checkbox-blank-circle-fill text-red-700"></i> }
+													{ review.approved ? <i className="ri-checkbox-blank-circle-fill text-green-500"></i> : <i className="ri-checkbox-blank-circle-fill text-red-700"></i> }
 												</p>
 											</td>
 											
