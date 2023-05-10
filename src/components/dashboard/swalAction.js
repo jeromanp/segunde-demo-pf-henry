@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 
 export default function swalAction(instancia, id, setter, data, route) {
     // Para saber si la instancia es el o la
+    let response = false;
     const articulo =
         instancia.slice(-1) === 'a'
             ? 'la'
@@ -33,20 +34,30 @@ export default function swalAction(instancia, id, setter, data, route) {
         cancelButtonText: 'Ninguna',
         reverseButtons: true,
         preConfirm: async () => {
-            // suspende instancia
+            // Suspensión de instancia
+            try {
+                response = await axios.delete(`/api/${route}/${id}`);
+            } catch (error) {
+                Swal.fire('Nope', 'Ocurrió un error, intenta más tarde', 'error')
+            }
         },
         preDeny: async () => {
-            await axios.delete(`/api/${route}/${id}`)
+            // Borrado logico de instancia
+            try {
+                response = await axios.delete(`/api/${route}/${id}`)
+            } catch (error) {
+                Swal.fire('Nope', 'Ocurrió un error, intenta más tarde', 'error')
+            }
         }
     })
-    // Si no fue cancelado, actua (pre👆) y responde con otro swal
+        // Si no fue cancelado, actua (pre👆) y responde con otro swal
         .then((result) => {
-            if (!result.isDismissed) {
-                Swal.fire({
-                    title: 'Listo!',
-                    text: `Se ${result.isConfirmed ? 'suspendió' : 'borró'} ${articulo} ${instancia}.`,
-                    icon: 'success',
-                })
+            if (!result.isDismissed && response) {
+                Swal.fire(
+                    'Listo!',
+                    `Se ${result.isConfirmed ? 'suspendió' : 'borró'} ${articulo} ${instancia}.`,
+                    'success',
+                )
                 // Borra esa instancia de la lista en index
                 setter(data.filter((elem) => elem.id !== id))
             }
