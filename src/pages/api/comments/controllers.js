@@ -46,7 +46,7 @@ export const postNewComment = async ({ review, user_id, stars, approved }) => {
 
 export const updateComment = async (
   { id, review, user_id, stars, approved },
-  id,
+  queryId,
   suspend
 ) => {
   if (suspend === undefined) {
@@ -61,11 +61,11 @@ export const updateComment = async (
     }
     return updateComments;
   } else {
-    const comment = await getCommentById(id);
+    const comment = await getCommentById(queryId);
     const { data: upComment, error } = await supabase
       .from("comments")
       .update({ suspended: !comment.suspended })
-      .eq("id", id)
+      .eq("id", queryId)
       .select();
     if (error) {
       throw error;
