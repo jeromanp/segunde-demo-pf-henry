@@ -58,6 +58,10 @@ export default function Dashboard() {
     )
   }
 
+  const handleDownload = (e) => {
+    e.preventDefault();
+    // Descarga de comprobante
+  }
 
   return (
     <Layout>
@@ -115,12 +119,12 @@ export default function Dashboard() {
 												`border-[#eee] py-5 px-4 ${i < bookings.length -1 ? 'border-b' : ''}`
 											}>
                         <div className="flex items-center space-x-3.5">
-                          <Link
-                            className="hover:text-primary"
-                            href="detail-reserva.html"
+                          <a
+                            onClick={handleDownload}
+                            className="hover:text-primary ri-file-text-line text-xl leading-none"
+                            href="/"
                           >
-                            <i className="ri-file-text-line text-xl leading-none"></i>
-                          </Link>
+                          </a>
                           <Link
                             className="hover:text-primary"
                             href={`/admin/booking/${booking.id}`}
