@@ -1,3 +1,4 @@
+import { getProfileId } from "helpers/dbHelpers";
 import { supabase } from "../../../utils/supabase";
 
 export const getAllProfile = async () => {
@@ -73,7 +74,7 @@ export const updateProfile = async (
 };
 
 export async function deleteProfile(id) {
-  const { data: delProfile, error } = await supabase
+    const { data: delProfile, error } = await supabase
         .from("profiles")
         .update({ deleted_at: new Date() })
         .eq("id", id);
@@ -81,4 +82,16 @@ export async function deleteProfile(id) {
         throw error;
     }
     return delProfile;
+}
+
+export async function getProfileBookings(userId) {
+    const { userId: id } = await getProfileId(userId);
+    const { data: profileBookings, error } = await supabase
+        .from("booking")
+        .select(`*,rooms(name)`)
+        .eq("user_id", id);
+    if (error) {
+        throw error;
+    }
+    return profileBookings;
 }
