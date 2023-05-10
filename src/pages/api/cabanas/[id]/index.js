@@ -6,6 +6,8 @@ export default async function handler(req, res) {
   switch (method) {
     case Methods.GET:
       return await Handlers.handlerGetById(req, res);
+    case Methods.PUT:
+      return await Handlers.handlerPut(req, res);
     case Methods.DELETE:
       return await Handlers.handlerDelete(req, res);
     default:
