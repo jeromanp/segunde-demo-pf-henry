@@ -4,6 +4,7 @@ import GuestsSelector from "./form/GuestsSelector";
 import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { addDays } from "helpers/dateProcessing";
+import DatePicker from "./DatePicker";
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
@@ -137,7 +138,7 @@ export default function CheckOutForm({
                             />
                         </div>
                     </div>
-
+                    <DatePicker />
                     <div className="bg-brand-light-green border rounded-xl text-center w-full">
                         <button
                             className="text-white text-xl font-medium p-4 w-full"
