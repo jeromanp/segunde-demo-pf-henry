@@ -1,9 +1,9 @@
-import { supabase } from "utils/supabase";
 import Layout from "../../layouts/Layout.jsx";
 import Link from "next/link";
 import Slider from "react-slick";
-import { useSession } from "@supabase/auth-helpers-react";
 import Datepicker from "components/form/Datepicker.jsx";
+import { supabase } from "utils/supabase";
+import { useSession } from "@supabase/auth-helpers-react";
 import { getAllDisabledDates } from "helpers/dateProcessing.js";
 
 export default function Room({ room }) {
@@ -12,14 +12,17 @@ export default function Room({ room }) {
 
     const settings = {
         customPaging: function (i) {
-            return (
-                <a>
-                    {/* <img src='' className={`w-5 h-5 bg-red-${i + 3}00`} /> */}
-                    <div className="bg-slate-500 rounded-lg text-slate-500">
-                        -
-                    </div>
-                </a>
-            );
+            if (room.images) {
+                return (
+                    <a>
+                        <img src={room.images.url[i].fileUrl} className={`rounded-xl`} />
+                    </a>
+                )
+            } else {
+                return (
+                    <></>
+                )
+            }
         },
         dots: true,
         dotsClass: "slick-dots slick-thumb",
@@ -63,28 +66,21 @@ export default function Room({ room }) {
                     </div>
                 </div>
                 <div className="w-5/6 md:w-1/3 md:m-auto mb-5 m-auto">
+                    {room.images?
                     <Slider {...settings}>
-                        {/* {[...Array(4)].map((_, i) => ( */}
-                        <div className="h-64 bg-slate-200 text-slate-200 rounded-xl">
-                            .
-                        </div>
-                        <div className="h-64 bg-slate-400 text-slate-400 rounded-xl">
-                            .
-                        </div>
-                        <div className="h-64 bg-slate-600 text-slate-600 rounded-xl">
-                            .
-                        </div>
-                        <div className="h-64 bg-slate-800 text-slate-800 rounded-xl">
-                            .
-                        </div>
-                        {/* ))} */}
+                        {room.images.url.map((image, i) => (
+                       <img src={image.fileUrl} alt={room.images.alt}
+                       className="rounded-xl" />
+                        ))}
                     </Slider>
+                    :<div>No hay imagenes</div>}
                 </div>
             </div>
-            <style>{`
+            <style>
+                {/* .slick thumb es el ul del slider, y los li tienen cada <a><img /></a> pero no son accesibles con tailwind */}
+                {`
             .slick-thumb li {
-                width: 24%;
-                margin: 0 0.50%;
+                
             }
             `}</style>
         </Layout>
@@ -96,7 +92,7 @@ export async function getServerSideProps({ params }) {
 
     const { data: room, error } = await supabase
         .from("rooms")
-        .select(`*,booking(checkin,checkout)`)
+        .select(`*,booking(checkin,checkout), images(url, alt)`)
         .eq("id", id);
 
     if (error) {
