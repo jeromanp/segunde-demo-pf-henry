@@ -45,3 +45,8 @@ export const getAllDisabledDates = (booking) => {
     }
     return disabledDates;
 };
+
+export const diffDays = (startDate, endDate) => {
+    const oneDay = 24 * 60 * 60 * 1000;
+    return Math.round(Math.abs((startDate - endDate) / oneDay));
+};
