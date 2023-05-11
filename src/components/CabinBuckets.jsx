@@ -4,12 +4,14 @@ import Swal from "sweetalert2";
 
 //type  y name seran los valores de la cabaña dado por el formulario para editar
 
-const CabinBuckets = ({ type = "A", name = "Cabaña A1" }) => {
+const CabinBuckets = ({ type = "A", name = "Cabaña A3" }) => {
   //en los buckets de Supabase no permite la ñ
   const newName = name.replace("Cabaña ", "");
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [uploading, setUploading] = useState(false);
 
   const handleUpload = async () => {
+    setUploading(true);
     const totalFiles = selectedFiles.length;
     let uploadedFiles = 0;
 
@@ -23,6 +25,7 @@ const CabinBuckets = ({ type = "A", name = "Cabaña A1" }) => {
       } else if (error) {
         console.log(error);
         Swal.fire(error.message);
+        setUploading(false);
         return;
       }
     }
@@ -30,13 +33,8 @@ const CabinBuckets = ({ type = "A", name = "Cabaña A1" }) => {
     if (uploadedFiles === totalFiles) {
       Swal.fire("Todas las imágenes se subieron correctamente");
       setSelectedFiles([]);
+      setUploading(false);
     }
-  };
-
-  const handleDeleteClick = (index) => {
-    const newSelectedFiles = [...selectedFiles];
-    newSelectedFiles.splice(index, 1);
-    setSelectedFiles(newSelectedFiles);
   };
 
   return (
@@ -64,6 +62,8 @@ const CabinBuckets = ({ type = "A", name = "Cabaña A1" }) => {
                   src={URL.createObjectURL(file)}
                   alt="Archivo seleccionado"
                   className="max-w-xs rounded-md shadow-sm"
+                  width="150px"
+                  height="150px"
                 />
                 <button
                   onClick={() => handleDeleteClick(index)}
@@ -74,11 +74,20 @@ const CabinBuckets = ({ type = "A", name = "Cabaña A1" }) => {
               </div>
             ))}
             <div className="flex space-x-4">
-              <button
+              {/* <button
                 onClick={handleUpload}
                 className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 Subir
+              </button> */}
+              <button
+                onClick={handleUpload}
+                className={`px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                  uploading ? "bg-gray-500 cursor-default" : "bg-blue-500 hover:bg-blue-600"
+                } text-white`}
+                disabled={uploading}
+              >
+                {uploading ? "En proceso" : "Subir"}
               </button>
               <button
                 onClick={() => setSelectedFiles([])}
