@@ -27,7 +27,6 @@ export default function Reservas() {
         e.preventDefault()
         // Descarga de comprobante
     }
-
     return (
         <>
             {session ?
@@ -41,6 +40,9 @@ export default function Reservas() {
                             <ul className="w-10/12 md:w-3/4 m-auto md:max-h-[400px] overflow-y-auto">
                                 {bookings.map((booking, i) => {
                                     const cls = i % 2 === 1 ? 'bg-brand-cream' : 'bg-brand-white';
+
+                                    const hasPassed = dayjs(booking.checkout).format() < dayjs(new Date).format();
+                                    const commentPermit = [hasPassed, booking.payments, !booking.suspended].every(Boolean);
                                     return (
                                         <li key={i} className={`${cls} p-4 flex justify-between items-center border rounded-xl`}>
                                             <h2
@@ -59,8 +61,11 @@ export default function Reservas() {
                                                     className="hover:text-primary ri-file-text-line text-xl leading-none"
                                                     href="/"
                                                 ></a>
-                                                <Link href={`/cabanas/${booking.rooms.id}`} className="btn-yellow mx-2" >Ver cabaña</Link>
-                                                <Link href='opinion' className="btn-yellow" >⭐</Link>
+                                                <Link href={`/cabanas/${booking.rooms.id}`}
+                                                    className={`btn-yellow ${hasPassed ? 'mx-2' : 'ml-2'}`} >Ver cabaña</Link>
+                                                {commentPermit
+                                                    ? <Link href='opinion' className="btn-yellow" >⭐</Link>
+                                                    : null}
                                             </div>
                                         </li>
                                     )
