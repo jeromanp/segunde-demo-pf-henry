@@ -56,7 +56,7 @@ export default function Cabins({ plans }) {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 640,
         settings: {
           slidesToShow: 1,
         },
@@ -87,8 +87,11 @@ export default function Cabins({ plans }) {
         <div className="m-12">
           <Slider {...settings}>
             {cabins.map((cabin) => (
-              <div key={cabin.id} className="border text-center rounded-2xl">
-                <div className="bg-slate-500 w-full h-60 rounded-2xl mb-8"></div>
+              <div key={cabin.id} className="border text-center rounded-2xl overflow-hidden">
+                {cabin.images
+                ? <img src={cabin.images.url[0].fileUrl} alt={cabin.name}
+                className="rounded-t-xl"/>
+              : <div className="bg-slate-300 rounded-t-xl">No hay imagenes</div>}
 
                 <h2 className="text-brand-green font-bold text-3xl">
                   {cabin.name}
