@@ -42,6 +42,7 @@ export default function Cabins({ plans }) {
   }, []);
 
   const settings = {
+    dots: true,
     slidesToShow: 3,
     infinite: true,
     arrows: false,
@@ -87,7 +88,8 @@ export default function Cabins({ plans }) {
         <div className="m-12">
           <Slider {...settings}>
             {cabins.map((cabin) => (
-              <div key={cabin.id} className="border text-center rounded-2xl">
+              <div key={cabin.id}>
+                <div className="mx-8 border text-center rounded-2xl mb-8">
                 <div className="bg-slate-500 w-full h-60 rounded-2xl mb-8"></div>
 
                 <h2 className="text-brand-green font-bold text-3xl">
@@ -117,6 +119,7 @@ export default function Cabins({ plans }) {
                 </div>
 
                 <Link href={`/cabanas/${cabin.id}`} className="btn-yellow mt-6 mb-8">Ver más</Link>
+              </div>
               </div>
             ))}
           </Slider>
