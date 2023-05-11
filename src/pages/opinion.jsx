@@ -1,8 +1,10 @@
+import { useSession } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 
 const RatingForm = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const session = useSession();
 
   const handleSubmit = (event) => {
     event.preventDefault();
