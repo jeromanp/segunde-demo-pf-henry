@@ -30,7 +30,7 @@ export default function AboutUs(){
 							{ data.page_title }
 						</h2>
 
-						<div className="text-brand-green pt-8 pb-20">
+						<div className="text-brand-green whitespace-pre-line text-justify pt-8 pb-20">
 							{ data.content }
 						</div>
 					</div>
