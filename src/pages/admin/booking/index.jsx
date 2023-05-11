@@ -58,6 +58,7 @@ export default function Dashboard() {
     )
   }
 
+  console.log(bookings)
 
   return (
     <Layout>
@@ -115,18 +116,18 @@ export default function Dashboard() {
 												`border-[#eee] py-5 px-4 ${i < bookings.length -1 ? 'border-b' : ''}`
 											}>
                         <div className="flex items-center space-x-3.5">
-                          <Link
+                        <Link
                             className="hover:text-primary"
-                            href="detail-reserva.html"
+                            href={`/admin/booking/${booking.id}`}
                           >
                             <i className="ri-file-text-line text-xl leading-none"></i>
                           </Link>
-                          <Link
+                          {/* <Link
                             className="hover:text-primary"
                             href={`/admin/booking/${booking.id}`}
                           >
                             <i className="ri-edit-line text-xl leading-none"></i>
-                          </Link>
+                          </Link> */}
                           <button
                             onClick={deleteHandler}
                             className="hover:text-primary ri-close-circle-line text-xl leading-none"
