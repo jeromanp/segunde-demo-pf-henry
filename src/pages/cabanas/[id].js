@@ -1,6 +1,6 @@
 import Layout from "../../layouts/Layout.jsx";
 import Link from "next/link";
-import Slider from "react-slick";
+import NavSliders from 'components/NavSliders.jsx';
 import Datepicker from "components/form/Datepicker.jsx";
 import { supabase } from "utils/supabase";
 import { useSession } from "@supabase/auth-helpers-react";
@@ -10,38 +10,17 @@ export default function Room({ room }) {
     const description = room.description.replace(/,|\./g, "");
     const session = useSession();
 
-    const settings = {
-        customPaging: function (i) {
-            if (room.images) {
-                return (
-                    <a>
-                        <img src={room.images.url[i].fileUrl} className={`rounded-xl`} />
-                    </a>
-                )
-            } else {
-                return (
-                    <></>
-                )
-            }
-        },
-        dots: true,
-        dotsClass: "slick-dots slick-thumb",
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-    };
-
     return (
         <Layout>
             <h2 className="text-brand-green text-4xl font-bold text-center mt-10 m-6">
                 {room.name}
             </h2>
             <div className="flex flex-col-reverse md:flex-row md:justify-center md:mx-auto md:max-w-7xl md:pb-10 lg:px-10">
-                <div className="flex flex-col  lg:pr-10 mb-10 lg:mb-0 text-brand-green m-auto">
-                    <div className="flex flex-wrap w-11/12 self-center md:w-auto max-w-fit my-4 pl-4 py-2 rounded-xl bg-gray-50 shadow-lg">
-                        {room.capacity} huespedes - {room.rooms} dormitorio/s -{" "}
-                        {room.beds} cama/s - {room.bathrooms} baño/s
+                <div className="flex flex-col lg:pr-10 mb-10 lg:mb-0 text-brand-green m-auto">
+                    <div className="flex flex-wrap w-11/12 self-center md:w-auto max-w-fit mb-4 p-4 py-2 rounded-xl bg-gray-50 shadow-lg">
+                        <span className="text-center w-full md:w-auto">{room.capacity} huespedes • {room.rooms} dormitorio/s</span>
+                        <span className="hidden md:block mx-1">{" "}•{" "}</span>
+                        <span className="text-center w-full md:w-auto">{room.beds} cama/s • {room.bathrooms} baño/s</span>
                     </div>
                     <p className="whitespace-pre-wrap mb-6 m-auto">
                         {description}
@@ -65,24 +44,12 @@ export default function Room({ room }) {
                         </Link>
                     </div>
                 </div>
-                <div className="w-5/6 md:w-1/3 md:m-auto mb-5 m-auto">
-                    {room.images?
-                    <Slider {...settings}>
-                        {room.images.url.map((image, i) => (
-                       <img src={image.fileUrl} alt={room.images.alt}
-                       className="rounded-xl" />
-                        ))}
-                    </Slider>
-                    :<div>No hay imagenes</div>}
+                <div className="w-5/6 md:w-1/3 m-auto md:m-0 md:mx-auto">
+                    {room.images ?
+                        <NavSliders cabanas={room.images.url} />
+                        : <div>No hay imagenes</div>}
                 </div>
             </div>
-            <style>
-                {/* .slick thumb es el ul del slider, y los li tienen cada <a><img /></a> pero no son accesibles con tailwind */}
-                {`
-            .slick-thumb li {
-                
-            }
-            `}</style>
         </Layout>
     );
 }
