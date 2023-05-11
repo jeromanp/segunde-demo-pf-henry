@@ -24,6 +24,8 @@ export default function RatingForm() {
           '¡Ojalá vuelvas pronto!',
           'success'
         )
+        setRating(0);
+        setComment("")
       })
       .catch(error => {
         Swal.fire(
