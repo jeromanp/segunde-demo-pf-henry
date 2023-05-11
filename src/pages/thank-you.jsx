@@ -1,65 +1,167 @@
+import LayoutMain from "layouts/Layout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function ThankYou() {
-    const router = useRouter();
-    const { session_id, booking_id } = router.query;
-    //console.log(session_id);
-    const [checkoutSession, setCheckoutSession] = useState({ null: true });
-    const [roomData, setRoomData] = useState({ null: true });
-    useEffect(() => {
-        const getCheckOutSession = async () => {
-            if (session_id === undefined) {
-                return;
-            }
-            //console.log(session_id);
-            const response = await fetch(
-                `/api/checkout_sessions?session_id=${session_id}`
-            );
-            const data = await response.json();
-            setCheckoutSession(data);
-        };
-        getCheckOutSession();
-    }, [session_id]);
-    useEffect(() => {
-        const verifiedRoomPaid = async () => {
-            if (
-                session_id === undefined ||
-                booking_id === undefined ||
-                checkoutSession.null === true
-            ) {
-                return;
-            }
-            if (
-                checkoutSession.status === "complete" &&
-                checkoutSession.payment_status === "paid"
-            ) {
-                //El pago se realizo correctamente
-                //Se debe realizar el cambio en la base de datos de q el booking payment=true
-                const response = await fetch(
-                    `/api/booking/${booking_id}?session_id=${session_id}`,
-                    {
-                        method: "PUT",
-                    }
-                );
-                const data = await response.json();
-                console.log(data);
-            }
-        };
-        verifiedRoomPaid();
-    }, [checkoutSession]);
+  const mock = {
+    title: "Cabana B2",
+    full_name: "Fabian Gonzalez",
+    email: "fabian.gonza89@gmail.com",
+    persons: 3,
+    price: 19,
+    night: 7,
+    extra: 25,
+  };
 
-    return (
-        <div>
-            <h1>Thanks</h1>
+  const router = useRouter();
+  const { session_id, booking_id } = router.query;
+  //console.log(session_id);
+  const [checkoutSession, setCheckoutSession] = useState({ null: true });
+  const [roomData, setRoomData] = useState({ null: true });
+  useEffect(() => {
+    const getCheckOutSession = async () => {
+      if (session_id === undefined) {
+        return;
+      }
+      //console.log(session_id);
+      const response = await fetch(
+        `/api/checkout_sessions?session_id=${session_id}`
+      );
+      const data = await response.json();
+      setCheckoutSession(data);
+    };
+    getCheckOutSession();
+  }, [session_id]);
+  useEffect(() => {
+    const verifiedRoomPaid = async () => {
+      if (
+        session_id === undefined ||
+        booking_id === undefined ||
+        checkoutSession.null === true
+      ) {
+        return;
+      }
+      if (
+        checkoutSession.status === "complete" &&
+        checkoutSession.payment_status === "paid"
+      ) {
+        //El pago se realizo correctamente
+        //Se debe realizar el cambio en la base de datos de q el booking payment=true
+        const response = await fetch(
+          `/api/booking/${booking_id}?session_id=${session_id}`,
+          {
+            method: "PUT",
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+      }
+    };
+    verifiedRoomPaid();
+  }, [checkoutSession]);
+
+  return (
+    <LayoutMain>
+      <div className="min-h-screen pt-2 px-4 sm:px-6 lg:px-8">
+        <div className="space-y-4">
+          <div className="flex flex-col items-center pt-4 sm:pt-8 md:flex-row md:justify-between md:pl-6 md:pr-6 lg:pl-18 lg:pr-18 container mx-auto">
+            <section className="text-center flex flex-col justify-center items-center mb-4 md:mb-0 md:mr-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-brand-light-green w-80 h-80"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <h2 className="text-3xl font-bold text-brand-green uppercase">
+                ¡Gracias por tu reserva!
+              </h2>
+            </section>
+
+            <section className="w-full md:w-1/2">
+              <div>
+                <h1 className="uppercase font-semibold text-xl text-brand-green my-2">
+                  Resumen de compra
+                </h1>
+                <h3 className="flex justify-between text-black text-lg">
+                  Cabaña: <span>{mock.title}</span>
+                </h3>
+                <h3 className="flex justify-between text-black text-lg">
+                  Cliente: <span>{mock.full_name}</span>
+                </h3>
+                <h3 className="flex justify-between text-black text-lg">
+                  Email: <span>{mock.email}</span>
+                </h3>
+              </div>
+              <div class="border border-solid border-brand-light-green border-t-2 my-4 rounded-full ml-1 mr-1"></div>
+
+              <div>
+                <h1 className="uppercase font-semibold text-xl text-brand-green my-2">
+                  Detalles del precio
+                </h1>
+                <h3 className="flex justify-between text-black text-lg">
+                  Cant. personas: <span>{mock.persons}</span>
+                </h3>
+                <h3 className="flex justify-between text-black text-lg">
+                  ${mock.price} por {mock.night} noches:
+                  <span>${mock.price * mock.night}</span>
+                </h3>
+                <h3 className="flex justify-between text-black text-lg">
+                  Extras: <span>${mock.extra}</span>
+                </h3>
+                <div class="border border-solid border-brand-light-green border-t-2 my-4 rounded-full ml-1 mr-1"></div>
+
+                <h3 className="flex justify-between uppercase text-black font-medium text-xl">
+                  Total: <span>${mock.price * mock.night + mock.extra}</span>
+                </h3>
+              </div>
+
+              {/* <p className="mt-2 text-lg text-gray-600">
+                Hemos recibido tu reserva y te hemos enviado un correo
+                electrónico con los detalles de tu reserva. Esperamos que
+                disfrutes tu estadía con nosotros.
+              </p> */}
+
+              <div className="flex justify-center pt-10">
+                <button
+                  // onClick={sendEmail}
+                  className="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent rounded-lg text-base font-medium text-white bg-brand-yellow hover:bg-opacity-80 transition duration-150 ease-in-out sm:w-auto"
+                >
+                  Enviar resumen de compra
+                </button>
+              </div>
+            </section>
+
             {checkoutSession.null === true ? (
-                ""
+              ""
             ) : (
-                <div>
-                    <h4>{checkoutSession.status}</h4>
-                    <h5>{checkoutSession.payment_status}</h5>
-                </div>
+              <div>
+                <h4>{checkoutSession.status}</h4>
+                <h5>{checkoutSession.payment_status}</h5>
+              </div>
             )}
+          </div>
+
+          <div className="w-full flex justify-center">
+            <Link href="/">
+              <div className="flex justify-center items-center pt-14 pb-18">
+                <img src="/back.svg" alt="" className="w-5 mr-2" />
+                <p className="text-2xl font-medium text-black">
+                  Volver al inicio
+                </p>
+              </div>
+            </Link>
+          </div>
         </div>
-    );
+      </div>
+    </LayoutMain>
+  );
 }

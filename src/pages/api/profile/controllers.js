@@ -99,7 +99,7 @@ export async function getProfileBookings(userId) {
     const { userId: id } = await getProfileId(userId);
     const { data: profileBookings, error } = await supabase
         .from("booking")
-        .select(`*,rooms(name)`)
+        .select(`*,rooms(name, id)`)
         .eq("user_id", id);
     if (error) {
         throw error;

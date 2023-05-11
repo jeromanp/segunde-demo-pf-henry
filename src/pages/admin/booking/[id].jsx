@@ -94,11 +94,11 @@ useEffect(() => {
 }
 
 export async function getServerSideProps({ params }) {
-	const { id } = params;
+  const { id } = params;
 
-	return {
-		props: {
-			id,
-		},
-	};
+  return {
+    props: {
+      id,
+    },
+  };
 }
