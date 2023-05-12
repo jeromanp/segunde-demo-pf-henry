@@ -31,8 +31,7 @@ export default function CardCabin({ cabin }) {
                         </span>
                     </div>
                     {cabin.services &&
-                        cabin.services.servicios &&
-                        cabin.services.servicios.wifi && (
+                        cabin.services.includes("Wi Fi") && (
                             <div className="text-lg mb-0.5">
                                 <i className="ri-wifi-line text-gray-500 mr-2"></i>
                                 <span className="text-gray-800 font-normal">
@@ -41,8 +40,7 @@ export default function CardCabin({ cabin }) {
                             </div>
                         )}
                     {cabin.services &&
-                        cabin.services.servicios &&
-                        cabin.services.servicios.aire_acondicionado && (
+                        cabin.services.includes("Calefaccion") && (
                             <div className="text-lg mb-0.5">
                                 <i className="ri-windy-line text-gray-500 mr-2"></i>
                                 <span className="text-gray-800 font-normal">
@@ -51,8 +49,7 @@ export default function CardCabin({ cabin }) {
                             </div>
                         )}
                     {cabin.services &&
-                        cabin.services.servicios &&
-                        cabin.services.servicios.cochera_cubierta && (
+                        cabin.services.includes("Cochera") && (
                             <div className="text-lg">
                                 <i className="ri-car-fill text-gray-500 mr-2"></i>
                                 <span className="text-gray-800 font-normal">
