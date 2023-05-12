@@ -30,7 +30,7 @@ export default function CheckOut({ room }) {
     }
     fetchProducts();
   }, []);
-
+  console.log(room);
   return (
     <>
       {session ? (
@@ -59,6 +59,7 @@ export default function CheckOut({ room }) {
             )}
 
             <SummaryCheckOut
+              url={room.url}
               name={room.name}
               price={room.price}
               night={mock.night}
@@ -84,12 +85,29 @@ export async function getServerSideProps({ params }) {
 
   const { data: room, error } = await supabase
     .from("rooms")
-    .select("*")
-    .eq("id", id);
+    .select(`*`)
+    .eq("id", id)
+
+  const { data: image, err } = await supabase
+    .from("images")
+    .select(`*`)
+    .eq("id", room[0].images_id)
 
   if (error) {
     return {
       notFound: true,
+    };
+  }
+
+  if (!err && image) {
+    const obj = {
+      ...room[0],
+      url: image[0].url[0].fileUrl,
+    }
+    return {
+      props: {
+        room: obj,
+      },
     };
   }
 
