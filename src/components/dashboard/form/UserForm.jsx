@@ -1,10 +1,13 @@
-//import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import BtnSubmit from "./BtnSubmit";
 import Preload from "../PreloadSmall";
+import axios from "axios";
 
 export default function UserForm({ user }) {
+  const router = useRouter();
   const [status, setStatus] = useState(false);
+  const [errors, setErrors] = useState({});
   const [inputs, setInputs] = useState({
     email: user?.email || "",
     username: user?.username || "",
@@ -15,19 +18,85 @@ export default function UserForm({ user }) {
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
+
+    // Validaciones de inputs
+    let error = null;
+    switch (name) {
+      case "email":
+        const emailRegex = /^\S+@\S+\.\S+$/;
+        if (!emailRegex.test(value)) {
+          error =
+            "Por favor ingrese una dirección de correo electrónico válida";
+        }
+        if (value.length > 96) {
+          error = "El email debe tener como máximo 96 caracteres";
+        }
+        break;
+
+      case "username":
+        if (value.length > 64) {
+          error = "El nombre de usuario debe tener como máximo 64 caracteres";
+        }
+        break;
+
+      case "full_name":
+        if (value.length > 96) {
+          error = "El nombre completo debe tener como máximo 96 caracteres";
+        }
+        break;
+
+      case "country":
+        if (value.length > 64) {
+          error = "El pais debe tener como máximo 64 caracteres";
+        }
+        break;
+
+      case "phone":
+        if (value.length > 15) {
+          error = "El numero telefonico debe tener como máximo 15 caracteres";
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    // Actualizar el estado de los inputs y los errores
     setInputs({
       ...inputs,
       [name]: value,
+    });
+    setErrors({
+      ...errors,
+      [name]: error,
     });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (Object.values(errors).some((error) => error !== null)) {
+      // Si hay un error, se evita hacer el submit y tira un alert vintage
+      throw alert("Es necesario corregir los errores");
+    }
     setStatus(true);
     if (user?.id) {
       // actualizar
+      axios
+        .put(`/api/profile/${user.id}`, inputs)
+        .then((res) => {
+          alert("UHU! Hemos actualizado los datos del usuario");
+          router.push("/admin/users");
+        })
+        .catch((err) => console.log("Error", err));
     } else {
       // crear
+      axios
+        .post(`/api/profile/`, inputs)
+        .then((res) => {
+          alert("UHU! Hemos creado un nuevo usuario");
+          router.push("/admin/users");
+        })
+        .catch((err) => console.log("Error", err));
     }
   };
 
@@ -51,7 +120,9 @@ export default function UserForm({ user }) {
               id="email"
               value={inputs.email}
               onChange={changeHandler}
+              required
             />
+            {errors.email && <div className="error">{errors.email}</div>}
           </div>
 
           <div className="">
@@ -69,7 +140,9 @@ export default function UserForm({ user }) {
               id="username"
               value={inputs.username}
               onChange={changeHandler}
+              required
             />
+            {errors.username && <div className="error">{errors.username}</div>}
           </div>
 
           <div className="">
@@ -88,7 +161,11 @@ export default function UserForm({ user }) {
                 id="full_name"
                 value={inputs.full_name}
                 onChange={changeHandler}
+                required
               />
+              {errors.full_name && (
+                <div className="error">{errors.full_name}</div>
+              )}
             </div>
           </div>
 
@@ -108,7 +185,9 @@ export default function UserForm({ user }) {
                 id="country"
                 value={inputs.country}
                 onChange={changeHandler}
+                required
               />
+              {errors.country && <div className="error">{errors.country}</div>}
             </div>
 
             <div className="">
@@ -126,7 +205,9 @@ export default function UserForm({ user }) {
                 id="phone"
                 value={inputs.phone}
                 onChange={changeHandler}
+                required
               />
+              {errors.phone && <div className="error">{errors.phone}</div>}
             </div>
           </div>
           <BtnSubmit cancel_url="/admin/users" />
