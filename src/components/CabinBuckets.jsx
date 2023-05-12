@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 //type  y name seran los valores de la cabaña dado por el formulario para editar
 
-const CabinBuckets = ({ type = "A", name = "Cabaña A3" }) => {
+const CabinBuckets = ({ type, name }) => {
   //en los buckets de Supabase no permite la ñ
   const newName = name.replace("Cabaña ", "");
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -74,16 +74,12 @@ const CabinBuckets = ({ type = "A", name = "Cabaña A3" }) => {
               </div>
             ))}
             <div className="flex space-x-4">
-              {/* <button
-                onClick={handleUpload}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-                Subir
-              </button> */}
               <button
                 onClick={handleUpload}
                 className={`px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                  uploading ? "bg-gray-500 cursor-default" : "bg-blue-500 hover:bg-blue-600"
+                  uploading
+                    ? "bg-gray-500 cursor-default"
+                    : "bg-blue-500 hover:bg-blue-600"
                 } text-white`}
                 disabled={uploading}
               >
