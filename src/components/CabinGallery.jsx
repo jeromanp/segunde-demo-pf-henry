@@ -2,32 +2,43 @@ import { useState, useEffect } from "react";
 import { supabase } from "utils/supabase";
 import Swal from "sweetalert2";
 
-const CabinGallery = ({ type = "A", name = "Cabaña A3" }) => {
+const CabinGallery = ({ type, name }) => {
   const urlBucket =
     "https://kwmjganrkoyleqdillhu.supabase.co/storage/v1/object/public/cabanas_gallery";
   const newName = name.replace("Cabaña ", "");
   const [files, setFiles] = useState([]);
-  console.log(files);
+  const [loading, setLoading] = useState(true);
+
+  // console.log(files);
 
   const listFiles = async () => {
-    const { data: files, error } = await supabase.storage
-      .from("cabanas_gallery")
-      .list(`${type}/${newName}`);
+    try {
+      setLoading(true);
 
-    if (error) {
-      console.error(error);
-      return [];
+      const { data: files, error } = await supabase.storage
+        .from("cabanas_gallery")
+        .list(`${type}/${newName}`);
+
+      if (error) {
+        console.error(error);
+        return [];
+      }
+
+      const fileList = files.map((file) => {
+        const fileUrl = `${urlBucket}/${type}/${newName}/${file.name}`;
+        return {
+          name: file.name,
+          fileUrl: fileUrl,
+        };
+      });
+
+      return fileList;
+    } catch (error) {
+      Swal.fire(errorSwal);
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-
-    const fileList = files.map((file) => {
-      const fileUrl = `${urlBucket}/${type}/${newName}/${file.name}`;
-      return {
-        name: file.name,
-        fileUrl: fileUrl,
-      };
-    });
-
-    return fileList;
   };
 
   const handleDelete = async (file) => {
@@ -57,6 +68,8 @@ const CabinGallery = ({ type = "A", name = "Cabaña A3" }) => {
 
   const handleSaveChanges = async () => {
     try {
+      setLoading(true);
+
       const { data: existingData, error: existingError } = await supabase
         .from("images")
         .select()
@@ -88,6 +101,8 @@ const CabinGallery = ({ type = "A", name = "Cabaña A3" }) => {
     } catch (error) {
       console.error(error);
       Swal.fire(error.message);
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -97,7 +112,7 @@ const CabinGallery = ({ type = "A", name = "Cabaña A3" }) => {
       {files.length > 1 ? (
         <>
           <div className="flex flex-wrap">
-            {files.slice(1).map((file, index) => (
+            {files.map((file, index) => (
               <div key={index} className="w-1/4 p-2">
                 <img
                   src={`${urlBucket}/${type}/${newName}/${file.name}`}
@@ -119,8 +134,9 @@ const CabinGallery = ({ type = "A", name = "Cabaña A3" }) => {
           <button
             className=" px-1 py-0.5 bg-blue-400 text-white rounded-md"
             onClick={handleSaveChanges}
+            disabled={loading}
           >
-            Guardar cambios
+            {loading ? "Guardando..." : "Guardar cambios"}
           </button>
         </>
       ) : (
