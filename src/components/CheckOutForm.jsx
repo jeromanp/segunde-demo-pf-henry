@@ -14,7 +14,7 @@ export default function CheckOutForm({
     night,
     extra,
     default_price,
-    roomId,
+    room,
     filters,
     setFilters,
 }) {
@@ -25,47 +25,49 @@ export default function CheckOutForm({
     //   checkin: null,
     //   checkout: null,
     // });
-    const [rooms, setRooms] = useState([]);
-    const [roomIsPending, setRoomIsPending] = useState(true);
-    useEffect(() => {
-        const getRooms = async () => {
-            const response = await fetch("/api/cabanas");
-            const data = await response.json();
-            setRooms(data);
-            setRoomIsPending(false);
-        };
-        getRooms();
-    }, []);
+    // const [rooms, setRooms] = useState([]);
+    // const [roomIsPending, setRoomIsPending] = useState(true);
+    // useEffect(() => {
+    //     const getRooms = async () => {
+    //         const response = await fetch("/api/cabanas");
+    //         const data = await response.json();
+    //         setRooms(data);
+    //         setRoomIsPending(false);
+    //     };
+    //     getRooms();
+    // }, []);
 
     const clickHandler = async () => {
+        const bodyData = {
+            checkin: new Date(filters.checkin),
+            checkout: new Date(filters.checkout),
+            adults: filters.guests,
+            user_id: session.user.id,
+            room_id: room.id,
+        };
         const response = await fetch("/api/booking", {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                checkin: filters.checkin,
-                checkout: filters.checkout,
-                adults: filters.guests,
-                user_id: session.user.id,
-                room_id: roomId,
-            }),
+            body: JSON.stringify(bodyData),
         });
 
         const data = await response.json();
 
+        const checkOutBodyData = {
+            roomId: room.id,
+            price_id: default_price,
+            night: night,
+            subscription: true,
+            booking_id: data[0].id,
+        };
         const checkoutSessionResponse = await fetch(`/api/checkout_sessions`, {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                roomId,
-                price_id: default_price,
-                night: night,
-                subscription: true,
-                booking_id: data[0].id,
-            }),
+            body: JSON.stringify(checkOutBodyData),
         });
         const checkoutSessionData = await checkoutSessionResponse.json();
         window.location.href = checkoutSessionData.url;
@@ -83,10 +85,10 @@ export default function CheckOutForm({
                     <div className="pt-6">
                         <div>
                             <p className="text-lg text-black font-base pb-0.5">
-                                Check-In
+                                Registre su Fecha
                             </p>
                             <div className="border-2 rounded-xl border-brand-light-green p-0.5">
-                                <Datepicker
+                                {/* <Datepicker
                                     minDate={new Date()}
                                     defaultDate={filters.checkin}
                                     setDate={(e) =>
@@ -99,11 +101,17 @@ export default function CheckOutForm({
                                                     : filters.checkout,
                                         })
                                     }
+                                /> */}
+                                {/* ESTE ES EL DATE PICKE NUEVO QUE BLOQUEA FECHAS */}
+                                <DatePicker
+                                    filters={filters}
+                                    setFilters={setFilters}
+                                    disabledDates={room.booking}
                                 />
                             </div>
                         </div>
 
-                        <div className="pt-4 w-full">
+                        {/* <div className="pt-4 w-full">
                             <p className="text-lg text-black font-base pb-0.5">
                                 Check-Out
                             </p>
@@ -123,7 +131,7 @@ export default function CheckOutForm({
                                     }
                                 />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="pt-4 pb-6 w-full">
@@ -138,7 +146,7 @@ export default function CheckOutForm({
                             />
                         </div>
                     </div>
-                    <DatePicker />
+
                     <div className="bg-brand-light-green border rounded-xl text-center w-full">
                         <button
                             className="text-white text-xl font-medium p-4 w-full"

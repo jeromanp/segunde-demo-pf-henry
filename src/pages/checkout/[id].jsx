@@ -10,12 +10,10 @@ import { addDays, diffDays } from "helpers/dateProcessing";
 
 export default function CheckOut({ room }) {
     const session = useSession();
-    const [products, setProducts] = useState([]);
-    const [matchingProduct, setMatchingProduct] = useState(null);
 
+    const [matchingProduct, setMatchingProduct] = useState(null);
+    //QUEDA DEFINIR SI USAREMOS COSAS COMO EXTRAS O DESCUENTOS
     const mock = {
-        price: 19,
-        night: 7,
         extra: 20,
     };
 
@@ -26,13 +24,19 @@ export default function CheckOut({ room }) {
         children: 0,
     });
 
+    // useEffect(() => {
+    //     console.log("DATE: ", filters);
+    //     console.log(new Date(filters.checkin));
+    // }, [filters]);
+
     useEffect(() => {
         async function fetchProducts() {
             const response = await axios.get("/api/products");
             const matching = response.data.find(
                 (product) => product.name === room.name
             );
-            setProducts(response.data);
+            //console.log("Stripe Data: ", matching);
+            //console.log("DB Data: ", room);
             setMatchingProduct(matching);
             // Products no se está usando, si no se va a usar eliminarlo
         }
@@ -60,13 +64,16 @@ export default function CheckOut({ room }) {
                                 <CheckOutForm
                                     filters={filters}
                                     setFilters={setFilters}
-                                    roomId={room.id}
+                                    room={room}
                                     name={matchingProduct.name}
                                     price={matchingProduct.price}
                                     default_price={
                                         matchingProduct.default_price
                                     }
-                                    night={mock.night}
+                                    night={diffDays(
+                                        new Date(filters.checkin),
+                                        new Date(filters.checkout)
+                                    )}
                                     extra={mock.extra}
                                 />
                             )}
@@ -74,7 +81,10 @@ export default function CheckOut({ room }) {
                         <SummaryCheckOut
                             name={room.name}
                             price={room.price}
-                            night={diffDays(filters.checkin, filters.checkout)}
+                            night={diffDays(
+                                new Date(filters.checkin),
+                                new Date(filters.checkout)
+                            )}
                             extra={mock.extra}
                         />
 
@@ -97,7 +107,7 @@ export async function getServerSideProps({ params }) {
 
     const { data: room, error } = await supabase
         .from("rooms")
-        .select("*")
+        .select(`*,booking(checkin,checkout)`)
         .eq("id", id);
 
     if (error) {
