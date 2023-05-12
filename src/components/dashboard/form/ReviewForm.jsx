@@ -5,8 +5,8 @@ import Preload from "../PreloadSmall";
 export default function ReviewForm({ review }) {
   const [status, setStatus] = useState(false);
   const [inputs, setInputs] = useState({
-    username: review?.username || "",
-    email: review?.email || "",
+    username: review?.profiles?.username || "",
+    email: review?.profiles?.email || "",
     stars: review?.stars || 3,
     review: review?.review || "",
     approved: review?.approved || true,
