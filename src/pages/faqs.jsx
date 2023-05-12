@@ -45,16 +45,11 @@ export default function Faqs() {
           {data.intro}
         </div>
 
-        <div
-          className="text-brand-green grid gap-3 pt-8 pb-20
-										md:grid-cols-2 md:gap-x-6"
-        >
-          {data.list
-            ? data.list.map((e, i) => (
-                <div
-                  key={i}
-                  className="border border-brand-green text-brand-green w-full grid gap-2 items-center mx-auto"
-                >
+        <div className="grid md:grid-cols-2 md:gap-x-6 pt-8 pb-20 gap-y-3">
+          <div className="grid gap-3">
+            {data.list.slice(0, 4).map((e, i) => (
+              <div key={i}>
+                <div className="border border-brand-green text-brand-green grid gap-2 items-center mx-auto">
                   <h3
                     className={accordeon_header}
                     onClick={() => toggleActive(i)}
@@ -72,8 +67,33 @@ export default function Faqs() {
                     {e.content}
                   </div>
                 </div>
-              ))
-            : null}
+              </div>
+            ))}
+          </div>
+          <div className="grid gap-3">
+            {data.list.slice(4, 8).map((e, i) => (
+              <div key={i}>
+                <div className="border border-brand-green text-brand-green grid gap-2 items-center mx-auto">
+                  <h3
+                    className={accordeon_header}
+                    onClick={() => toggleActive(i + 4)}
+                  >
+                    {e.title}
+                  </h3>
+
+                  <div
+                    className={
+                      e.active
+                        ? `${accordeon_body} whitespace-pre-line text-justify`
+                        : `${accordeon_body} hidden`
+                    }
+                   >
+                    {e.content}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </Layout>

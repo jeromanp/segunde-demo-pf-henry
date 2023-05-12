@@ -12,7 +12,7 @@ const Login = () => {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       <Header />
-          <div className="container mx-auto px-4 sm:px-6 lg:px-80">
+          <div className="md:w-1/2 mx-auto px-4 sm:px-6 sm:py-20 py-8">
             {!session ? (
               <Auth
                 redirectTo="/"

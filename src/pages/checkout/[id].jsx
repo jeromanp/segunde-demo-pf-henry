@@ -8,7 +8,7 @@ import axios from "axios";
 import SummaryCheckOut from "components/SummaryCheckOut";
 import { addDays, diffDays } from "helpers/dateProcessing";
 
-export default function CheckOut({ room }) {
+export default function CheckOut({ room, url }) {
     const session = useSession();
 
     const [matchingProduct, setMatchingProduct] = useState(null);
@@ -17,6 +17,7 @@ export default function CheckOut({ room }) {
         extra: 20,
     };
 
+
     const [filters, setFilters] = useState({
         checkin: addDays(new Date(), 1),
         checkout: addDays(new Date(), 2),
@@ -24,26 +25,18 @@ export default function CheckOut({ room }) {
         children: 0,
     });
 
-    // useEffect(() => {
-    //     console.log("DATE: ", filters);
-    //     console.log(new Date(filters.checkin));
-    // }, [filters]);
-
     useEffect(() => {
         async function fetchProducts() {
             const response = await axios.get("/api/products");
             const matching = response.data.find(
                 (product) => product.name === room.name
             );
-            //console.log("Stripe Data: ", matching);
-            //console.log("DB Data: ", room);
             setMatchingProduct(matching);
-            // Products no se está usando, si no se va a usar eliminarlo
         }
         fetchProducts();
     }, []);
 
-    return (
+  return (
         <>
             {session ? (
                 <LayoutMain>
@@ -79,6 +72,7 @@ export default function CheckOut({ room }) {
                             )}
 
                         <SummaryCheckOut
+                            url={url}
                             name={room.name}
                             price={room.price}
                             night={diffDays(
@@ -87,6 +81,7 @@ export default function CheckOut({ room }) {
                             )}
                             extra={mock.extra}
                         />
+
 
                         {/* <img
           src="/ilustrationCheck.svg"
@@ -116,9 +111,15 @@ export async function getServerSideProps({ params }) {
         };
     }
 
+  const { data: image, err } = await supabase
+    .from("images")
+    .select(`*`)
+    .eq("id", room[0].images_id)
+  
     return {
         props: {
             room: room[0],
+            url: (image && !err) ? image[0].url[0].fileUrl : null,
         },
     };
 }

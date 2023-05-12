@@ -1,15 +1,21 @@
-export default function SummaryCheckOut({ name, price, night, extra }) {
+export default function SummaryCheckOut({ url, name, price, night, extra }) {
   return (
     <>
       <section className="border-2 rounded-3xl border-brand-light-green shadow-lg p-6">
         <div className="flex pb-8">
-          <img
-            src="https://via.placeholder.com/500x500.png?text=Image+Not+Found"
-            alt="Cabin image"
-            layout="fill"
-            objectfit="cover"
-            className="border rounded-2xl object-cover w-55 h-34"
-          />
+          {url
+            ? <img
+              src={url}
+              alt={name}
+              className="rounded-2xl object-cover w-55 h-34"
+            />
+            : <img
+              src="https://via.placeholder.com/500x500.png?text=Image+Not+Found"
+              alt="Cabin image"
+              layout="fill"
+              objectfit="cover"
+              className="border rounded-2xl object-cover w-55 h-34"
+            />}
           <div className="ml-5">
             <h1 className="text-brand-green font-semibold text-3xl">{name}</h1>
             <h2 className="text-black font-bold text-2xl pt-2">
