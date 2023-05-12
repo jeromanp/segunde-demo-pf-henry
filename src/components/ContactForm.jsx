@@ -13,7 +13,7 @@ export default function ContactForm() {
         try {
             return await emailjs.sendForm(
                 process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID,
-                process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID,
+                process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_CONTACT,
                 input.current,
                 process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
             )
