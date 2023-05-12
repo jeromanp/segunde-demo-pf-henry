@@ -65,20 +65,22 @@ export default function ThankYou() {
     }, [checkoutSession]);
 
     const sendEmail = async () => {
+        const username = thankYouData.session.customer_details.name;
         // envío de email, message es lo que va dentro de él
         emailjs.send(
             process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID,
-            process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_PAYMENT,
+            process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_GENERIC,
             {
-                user_name: thankYouData.session.customer_details.name,
+                user_name: username,
                 user_email: thankYouData.session.customer_details.email,
-                message: 'Ya llegó tu reserva! Gracias por elegirnos!',
+                message: `Hola ${username}, gracias por elegirnos para unas vacaciones! 
+                Ya casi está todo listo, solo faltas vos! Junto a este mail
+                te compartimos la información de la reserva que hiciste. Te esperamos!`,
             },
             process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
         )
             .then(response => Swal.fire('Ya te enviamos un email con la información pedida', '', 'success'))
             .catch(error => Swal.fire('Hubo un error al enviarte los datos', 'Intenta de nuevo más tarde', 'error'));
-
     }
 
     return (
