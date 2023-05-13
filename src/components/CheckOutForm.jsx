@@ -20,7 +20,6 @@ export default function CheckOutForm({
 }) {
     // Este estado solo lo copie y pegue, para que no me de error el GuestSelector
     const session = useSession();
-    console.log(room.booking);
 
     const clickHandler = async () => {
         const bodyData = {
