@@ -58,7 +58,7 @@ export const postRoom = async (form_data) => {
         unit_amount: parseInt(form_data.price) * 100,
         currency: "ars",
     });
-
+    form_data.stripe_product_id = newCabana.id;
     //Creacion en base de datos
     const { data: postRoom, error } = await supabase
         .from("rooms")
@@ -74,6 +74,7 @@ export const postRoom = async (form_data) => {
 //UPDATE
 export const upRoom = async (id, form_data, suspend) => {
     if (suspend === undefined) {
+        console.log(form_data);
         const { data: upRoom, error } = await supabase
             .from("rooms")
             .update(form_data)
