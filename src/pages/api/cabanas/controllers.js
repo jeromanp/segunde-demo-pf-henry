@@ -52,16 +52,12 @@ export const postRoom = async (form_data) => {
             price_metadata: form_data.price,
         },
     });
-    console.log(newCabana);
     //Creacion del precio
-
-    const price = await stripe.prices.create({
+    const newCabanaPrice = await stripe.prices.create({
         product: newCabana.id,
         unit_amount: parseInt(form_data.price) * 100,
         currency: "ars",
     });
-
-    console.log(price);
 
     //Creacion en base de datos
     const { data: postRoom, error } = await supabase
