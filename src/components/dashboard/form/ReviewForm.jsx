@@ -91,6 +91,7 @@ export default function ReviewForm({ review }) {
       axios
         .put(`/api/comments/${review.id}`, inputs)
         .then((res) => {
+          // acá va el envío de mail, cuando se fixee el update de reviews lo hago. atte: Marquitos
           alert("UHU! Hemos actualizado el review");
           router.push("/admin/reviews");
         })

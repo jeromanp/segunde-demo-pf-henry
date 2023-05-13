@@ -10,27 +10,27 @@ export default function ContactForm() {
 	const [inputs, setInputs] = useState()
 	const input = useRef()
 
-	// Envía el mail
-	const sendEmail = async () => {
-			try {
-					return await emailjs.sendForm(
-							process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID,
-							process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID,
-							input.current,
-							process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
-					)
-			} catch (error) {
-					toast.error('Ocurrió un error, intenta más tarde!', {
-							position: "top-right",
-							autoClose: false,
-							hideProgressBar: false,
-							closeOnClick: true,
-							pauseOnHover: true,
-							draggable: true,
-							progress: undefined,
-							theme: "colored",
-					});
-			}
+    // Envía el mail
+    const sendEmail = async () => {
+        try {
+            return await emailjs.sendForm(
+                process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID,
+                process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_CONTACT,
+                input.current,
+                process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
+            )
+        } catch (error) {
+            toast.error('Ocurrió un error, intenta más tarde!', {
+                position: "top-right",
+                autoClose: false,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
 
 	}
 
