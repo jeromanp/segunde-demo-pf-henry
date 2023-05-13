@@ -58,7 +58,6 @@ export default function Dashboard() {
     )
   }
 
-  console.log(bookings)
 
   return (
     <Layout>

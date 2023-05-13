@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
 
-export default function Header()
-{
+export default function Header(props){
 
 	const [sidebarToggle, setSidebarToggle] = useState(false)
+	const openSidebar = () => props.actionOpenSidebar()
 
 	return (
 		<header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1">
@@ -14,7 +14,7 @@ export default function Header()
 					{/* Hamburger Toggle BTN */}
 					<button
 						className="z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm lg:hidden"
-						onClick={() => setSidebarToggle(!sidebarToggle)}>
+						onClick={openSidebar}>
 						<span className="relative block h-5.5 w-5.5 cursor-pointer">
 							<span className="du-block absolute right-0 h-full w-full">
 								<span

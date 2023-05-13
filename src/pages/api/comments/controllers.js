@@ -26,17 +26,10 @@ export const getCommentById = async (id) => {
   return room;
 };
 
-export const postNewComment = async ({ review, user_id, stars, approved }) => {
+export const postNewComment = async (form) => {
   const { data: postComment, error } = await supabase
     .from("comments")
-    .insert([
-      {
-        review,
-        user_id,
-        stars,
-        approved: false,
-      },
-    ])
+    .insert([form])
     .select();
   if (error) {
     throw error;
@@ -44,16 +37,11 @@ export const postNewComment = async ({ review, user_id, stars, approved }) => {
   return postComment;
 };
 
-export const updateComment = async (
-  { id, review, user_id, stars, approved },
-  queryId,
-  suspend
-) => {
+export const updateComment = async (form, id, suspend) => {
   if (suspend === undefined) {
-    const update_at = new Date();
     const { data: updateComments, error } = await supabase
       .from("comments")
-      .update({ review, user_id, stars, approved, update_at })
+      .update(form)
       .eq("id", id)
       .select();
     if (error) {
@@ -65,7 +53,7 @@ export const updateComment = async (
     const { data: upComment, error } = await supabase
       .from("comments")
       .update({ suspended: !comment.suspended })
-      .eq("id", queryId)
+      .eq("id", id)
       .select();
     if (error) {
       throw error;
