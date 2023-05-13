@@ -39,24 +39,30 @@ export const getRoomById = async (id) => {
 
 //POST
 export const postRoom = async (form_data) => {
-    console.log(form_data);
+    //console.log(form_data);
     //creacion en stripe
     const newCabana = await stripe.products.create({
         name: form_data.name,
         description: form_data.description,
-        // metadata: {
-        //     type: form_data.type,
-        //     rooms: form_data.rooms,
-        //     capacity: form_data.capacity,
-        //     beds: form_data.beds,
-        //     price_metadata: form_data.price,
-        // },
-        // default_price_data: {
-        //     currency: "ARG",
-        //     unit_amount_decimal: form_data.price,
-        // },
+        metadata: {
+            type: form_data.type,
+            rooms: form_data.rooms,
+            capacity: form_data.capacity,
+            beds: form_data.beds,
+            price_metadata: form_data.price,
+        },
     });
     console.log(newCabana);
+    //Creacion del precio
+
+    const price = await stripe.prices.create({
+        product: newCabana.id,
+        unit_amount: parseInt(form_data.price) * 100,
+        currency: "ars",
+    });
+
+    console.log(price);
+
     //Creacion en base de datos
     const { data: postRoom, error } = await supabase
         .from("rooms")
