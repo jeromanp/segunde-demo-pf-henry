@@ -79,7 +79,7 @@ export default function Dashboard() {
           user_name: username,
           user_email: usermail,
           message: `Hola${username ? ` ${username}` : ''}, lamentamos informarte que hemos tomado acciones
-          con tu usuario, ahora estas ${response}`,
+          con tu usuario, ahora estas ${response}.`,
         },
         process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
       )
