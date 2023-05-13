@@ -74,15 +74,35 @@ export const postRoom = async (form_data) => {
 //UPDATE
 export const upRoom = async (id, form_data, suspend) => {
     if (suspend === undefined) {
-        console.log(form_data);
+        //Update en base de datos
         const { data: upRoom, error } = await supabase
             .from("rooms")
             .update(form_data)
             .eq("id", id)
-            .select();
+            .select(`*`)
+            .single();
         if (error) {
             throw error;
-        }
+        } //Update en stripe
+        const productToUpdate = await stripe.products.retrieve(
+            upRoom.stripe_product_id
+        );
+        const oldPriceId = productToUpdate.default_price;
+        const newPrice = await stripe.prices.create({
+            product: upRoom.stripe_product_id,
+            unit_amount: parseInt(form_data.price) * 100,
+            currency: "ars",
+        });
+        const updatePrice = await stripe.products.update(
+            upRoom.stripe_product_id,
+            {
+                default_price: newPrice.id,
+            }
+        );
+        const oldPrinceUpdate = await stripe.prices.update(oldPriceId, {
+            active: false,
+        });
+
         return upRoom;
     } else {
         const room = await getRoomById(id);
