@@ -6,7 +6,7 @@ import Preload from "../PreloadSmall";
 import axios from "axios";
 
 export default function RoomForm({ room }) {
-    console.log(room);
+    //console.log(room);
     const types = ["A", "B", "C"];
 
     const [form, setForm] = useState({
@@ -65,7 +65,7 @@ export default function RoomForm({ room }) {
 
         if (room?.id) {
             axios
-                .put("/api/cabanas", { form, id: room.id })
+                .put("/api/cabanas", { form, idRoom: room.id })
                 .then((resp) => {
                     // console.log(resp.data)
                     alert("UHU! Hemos actualizado los datos de la cabaña");
