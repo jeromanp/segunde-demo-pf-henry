@@ -1,11 +1,13 @@
-import Layout from '../../../layouts/DashboardLayout'
-import Header from '../../../components/dashboard/PageHeader'
-import TableHead from '../../../components/dashboard/tables/TableHead'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import swalAction from 'components/dashboard/swalAction'
-import dayjs from 'dayjs'
+import Layout from '../../../layouts/DashboardLayout';
+import Header from '../../../components/dashboard/PageHeader';
+import TableHead from '../../../components/dashboard/tables/TableHead';
+import Link from 'next/link';
+import axios from 'axios';
+import swalAction from 'components/dashboard/swalAction';
+import dayjs from 'dayjs';
+import emailjs from '@emailjs/browser';
+import { useEffect, useState } from 'react';
+import { getProfileId, getProfileInfoId } from 'helpers/dbHelpers';
 
 const table_head = [
   { idx: 'name', title: 'Nombre', width: 'min-w-[220px]' },
@@ -56,14 +58,32 @@ export default function Dashboard() {
     }
   };
 
-  const deleteHandler = (e) => {
-    swalAction(
+  const deleteHandler = async (e) => {
+    const id = e.target.value;
+    const response = await swalAction(
       'usuario',
-      e.target.value,
+      id,
       setUsers,
       users,
-			'profile'
-    )
+      'profile'
+    );
+
+    if (response) {
+      const user = (await axios(`/api/profile/${id}`)).data;
+      const username = user.username ? user.username : user.full_name;
+      const usermail = user.email;
+      emailjs.send(
+        process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_GENERIC,
+        {
+          user_name: username,
+          user_email: usermail,
+          message: `Hola${username ? ` ${username}` : ''}, lamentamos informarte que hemos tomado acciones
+          con tu usuario, ahora estas ${response}`,
+        },
+        process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
+      )
+    }
   }
 
   return (
@@ -95,31 +115,31 @@ export default function Dashboard() {
                 {users &&
                   users.map((user, i) => (
                     <tr key={i}>
-                      <td 
-												className={
-													`border-[#eee] py-5 px-4 ${i < user.length -1 ? 'border-b' : ''}`
-												}>
+                      <td
+                        className={
+                          `border-[#eee] py-5 px-4 ${i < user.length - 1 ? 'border-b' : ''}`
+                        }>
                         <h5 className="text-black text-sm font-semibold capitalize">
                           {user.name ? user.name : user.full_name}
                         </h5>
                         <p className="text-xs">{user.email}</p>
                       </td>
-                      <td 
-												className={
-													`border-[#eee] py-5 px-4 ${i < user.length -1 ? 'border-b' : ''}`
-												}>
+                      <td
+                        className={
+                          `border-[#eee] py-5 px-4 ${i < user.length - 1 ? 'border-b' : ''}`
+                        }>
                         <p className="text-sm font-medium">{totalBookings(user.id)}</p>
                       </td>
-                      <td 
-												className={
-													`border-[#eee] py-5 px-4 ${i < user.length -1 ? 'border-b' : ''}`
-												}>
+                      <td
+                        className={
+                          `border-[#eee] py-5 px-4 ${i < user.length - 1 ? 'border-b' : ''}`
+                        }>
                         <p className="text-sm font-medium">{lastBooking(user.id)}</p>
                       </td>
-                      <td 
-												className={
-													`border-[#eee] py-5 px-4 ${i < user.length -1 ? 'border-b' : ''}`
-												}>
+                      <td
+                        className={
+                          `border-[#eee] py-5 px-4 ${i < user.length - 1 ? 'border-b' : ''}`
+                        }>
                         <div className="flex items-center space-x-3.5">
                           <Link
                             className="hover:text-primary"
@@ -141,7 +161,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-			<div className="h-20"></div>
+      <div className="h-20"></div>
 
     </Layout>
   );
