@@ -5,8 +5,8 @@ import Datepicker from "react-tailwindcss-datepicker";
 export default function DatePicker({ filters, setFilters, disabledDates }) {
     //fechas Iniciales y estado del componente importado
     const [dates, setDates] = useState({
-        startDate: new Date(),
-        endDate: addDays(new Date(), 1),
+        startDate: null,
+        endDate: null,
     });
     //console.log(disabledDates);
     //Interaccion entre las fechas del componente y las externas
@@ -31,6 +31,7 @@ export default function DatePicker({ filters, setFilters, disabledDates }) {
                     return { startDate: el.checkin, endDate: el.checkout };
                 })}
                 minDate={new Date()}
+                placeholder={"Elija su fecha de check in y check out"}
             />
         </div>
     );

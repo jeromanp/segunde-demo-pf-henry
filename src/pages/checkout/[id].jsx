@@ -18,8 +18,8 @@ export default function CheckOut({ room, url }) {
     };
 
     const [filters, setFilters] = useState({
-        checkin: addDays(new Date(), 1),
-        checkout: addDays(new Date(), 2),
+        checkin: null,
+        checkout: null,
         adults: 2,
         children: 0,
     });

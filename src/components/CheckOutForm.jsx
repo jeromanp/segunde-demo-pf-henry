@@ -22,6 +22,10 @@ export default function CheckOutForm({
     const session = useSession();
 
     const clickHandler = async () => {
+        if (filters.checkin === null || filters.checkout === null) {
+            alert("Elija las fechas de viaje");
+            return;
+        }
         const bodyData = {
             checkin: new Date(filters.checkin),
             checkout: new Date(filters.checkout),
