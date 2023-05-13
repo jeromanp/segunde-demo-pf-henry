@@ -19,9 +19,9 @@ export async function handlerGetById(req, res) {
 }
 
 export async function handlerPost(req, res) {
-  const body = req.body;
+  const form = req.body;
   try {
-    const postComent = await Controllers.postNewComment(body);
+    const postComent = await Controllers.postNewComment(form);
     return res.status(200).json(postComent);
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -29,10 +29,10 @@ export async function handlerPost(req, res) {
 }
 
 export async function handlerPut(req, res) {
-  const body = req.body;
+  const form = req.body;
   const { id, suspend } = req.query;
   try {
-    const updateComment = await Controllers.updateComment(body, id, suspend);
+    const updateComment = await Controllers.updateComment(form, id, suspend);
     return res.status(200).json(updateComment);
   } catch (error) {
     return res.status(404).json({ error: error.message });
