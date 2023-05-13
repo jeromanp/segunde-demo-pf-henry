@@ -94,15 +94,9 @@ export default function Account({ session }) {
     <>
       <div className="pt-4 pb-4">
         <div className="border-2 rounded-3xl border-brand-light-green shadow-lg p-6">
-          {username ? (
             <h1 className="text-xl font-bold mb-4 text-brand-green">
-              Bienvenido {username}!
+              Bienvenido{username ? ` ${username}` : fullName ? ` ${fullName}` : ''}!
             </h1>
-          ) : (
-            <h1 className="text-xl font-bold mb-4 text-brand-green">
-              Bienvenido! {fullName}!
-            </h1>
-          )}
           <Avatar
             uid={userId}
             url={avatarUrl}
