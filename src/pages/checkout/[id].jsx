@@ -6,96 +6,118 @@ import { supabase } from "utils/supabase";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SummaryCheckOut from "components/SummaryCheckOut";
+import { addDays, diffDays } from "helpers/dateProcessing";
 
-export default function CheckOut({ room }) {
-  const session = useSession();
-  const [products, setProducts] = useState([]);
-  const [matchingProduct, setMatchingProduct] = useState(null);
+export default function CheckOut({ room, url }) {
+    const session = useSession();
 
-  const mock = {
-    price: 19,
-    night: 7,
-    extra: 20,
-  };
+    const [matchingProduct, setMatchingProduct] = useState(null);
+    //QUEDA DEFINIR SI USAREMOS COSAS COMO EXTRAS O DESCUENTOS
+    const mock = {
+        extra: 20,
+    };
 
-  useEffect(() => {
-    async function fetchProducts() {
-      const response = await axios.get("/api/products");
-      const matching = response.data.find(
-        (product) => product.name === room.name
-      );
-      setProducts(response.data);
-      setMatchingProduct(matching);
-      // Products no se está usando, si no se va a usar eliminarlo
-    }
-    fetchProducts();
-  }, []);
+    const [filters, setFilters] = useState({
+        checkin: addDays(new Date(), 1),
+        checkout: addDays(new Date(), 2),
+        adults: 2,
+        children: 0,
+    });
 
-  return (
-    <>
-      {session ? (
-        <LayoutMain>
-          <div className="flex pt-6 pl-2">
-            <button
-              className="flex items-center text-brand-green font-bold pr-4 pl-6"
-              onClick={() => window.history.back()}
-            >
-              <img src="/back.svg" alt="" className="w-7" />
-            </button>
-            <h1 className="font-bold text-brand-green text-4xl">
-              Confirma tu reserva
-            </h1>
-          </div>
-          <div className="flex flex-col pt-4 pb-18 pl-4 pr-4 md:pl-20 md:pr-20 items-center md:flex-row md:justify-between">
-            {matchingProduct && matchingProduct.name === room.name && (
-              <CheckOutForm
-                roomId={room.id}
-                name={matchingProduct.name}
-                price={matchingProduct.price}
-                default_price={matchingProduct.default_price}
-                night={mock.night}
-                extra={mock.extra}
-              />
-            )}
+    useEffect(() => {
+        async function fetchProducts() {
+            const response = await axios.get("/api/products");
+            const matching = response.data.find(
+                (product) => product.name === room.name
+            );
+            setMatchingProduct(matching);
+        }
+        fetchProducts();
+    }, []);
 
-            <SummaryCheckOut
-              name={room.name}
-              price={room.price}
-              night={mock.night}
-              extra={mock.extra}
-            />
+    return (
+        <>
+            {session ? (
+                <LayoutMain>
+                    <div className="flex pt-6 pl-2">
+                        <button
+                            className="flex items-center text-brand-green font-bold pr-4 pl-6"
+                            onClick={() => window.history.back()}
+                        >
+                            <img src="/back.svg" alt="" className="w-7" />
+                        </button>
+                        <h1 className="font-bold text-brand-green text-4xl">
+                            Confirma tu reserva
+                        </h1>
+                    </div>
+                    <div className="flex flex-col pt-4 pb-18 pl-4 pr-4 md:pl-20 md:pr-20 items-center md:flex-row md:justify-between">
+                        {matchingProduct &&
+                            matchingProduct.name === room.name && (
+                                <CheckOutForm
+                                    filters={filters}
+                                    setFilters={setFilters}
+                                    room={room}
+                                    name={matchingProduct.name}
+                                    price={matchingProduct.price}
+                                    default_price={
+                                        matchingProduct.default_price
+                                    }
+                                    night={diffDays(
+                                        new Date(filters.checkin),
+                                        new Date(filters.checkout)
+                                    )}
+                                    extra={mock.extra}
+                                />
+                            )}
 
-            {/* <img
+                        <SummaryCheckOut
+                            url={url}
+                            name={room.name}
+                            price={room.price}
+                            night={diffDays(
+                                new Date(filters.checkin),
+                                new Date(filters.checkout)
+                            )}
+                            extra={mock.extra}
+                        />
+
+                        {/* <img
           src="/ilustrationCheck.svg"
           alt=""
           className="w-4/12 mr-16 ml-auto self-center"
       /> */}
-          </div>
-        </LayoutMain>
-      ) : (
-        <Login />
-      )}
-    </>
-  );
+                    </div>
+                </LayoutMain>
+            ) : (
+                <Login />
+            )}
+        </>
+    );
 }
 
 export async function getServerSideProps({ params }) {
-  const { id } = params;
+    const { id } = params;
 
-  const { data: room, error } = await supabase
-    .from("rooms")
-    .select("*")
-    .eq("id", id);
+    const { data: room, error } = await supabase
+        .from("rooms")
+        .select(`*,booking(checkin,checkout,payments)`)
+        .eq("id", id);
 
-  if (error) {
+    if (error) {
+        return {
+            notFound: true,
+        };
+    }
+
+    const { data: image, err } = await supabase
+        .from("images")
+        .select(`*`)
+        .eq("id", room[0].images_id);
+
     return {
-      notFound: true,
+        props: {
+            room: room[0],
+            url: image && !err ? image[0].url[0].fileUrl : null,
+        },
     };
-  }
-
-  return {
-    props: {
-      room: room[0],
-    },
-  };
 }
