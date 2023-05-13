@@ -1,32 +1,110 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import BtnSubmit from "./BtnSubmit";
 import Preload from "../PreloadSmall";
+import axios from "axios";
 
 export default function ReviewForm({ review }) {
+  const router = useRouter();
   const [status, setStatus] = useState(false);
+  const [errors, setErrors] = useState({});
   const [inputs, setInputs] = useState({
-    username: review?.username || "",
-    email: review?.email || "",
+    //username: review?.username || "",
+    //email: review?.email || "",
     stars: review?.stars || 3,
     review: review?.review || "",
     approved: review?.approved || true,
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+
+    // Validaciones de inputs
+    let error = null;
+
+    switch (name) {
+      case "email":
+        const emailRegex = /^\S+@\S+\.\S+$/;
+        if (!emailRegex.test(value)) {
+          error =
+            "Por favor ingrese una dirección de correo electrónico válida";
+        }
+        if (value.length > 96) {
+          error = "El email debe tener como máximo 96 caracteres";
+        }
+        break;
+
+      case "username":
+        const regex = /^[^\d]+$/;
+        if (value.length > 64) {
+          error = "El nombre de usuario debe tener como máximo 64 caracteres";
+        }
+        if (!regex.test(value)) {
+          error = "Por favor ingrese solamente letras";
+        }
+        break;
+
+      case "review":
+        if (value.length > 280) {
+          error = "El comentario debe tener como máximo 280 caracteres";
+        }
+        break;
+      case "stars":
+        if (value) {
+          value = parseInt(value);
+        }
+        break;
+      case "approved":
+        if (value === "SI") {
+          value = true;
+        }
+        if (value === "NO") {
+          value = false;
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    // Actualizar el estado de los inputs y los errores
     setInputs({
       ...inputs,
       [name]: value,
+    });
+    setErrors({
+      ...errors,
+      [name]: error,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (Object.values(errors).some((error) => error !== null)) {
+      // Si hay un error, se evita hacer el submit y tira un alert vintage
+      throw alert("Es necesario corregir los errores");
+    }
     setStatus(true);
     if (review?.id) {
       // actualizar
+      // console.log(inputs);
+      axios
+        .put(`/api/comments/${review.id}`, inputs)
+        .then((res) => {
+          alert("UHU! Hemos actualizado el review");
+          router.push("/admin/reviews");
+        })
+        .catch((err) => console.log("Error", err));
     } else {
       // crear
+      console.log(inputs);
+      axios
+        .post(`/api/comments/`, inputs)
+        .then((res) => {
+          alert("UHU! Hemos creado un nuevo review");
+          router.push("/admin/reviews");
+        })
+        .catch((err) => console.log("Error", err));
     }
   };
 
@@ -48,10 +126,14 @@ export default function ReviewForm({ review }) {
                 className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
                 type="text"
                 name="username"
-                id="username"
-                value={inputs.username}
-                onChange={handleChange}
+                // id="username"
+                // value={inputs.username}
+                // onChange={handleChange}
+                // required
               />
+              {errors.username && (
+                <div className="error">{errors.username}</div>
+              )}
             </div>
           </div>
 
@@ -67,10 +149,12 @@ export default function ReviewForm({ review }) {
               className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
               type="email"
               name="email"
-              id="email"
-              value={inputs.email}
-              onChange={handleChange}
+              // id="email"
+              // value={inputs.email}
+              // onChange={handleChange}
+              // required
             />
+            {errors.email && <div className="error">{errors.email}</div>}
           </div>
         </div>
 
@@ -89,7 +173,9 @@ export default function ReviewForm({ review }) {
                   value={i + 1}
                   className="checked:bg-slate-500 h-5 w-5 mr-1 border cursor-pointer appearance-none rounded-full"
                   onChange={handleChange}
+                  required
                 />
+
                 <label htmlFor={i + 1} className="cursor-pointer select-none">
                   {i + 1}
                 </label>
@@ -114,7 +200,9 @@ export default function ReviewForm({ review }) {
               placeholder="Escribe tu comentario aquí"
               value={inputs.review}
               onChange={handleChange}
+              required
             ></textarea>
+            {errors.review && <div className="error">{errors.review}</div>}
           </div>
         </div>
 
@@ -133,6 +221,7 @@ export default function ReviewForm({ review }) {
                   value={approved}
                   className="checked:bg-slate-500 h-5 w-5 mr-1 border cursor-pointer appearance-none rounded-full"
                   onChange={handleChange}
+                  required
                 />
                 <label
                   htmlFor={approved}
