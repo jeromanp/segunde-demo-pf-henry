@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import gsap from 'gsap'
 import axios from 'axios'
 
 import Layout from '../layouts/Layout'
@@ -11,14 +12,14 @@ export default function AboutUs(){
 	})
 
 	useEffect(() => {
-		axios.get('api/about')
-		.then(resp => setData(resp.data))
+		axios.get('api/about').then(resp => setData(resp.data))
+		gsap.to('.main-image', { y: -20, duration: 1.5, repeat: -1, yoyo: true })
 	}, [])
 
 
 	return (
 		<Layout>
-			<div className="container mx-auto px-6 xl:px-0">
+			<div className="container mx-auto px-6 2xl:px-0">
 				<div className="grid gap-10 lg:grid-cols-12 pt-10 pb-14">
 				
 					<div className="order-2 pl-4 lg:col-span-6">
@@ -43,7 +44,7 @@ export default function AboutUs(){
 						<img 
 							src="/about.svg" 
 							alt="Imagen representativa de sobre nosotros"
-							className="lg:w-full" />
+							className="main-image lg:w-full" />
 					</div>
 
 				</div>

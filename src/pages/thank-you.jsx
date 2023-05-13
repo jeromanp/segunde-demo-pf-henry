@@ -55,7 +55,6 @@ export default function ThankYou() {
                 );
                 const data = await response.json();
                 setThankYouData(data);
-                console.log(data);
             }
         };
         verifiedRoomPaid();
