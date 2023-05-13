@@ -34,7 +34,7 @@ export async function getServerSideProps({ params }) {
 
   const { data: review, error } = await supabase
     .from("comments")
-    .select("*")
+    .select("*, profiles(username, email)")
     .eq("id", id);
 
   if (error) {

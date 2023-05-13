@@ -1,8 +1,16 @@
-import Footer from "components/Footer";
-import Header from "components/Header";
-import ContactForm from "components/ContactForm.jsx";
+import { useEffect } from 'react'
+import gsap from 'gsap'
+import Footer from "components/Footer"
+import Header from "components/Header"
+import ContactForm from "components/ContactForm.jsx"
 
 export default function Contact() {
+
+	useEffect(() => {
+		gsap.to('.main-image', { y: -20, duration: 1.5, repeat: -1, yoyo: true })
+	}, [])
+
+
   return (
     <>
       <Header />
@@ -14,7 +22,11 @@ export default function Contact() {
               </h2>
               <ContactForm />
             </div>
-            <img src="/contact.svg" alt="contact.icon" className="sm:block hidden w-2/6 mr-4" />
+            
+						<img 
+							src="/contact.svg" 
+							alt="contact.icon" 
+							className="main-image sm:block hidden w-2/6 mr-4" />
           </div>
       </section>
       <Footer />

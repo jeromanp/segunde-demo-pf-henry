@@ -26,12 +26,12 @@ export default function handler(req, res) {
       },
       {
         title: "¿Puedo llevar a mi mascota?",
-        content: `En Hueney Ruca entendemos que las mascotas son parte de la familia y sabemos lo importante que es para muchos de nuestros huéspedes poder viajar con ellas. Es por eso que permitimos el ingreso de mascotas de pequeño y mediano tamaño en algunas de nuestras cabañas.\n\nSin embargo, es importante que nos informes previamente si tienes planeado viajar con tu mascota para poder asignarte una cabaña que admita animales y para que podamos informarte sobre nuestras normas y condiciones de estadía con mascotas.\n\nEs importante mencionar que el ingreso de mascotas está sujeto a un cargo adicional y a algunas normas de convivencia y cuidado para garantizar el confort y la seguridad de todos nuestros huéspedes.`,
+        content: `En Hueney Ruca entendemos que las mascotas son parte de la familia y sabemos lo importante que es para muchos de nuestros huéspedes poder viajar con ellas. Es por eso que permitimos el ingreso de mascotas de pequeño y mediano tamaño en algunas de nuestras cabañas.\n\nSin embargo, es importante que nos informes previamente si tienes planeado viajar con tu mascota para poder asignarte una cabaña que admita animales y para que podamos informarte sobre nuestras normas y condiciones de estadía con mascotas.`,
         active: false,
       },
       {
         title: "¿Cuáles son las medidas de seguridad en el complejo de cabañas?",
-        content: ` En Hueney Ruca nos tomamos muy en serio la seguridad de nuestros huéspedes. Por esta razón, contamos con cámaras de vigilancia en las áreas comunes del complejo, además de personal de seguridad capacitado para atender cualquier emergencia.\n\nAsimismo, nuestras cabañas están equipadas con sistemas de alarma y cajas de seguridad para mayor tranquilidad de nuestros huéspedes.\n\nTambién contamos con un protocolo de limpieza y desinfección exhaustivo en todas las áreas comunes y en cada una de nuestras cabañas.`,
+        content: ` En Hueney Ruca nos tomamos muy en serio la seguridad de nuestros huéspedes. Por esta razón, contamos con cámaras de vigilancia en las áreas comunes del complejo, además de personal de seguridad capacitado para atender cualquier emergencia.\n\nAsimismo, nuestras cabañas están equipadas con sistemas de alarma y cajas de seguridad para mayor tranquilidad de nuestros huéspedes.\nTambién contamos con un protocolo de limpieza y desinfección exhaustivo en todas las áreas comunes y en cada una de nuestras cabañas.`,
         active: false,
       },
       {

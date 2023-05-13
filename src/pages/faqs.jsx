@@ -13,12 +13,12 @@ export default function Faqs() {
   }, []);
 
   const accordeon_header = `font-semibold leading-none h-12 
-														px-5 py-3 flex items-center
+														px-5 py-2 flex items-center
 														select-none cursor-pointer 
-														transition-all 
+														transition-all
 														hover:bg-brand-green hover:text-white
 														lg:text-base lg:leading-tight`;
-  const accordeon_body = "text-sm px-5 pb-5 select-none bg-white";
+  const accordeon_body = "text-xs px-5 select-none bg-white overflow-hidden transition-all max-h-screen md:text-sm";
 
   const toggleActive = (i) => {
     setData((prevData) => ({
@@ -32,7 +32,7 @@ export default function Faqs() {
 
   return (
     <Layout>
-      <div className="container mx-auto px-6 xl:px-0">
+      <div className="container mx-auto px-6 2xl:px-0">
         <h2
           className="text-brand-green text-3xl font-bold 
 											leading-none pt-14 pb-8 
@@ -46,10 +46,10 @@ export default function Faqs() {
         </div>
 
         <div className="grid md:grid-cols-2 md:gap-x-6 pt-8 pb-20 gap-y-3">
-          <div className="grid gap-3">
+          <div className="flex flex-col gap-3 place-content-start">
             {data.list.slice(0, 4).map((e, i) => (
               <div key={i}>
-                <div className="border border-brand-green text-brand-green grid gap-2 items-center mx-auto">
+                <div className="border border-brand-green text-brand-green items-center mx-auto rounded-lg">
                   <h3
                     className={accordeon_header}
                     onClick={() => toggleActive(i)}
@@ -60,8 +60,8 @@ export default function Faqs() {
                   <div
                     className={
                       e.active
-                        ? `${accordeon_body} whitespace-pre-line text-justify`
-                        : `${accordeon_body} hidden`
+                        ? `${accordeon_body} whitespace-pre-line text-justify h-[330px] pt-5 md:h-[200px]`
+                        : `${accordeon_body} h-0`
                     }
                   >
                     {e.content}
@@ -70,10 +70,12 @@ export default function Faqs() {
               </div>
             ))}
           </div>
-          <div className="grid gap-3">
+
+
+          <div className="flex flex-col gap-3 place-content-start">
             {data.list.slice(4, 8).map((e, i) => (
               <div key={i}>
-                <div className="border border-brand-green text-brand-green grid gap-2 items-center mx-auto">
+                <div className="border border-brand-green text-brand-green items-center mx-auto rounded-lg">
                   <h3
                     className={accordeon_header}
                     onClick={() => toggleActive(i + 4)}
@@ -84,10 +86,9 @@ export default function Faqs() {
                   <div
                     className={
                       e.active
-                        ? `${accordeon_body} whitespace-pre-line text-justify`
-                        : `${accordeon_body} hidden`
-                    }
-                   >
+                        ? `${accordeon_body} whitespace-pre-line text-justify h-[330px] pt-5 md:h-[200px]`
+                        : `${accordeon_body} h-0`
+                    }>
                     {e.content}
                   </div>
                 </div>

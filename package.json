@@ -24,6 +24,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-slick": "^0.29.0",
+    "react-tailwindcss-datepicker": "^1.6.1",
     "react-toastify": "^9.1.2",
     "remixicon": "^3.2.0",
     "slick-carousel": "^1.8.1",
