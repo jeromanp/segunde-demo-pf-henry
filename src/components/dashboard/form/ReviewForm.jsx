@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import BtnSubmit from "./BtnSubmit";
 import Preload from "../PreloadSmall";
@@ -6,16 +6,36 @@ import axios from "axios";
 
 export default function ReviewForm({ review }) {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [profiles, setProfiles] = useState([]);
   const [status, setStatus] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [inputs, setInputs] = useState({
-    username: review?.profiles?.username || "",
-    email: review?.profiles?.email || "",
-    stars: review?.stars || 3,
+  const [form, setForm] = useState({
     review: review?.review || "",
-    approved: review?.approved || true,
   });
+  const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    axios
+      .get("/api/profile")
+      .then((response) => {
+        setProfiles(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const getUserName = () => {
+    const prof = profiles.filter((profile) => profile.id === review.user_id);
+    const userName = prof[0].full_name;
+    return userName;
+  };
+  const getUserEmail = () => {
+    const prof = profiles.filter((profile) => profile.id === review.user_id);
+    const email = prof[0].email;
+    return email;
+  };
   const handleChange = (e) => {
     let { name, value } = e.target;
 
@@ -23,27 +43,6 @@ export default function ReviewForm({ review }) {
     let error = null;
 
     switch (name) {
-      case "email":
-        const emailRegex = /^\S+@\S+\.\S+$/;
-        if (!emailRegex.test(value)) {
-          error =
-            "Por favor ingrese una dirección de correo electrónico válida";
-        }
-        if (value.length > 96) {
-          error = "El email debe tener como máximo 96 caracteres";
-        }
-        break;
-
-      case "username":
-        const regex = /^[^\d]+$/;
-        if (value.length > 64) {
-          error = "El nombre de usuario debe tener como máximo 64 caracteres";
-        }
-        if (!regex.test(value)) {
-          error = "Por favor ingrese solamente letras";
-        }
-        break;
-
       case "review":
         if (value.length > 280) {
           error = "El comentario debe tener como máximo 280 caracteres";
@@ -68,8 +67,8 @@ export default function ReviewForm({ review }) {
     }
 
     // Actualizar el estado de los inputs y los errores
-    setInputs({
-      ...inputs,
+    setForm({
+      ...form,
       [name]: value,
     });
     setErrors({
@@ -87,9 +86,8 @@ export default function ReviewForm({ review }) {
     setStatus(true);
     if (review?.id) {
       // actualizar
-      // console.log(inputs);
       axios
-        .put(`/api/comments/${review.id}`, inputs)
+        .put(`/api/comments/${review.id}`, form)
         .then((res) => {
           // acá va el envío de mail, cuando se fixee el update de reviews lo hago. atte: Marquitos
           alert("UHU! Hemos actualizado el review");
@@ -98,9 +96,8 @@ export default function ReviewForm({ review }) {
         .catch((err) => console.log("Error", err));
     } else {
       // crear
-      console.log(inputs);
       axios
-        .post(`/api/comments/`, inputs)
+        .post(`/api/comments/`, form)
         .then((res) => {
           alert("UHU! Hemos creado un nuevo review");
           router.push("/admin/reviews");
@@ -121,20 +118,8 @@ export default function ReviewForm({ review }) {
             >
               Nombre
             </label>
-
             <div className="relative">
-              <input
-                className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
-                type="text"
-                name="username"
-                // id="username"
-                // value={inputs.username}
-                // onChange={handleChange}
-                // required
-              />
-              {errors.username && (
-                <div className="error">{errors.username}</div>
-              )}
+              {review ? <h1>{loading ? "" : getUserName()}</h1> : ""}
             </div>
           </div>
 
@@ -145,17 +130,7 @@ export default function ReviewForm({ review }) {
             >
               E-mail
             </label>
-
-            <input
-              className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
-              type="email"
-              name="email"
-              // id="email"
-              // value={inputs.email}
-              // onChange={handleChange}
-              // required
-            />
-            {errors.email && <div className="error">{errors.email}</div>}
+            {review ? <h1>{loading ? "" : getUserEmail()}</h1> : ""}
           </div>
         </div>
 
@@ -199,7 +174,7 @@ export default function ReviewForm({ review }) {
               id="review"
               rows="6"
               placeholder="Escribe tu comentario aquí"
-              value={inputs.review}
+              value={form.review}
               onChange={handleChange}
               required
             ></textarea>
