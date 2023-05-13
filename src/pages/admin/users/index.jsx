@@ -7,7 +7,6 @@ import swalAction from 'components/dashboard/swalAction';
 import dayjs from 'dayjs';
 import emailjs from '@emailjs/browser';
 import { useEffect, useState } from 'react';
-import { getProfileId, getProfileInfoId } from 'helpers/dbHelpers';
 
 const table_head = [
   { idx: 'name', title: 'Nombre', width: 'min-w-[220px]' },
