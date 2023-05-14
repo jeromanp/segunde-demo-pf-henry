@@ -18,7 +18,6 @@ export default function BookingForm({ booking }) {
       ...inputs,
       [name]: value,
     });
-    console.log(booking);
   };
 
   const submitHandler = (e) => {

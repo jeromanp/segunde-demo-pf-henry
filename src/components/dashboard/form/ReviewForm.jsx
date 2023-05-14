@@ -1,32 +1,108 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import BtnSubmit from "./BtnSubmit";
 import Preload from "../PreloadSmall";
+import axios from "axios";
 
 export default function ReviewForm({ review }) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [profiles, setProfiles] = useState([]);
   const [status, setStatus] = useState(false);
-  const [inputs, setInputs] = useState({
-    username: review?.profiles?.username || "",
-    email: review?.profiles?.email || "",
-    stars: review?.stars || 3,
+  const [form, setForm] = useState({
     review: review?.review || "",
-    approved: review?.approved || true,
   });
+  const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    axios
+      .get("/api/profile")
+      .then((response) => {
+        setProfiles(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const getUserName = () => {
+    const prof = profiles.filter((profile) => profile.id === review.user_id);
+    const userName = prof[0].full_name;
+    return userName;
+  };
+  const getUserEmail = () => {
+    const prof = profiles.filter((profile) => profile.id === review.user_id);
+    const email = prof[0].email;
+    return email;
+  };
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
+    let { name, value } = e.target;
+
+    // Validaciones de inputs
+    let error = null;
+
+    switch (name) {
+      case "review":
+        if (value.length > 280) {
+          error = "El comentario debe tener como máximo 280 caracteres";
+        }
+        break;
+      case "stars":
+        if (value) {
+          value = parseInt(value);
+        }
+        break;
+      case "approved":
+        if (value === "SI") {
+          value = true;
+        }
+        if (value === "NO") {
+          value = false;
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    // Actualizar el estado de los inputs y los errores
+    setForm({
+      ...form,
       [name]: value,
+    });
+    setErrors({
+      ...errors,
+      [name]: error,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (Object.values(errors).some((error) => error !== null)) {
+      // Si hay un error, se evita hacer el submit y tira un alert vintage
+      throw alert("Es necesario corregir los errores");
+    }
     setStatus(true);
     if (review?.id) {
       // actualizar
+      axios
+        .put(`/api/comments/${review.id}`, form)
+        .then((res) => {
+          // acá va el envío de mail, cuando se fixee el update de reviews lo hago. atte: Marquitos
+          alert("UHU! Hemos actualizado el review");
+          router.push("/admin/reviews");
+        })
+        .catch((err) => console.log("Error", err));
     } else {
       // crear
+      axios
+        .post(`/api/comments/`, form)
+        .then((res) => {
+          alert("UHU! Hemos creado un nuevo review");
+          router.push("/admin/reviews");
+        })
+        .catch((err) => console.log("Error", err));
     }
   };
 
@@ -42,16 +118,8 @@ export default function ReviewForm({ review }) {
             >
               Nombre
             </label>
-
             <div className="relative">
-              <input
-                className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
-                type="text"
-                name="username"
-                id="username"
-                value={inputs.username}
-                onChange={handleChange}
-              />
+              {review ? <h1>{loading ? "" : getUserName()}</h1> : ""}
             </div>
           </div>
 
@@ -62,15 +130,7 @@ export default function ReviewForm({ review }) {
             >
               E-mail
             </label>
-
-            <input
-              className="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-medium text-black focus:border-primary focus-visible:outline-none"
-              type="email"
-              name="email"
-              id="email"
-              value={inputs.email}
-              onChange={handleChange}
-            />
+            {review ? <h1>{loading ? "" : getUserEmail()}</h1> : ""}
           </div>
         </div>
 
@@ -89,7 +149,9 @@ export default function ReviewForm({ review }) {
                   value={i + 1}
                   className="checked:bg-slate-500 h-5 w-5 mr-1 border cursor-pointer appearance-none rounded-full"
                   onChange={handleChange}
+                  required
                 />
+
                 <label htmlFor={i + 1} className="cursor-pointer select-none">
                   {i + 1}
                 </label>
@@ -112,9 +174,11 @@ export default function ReviewForm({ review }) {
               id="review"
               rows="6"
               placeholder="Escribe tu comentario aquí"
-              value={inputs.review}
+              value={form.review}
               onChange={handleChange}
+              required
             ></textarea>
+            {errors.review && <div className="error">{errors.review}</div>}
           </div>
         </div>
 
@@ -133,6 +197,7 @@ export default function ReviewForm({ review }) {
                   value={approved}
                   className="checked:bg-slate-500 h-5 w-5 mr-1 border cursor-pointer appearance-none rounded-full"
                   onChange={handleChange}
+                  required
                 />
                 <label
                   htmlFor={approved}

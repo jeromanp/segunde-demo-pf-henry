@@ -20,22 +20,6 @@ export default function CheckOutForm({
 }) {
     // Este estado solo lo copie y pegue, para que no me de error el GuestSelector
     const session = useSession();
-    // const [filters, setFilters] = useState({
-    //   guests: 0,
-    //   checkin: null,
-    //   checkout: null,
-    // });
-    // const [rooms, setRooms] = useState([]);
-    // const [roomIsPending, setRoomIsPending] = useState(true);
-    // useEffect(() => {
-    //     const getRooms = async () => {
-    //         const response = await fetch("/api/cabanas");
-    //         const data = await response.json();
-    //         setRooms(data);
-    //         setRoomIsPending(false);
-    //     };
-    //     getRooms();
-    // }, []);
 
     const clickHandler = async () => {
         const bodyData = {
@@ -106,7 +90,9 @@ export default function CheckOutForm({
                                 <DatePicker
                                     filters={filters}
                                     setFilters={setFilters}
-                                    disabledDates={room.booking}
+                                    disabledDates={room.booking.filter(
+                                        (el) => el.payments === true
+                                    )}
                                 />
                             </div>
                         </div>

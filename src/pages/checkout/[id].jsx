@@ -17,7 +17,6 @@ export default function CheckOut({ room, url }) {
         extra: 20,
     };
 
-
     const [filters, setFilters] = useState({
         checkin: addDays(new Date(), 1),
         checkout: addDays(new Date(), 2),
@@ -36,7 +35,7 @@ export default function CheckOut({ room, url }) {
         fetchProducts();
     }, []);
 
-  return (
+    return (
         <>
             {session ? (
                 <LayoutMain>
@@ -82,7 +81,6 @@ export default function CheckOut({ room, url }) {
                             extra={mock.extra}
                         />
 
-
                         {/* <img
           src="/ilustrationCheck.svg"
           alt=""
@@ -102,7 +100,7 @@ export async function getServerSideProps({ params }) {
 
     const { data: room, error } = await supabase
         .from("rooms")
-        .select(`*,booking(checkin,checkout)`)
+        .select(`*,booking(checkin,checkout,payments)`)
         .eq("id", id);
 
     if (error) {
@@ -111,15 +109,15 @@ export async function getServerSideProps({ params }) {
         };
     }
 
-  const { data: image, err } = await supabase
-    .from("images")
-    .select(`*`)
-    .eq("id", room[0].images_id)
-  
+    const { data: image, err } = await supabase
+        .from("images")
+        .select(`*`)
+        .eq("id", room[0].images_id);
+
     return {
         props: {
             room: room[0],
-            url: (image && !err) ? image[0].url[0].fileUrl : null,
+            url: image && !err ? image[0].url[0].fileUrl : null,
         },
     };
 }

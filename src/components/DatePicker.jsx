@@ -30,6 +30,7 @@ export default function DatePicker({ filters, setFilters, disabledDates }) {
                 disabledDates={disabledDates.map((el) => {
                     return { startDate: el.checkin, endDate: el.checkout };
                 })}
+                minDate={new Date()}
             />
         </div>
     );

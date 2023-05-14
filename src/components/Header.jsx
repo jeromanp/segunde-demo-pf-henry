@@ -19,7 +19,7 @@ export default function Header(props) {
         <>
             <header
                 id="headerMain"
-                className={`${props.background ?? "bg-brand-olive"} py-3 inset-x-0 fixed z-10 md:py-5`}
+                className={`${props.background ?? "bg-brand-olive"} py-3 inset-x-0 fixed z-40 md:py-5`}
             >
                 <div className="container mx-auto px-6 2xl:px-0">
                     <div className="flex justify-between items-center">

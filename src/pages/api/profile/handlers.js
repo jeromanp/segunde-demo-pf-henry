@@ -33,7 +33,6 @@ export const handlerPut = async (req, res) => {
   const form = req.body;
   const { id, suspend } = req.query;
   try {
-    console.log(form);
     const updateProfile = await Controllers.updateProfile(form, id, suspend);
     res.status(200).json(updateProfile);
   } catch (error) {

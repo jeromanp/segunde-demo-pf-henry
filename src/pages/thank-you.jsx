@@ -1,8 +1,11 @@
 import LayoutMain from "layouts/Layout";
+import Swal from "sweetalert2";
+import Link from "next/link";
+import emailjs from "@emailjs/browser";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { diffDays } from "helpers/dateProcessing";
+import { useSession } from "@supabase/auth-helpers-react";
 
 export default function ThankYou() {
     const mock = {
@@ -16,6 +19,7 @@ export default function ThankYou() {
     };
 
     const router = useRouter();
+    const session = useSession();
     const [thankYouData, setThankYouData] = useState({ null: true });
     const { session_id, booking_id } = router.query;
     const [checkoutSession, setCheckoutSession] = useState({ null: true });
@@ -55,11 +59,29 @@ export default function ThankYou() {
                 );
                 const data = await response.json();
                 setThankYouData(data);
-                console.log(data);
             }
         };
         verifiedRoomPaid();
     }, [checkoutSession]);
+
+    const sendEmail = async () => {
+        const username = thankYouData.session.customer_details.name;
+        // envío de email, message es lo que va dentro de él
+        emailjs.send(
+            process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID,
+            process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_GENERIC,
+            {
+                user_name: username,
+                user_email: thankYouData.session.customer_details.email,
+                message: `Hola ${username}, gracias por elegirnos para unas vacaciones! 
+                Ya casi está todo listo, solo faltas vos! Junto a este mail
+                te compartimos la información de la reserva que hiciste. Te esperamos!`,
+            },
+            process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
+        )
+            .then(response => Swal.fire('Ya te enviamos un email con la información pedida', '', 'success'))
+            .catch(error => Swal.fire('Hubo un error al enviarte los datos', 'Intenta de nuevo más tarde', 'error'));
+    }
 
     return (
         <LayoutMain>
@@ -106,7 +128,7 @@ export default function ThankYou() {
                                         {thankYouData.null === true
                                             ? "..."
                                             : thankYouData.session
-                                                  .customer_details.name}
+                                                .customer_details.name}
                                     </span>
                                 </h3>
                                 <h3 className="flex justify-between text-black text-lg">
@@ -115,11 +137,11 @@ export default function ThankYou() {
                                         {thankYouData.null === true
                                             ? "..."
                                             : thankYouData.session
-                                                  .customer_details.email}
+                                                .customer_details.email}
                                     </span>
                                 </h3>
                             </div>
-                            <div class="border border-solid border-brand-light-green border-t-2 my-4 rounded-full ml-1 mr-1"></div>
+                            <div className="border border-solid border-brand-light-green border-t-2 my-4 rounded-full ml-1 mr-1"></div>
 
                             <div>
                                 <h1 className="uppercase font-semibold text-xl text-brand-green my-2">
@@ -139,7 +161,7 @@ export default function ThankYou() {
                                         {thankYouData.null === true
                                             ? "..."
                                             : thankYouData.booking.children ??
-                                              0}
+                                            0}
                                     </span>
                                 </h3>
                                 <h3 className="flex justify-between text-black text-lg">
@@ -151,27 +173,27 @@ export default function ThankYou() {
                                     {thankYouData.null === true
                                         ? "..."
                                         : diffDays(
-                                              new Date(
-                                                  thankYouData.booking.checkin
-                                              ),
-                                              new Date(
-                                                  thankYouData.booking.checkout
-                                              )
-                                          )}{" "}
+                                            new Date(
+                                                thankYouData.booking.checkin
+                                            ),
+                                            new Date(
+                                                thankYouData.booking.checkout
+                                            )
+                                        )}{" "}
                                     noches:
                                     <span>
                                         $
                                         {thankYouData.null === true
                                             ? "..."
                                             : thankYouData.session
-                                                  .amount_subtotal / 100}
+                                                .amount_subtotal / 100}
                                     </span>
                                 </h3>
                                 <h3 className="flex justify-between text-black text-lg">
                                     {/* ACA LO MISMO QUEDA A VER LO DE EXTRAS / DESCUENTOS */}
                                     Extras: <span>${0}</span>
                                 </h3>
-                                <div class="border border-solid border-brand-light-green border-t-2 my-4 rounded-full ml-1 mr-1"></div>
+                                <div className="border border-solid border-brand-light-green border-t-2 my-4 rounded-full ml-1 mr-1"></div>
 
                                 <h3 className="flex justify-between uppercase text-black font-medium text-xl">
                                     Total:{" "}
@@ -180,7 +202,7 @@ export default function ThankYou() {
                                         {thankYouData.null === true
                                             ? "..."
                                             : thankYouData.session
-                                                  .amount_total / 100}
+                                                .amount_total / 100}
                                     </span>
                                 </h3>
                             </div>
@@ -193,7 +215,7 @@ export default function ThankYou() {
 
                             <div className="flex justify-center pt-10">
                                 <button
-                                    // onClick={sendEmail}
+                                    onClick={sendEmail}
                                     className="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent rounded-lg text-base font-medium text-white bg-brand-yellow hover:bg-opacity-80 transition duration-150 ease-in-out sm:w-auto"
                                 >
                                     Enviar resumen de compra
