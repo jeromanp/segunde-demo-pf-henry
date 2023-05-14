@@ -67,7 +67,7 @@ export default function Cabins({ plans }) {
 
   return (
     <Layout>
-      <div className="container mx-auto px-6 2xl:px-0">
+      <div className="container h-screen mx-auto px-6 2xl:px-0">
         <h2
           className="text-brand-green text-3xl font-bold leading-none 
 					text-center pt-14 pb-8 md:text-4xl md:leading-none">
@@ -81,7 +81,7 @@ export default function Cabins({ plans }) {
           disfrutar!
         </div>
 
-        <div className="m-12">
+        <div className="m-10">
           <Slider {...settings}>
             {cabins.map((cabin) => (
               <div key={cabin.id} className="group">
@@ -128,7 +128,8 @@ export default function Cabins({ plans }) {
               </div>
               </div>
             ))}
-          </Slider>
+          </Slider >
+          
         </div>
       </div>
     </Layout>

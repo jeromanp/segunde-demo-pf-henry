@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function CardCabin({ cabin }) {
     return (
         <Link href={`/cabanas/${cabin.id}`}>
-            <div className="border rounded-2xl overflow-hidden shadow-lg flex flex-col md:flex-row m-1">
+            <div className="border-2 border-slate-200 rounded-2xl overflow-hidden shadow-lg flex flex-col md:flex-row m-1">
                 <div className="relative w-80 h-56 flex-shrink-0 p-4">
                     {cabin.images
                         ? <img
@@ -31,8 +31,7 @@ export default function CardCabin({ cabin }) {
                         </span>
                     </div>
                     {cabin.services &&
-                        cabin.services.servicios &&
-                        cabin.services.servicios.wifi && (
+                        cabin.services.includes("Wi Fi") && (
                             <div className="text-lg mb-0.5">
                                 <i className="ri-wifi-line text-gray-500 mr-2"></i>
                                 <span className="text-gray-800 font-normal">
@@ -41,8 +40,7 @@ export default function CardCabin({ cabin }) {
                             </div>
                         )}
                     {cabin.services &&
-                        cabin.services.servicios &&
-                        cabin.services.servicios.aire_acondicionado && (
+                        cabin.services.includes("Calefaccion") && (
                             <div className="text-lg mb-0.5">
                                 <i className="ri-windy-line text-gray-500 mr-2"></i>
                                 <span className="text-gray-800 font-normal">
@@ -51,8 +49,7 @@ export default function CardCabin({ cabin }) {
                             </div>
                         )}
                     {cabin.services &&
-                        cabin.services.servicios &&
-                        cabin.services.servicios.cochera_cubierta && (
+                        cabin.services.includes("Cochera") && (
                             <div className="text-lg">
                                 <i className="ri-car-fill text-gray-500 mr-2"></i>
                                 <span className="text-gray-800 font-normal">
