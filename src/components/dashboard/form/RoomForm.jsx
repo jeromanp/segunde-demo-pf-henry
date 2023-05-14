@@ -90,8 +90,8 @@ export default function RoomForm({ room }) {
 
   const [mostrarGallery, setMostrarGallery] = useState(false);
   const buttonTextGallery = mostrarGallery
-    ? `Esconder imágenes de ${room.name}`
-    : `Ver imágenes de ${room.name}`;
+    ? `Esconder imágenes de ${room?.name}`
+    : `Ver imágenes de ${room?.name}`;
 
   const [mostrarBucket, setMostrarBucket] = useState(false);
   const buttonTextBucket = mostrarBucket
@@ -355,8 +355,8 @@ export default function RoomForm({ room }) {
             </button>
             {mostrarGallery && (
               <CabinGallery
-                type={room.type}
-                name={room.name}
+                type={room?.type}
+                name={room?.name}
                 className="mt-4"
               />
             )}
@@ -371,8 +371,8 @@ export default function RoomForm({ room }) {
             </button>
             {mostrarBucket && (
               <CabinBuckets
-                type={room.type}
-                name={room.name}
+                type={room?.type}
+                name={room?.name}
                 className="mt-4"
               />
             )}
