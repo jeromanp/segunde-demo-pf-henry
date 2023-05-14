@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function CardCabin({ cabin }) {
     return (
         <Link href={`/cabanas/${cabin.id}`}>
-            <div className="border rounded-2xl overflow-hidden shadow-lg flex flex-col md:flex-row m-1">
+            <div className="border-2 border-slate-200 rounded-2xl overflow-hidden shadow-lg flex flex-col md:flex-row m-1">
                 <div className="relative w-80 h-56 flex-shrink-0 p-4">
                     {cabin.images
                         ? <img
