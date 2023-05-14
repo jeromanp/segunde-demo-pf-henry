@@ -87,8 +87,8 @@ export default function RoomForm({ room }) {
 
   const [mostrarGallery, setMostrarGallery] = useState(false);
   const buttonTextGallery = mostrarGallery
-    ? `Esconder imágenes de ${room.name}`
-    : `Ver imágenes de ${room.name}`;
+    ? `Esconder imágenes de ${room?.name}`
+    : `Ver imágenes de ${room?.name}`;
 
   const [mostrarBucket, setMostrarBucket] = useState(false);
   const buttonTextBucket = mostrarBucket
@@ -343,9 +343,6 @@ export default function RoomForm({ room }) {
 
         {/* NOTA: Falta implementar el file upload */}
         <div className="col-span-5 xl:col-span-2">
-          {/* <hr/>
-				<CabinBuckets type={room.type} name={room.name}/> */}
-
           <div>
             <button
               onClick={() => setMostrarGallery(!mostrarGallery)}
@@ -355,8 +352,8 @@ export default function RoomForm({ room }) {
             </button>
             {mostrarGallery && (
               <CabinGallery
-                type={room.type}
-                name={room.name}
+                type={room?.type}
+                name={room?.name}
                 className="mt-4"
               />
             )}
@@ -371,8 +368,8 @@ export default function RoomForm({ room }) {
             </button>
             {mostrarBucket && (
               <CabinBuckets
-                type={room.type}
-                name={room.name}
+                type={room?.type}
+                name={room?.name}
                 className="mt-4"
               />
             )}
