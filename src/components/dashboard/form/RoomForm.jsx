@@ -8,6 +8,9 @@ import CabinBuckets from "components/CabinBuckets";
 import CabinGallery from "components/CabinGallery";
 
 export default function RoomForm({ room }) {
+    console.log(room);
+    console.log(room.name);
+    console.log(room.type);
   const types = ["A", "B", "C"];
 
   const [form, setForm] = useState({
