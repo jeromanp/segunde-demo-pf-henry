@@ -76,7 +76,7 @@ export default function Search() {
         <div className="flex flex-col md:pb-8 xl:flex-row">
           <section className="m-auto mt-6 md:p-14">
             <div className="bg-brand-olive rounded-2xl p-8 w-96">
-              <h3 className="text-white text-xl font-bold pb-6 pt-4">
+              <h3 className="text-white text-2xl font-bold pb-6 pt-4">
                 Seleccionar fechas
               </h3>
               <div className="flex flex-col gap-2">
@@ -141,7 +141,7 @@ export default function Search() {
                     name="guests"
                     min="1"
                     max="10"
-                    className="text-neutral-400 border-2 p-2 w-full rounded-md"
+                    className="text-blue-gray-700 p-3 w-full rounded-xl focus:outline-none"
                     value={filters.capacity}
                     onChange={changeHandler}
                   />
@@ -159,7 +159,7 @@ export default function Search() {
           </section>
 
           <div id="reservas" className="flex-grow m-auto pt-12 md:pr-12">
-            <h1 className="text-brand-green text-xl font-semibold pb-2">
+            <h1 className="text-brand-green text-3xl font-semibold pb-2">
               Cabañas disponibles
             </h1>
             <div
