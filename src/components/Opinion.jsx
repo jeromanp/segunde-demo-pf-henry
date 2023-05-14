@@ -42,12 +42,12 @@ export default function RatingForm({ setToggle }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="my-10 flex flex-col items-center mx-8"
+      className="h-screen my-10 flex flex-col items-center mx-8"
     >
       <div className="text-center">
         <h1 className="text-3xl font-bold text-brand-green">
           <button onClick={() => setToggle(true)}>
-            <img src={arrowBack.src} alt="volver" />
+            <img src="Back.svg" alt="volver" className="w-5 mr-5"/>
           </button>
           ¡Cuéntanos cómo te pareció tu estadía!
         </h1>
